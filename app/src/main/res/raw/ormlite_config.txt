@@ -1,0 +1,85 @@
+#
+# generated on 2019/07/11 08:43:29
+#
+# --table-start--
+dataClass=com.dingdonginc.zhangfang.models.Account
+tableName=account
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=method
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=time
+columnName=DATUM_LA
+dataPersister=DATE_STRING
+format=yyyy-MM-dd HH:mm:ss
+# --field-end--
+# --field-start--
+fieldName=location
+# --field-end--
+# --field-start--
+fieldName=partner
+# --field-end--
+# --field-start--
+fieldName=tag
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=comment
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.dingdonginc.zhangfang.models.Method
+tableName=method
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=type
+# --field-end--
+# --field-start--
+fieldName=comment
+# --field-end--
+# --field-start--
+fieldName=predefined
+defaultValue=false
+# --field-end--
+# --field-start--
+fieldName=hidden
+defaultValue=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.dingdonginc.zhangfang.models.Tag
+tableName=tag
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=icon
+# --field-end--
+# --field-start--
+fieldName=comment
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
