@@ -8,12 +8,12 @@ import com.j256.ormlite.table.DatabaseTable
  */
 @DatabaseTable(tableName = "tag")
 class Tag {
-    @DatabaseField(columnName = "id", id=true, generatedId = true)
+    @DatabaseField(generatedId = true)
     var id = 0
-    @DatabaseField(columnName = "name")
+    @DatabaseField
     lateinit var name: String  // 标签名称
-    @DatabaseField(columnName = "icon")
+    @DatabaseField
     var icon = 1  // TODO:标签图标数据类型
-    @DatabaseField(columnName = "comment")
+    @DatabaseField
     lateinit var comment: String  // 注释
 }

@@ -1,5 +1,5 @@
 #
-# generated on 2019/07/11 11:50:15
+# generated on 2019/07/11 08:43:29
 #
 # --table-start--
 dataClass=com.dingdonginc.zhangfang.models.Account
@@ -7,33 +7,30 @@ tableName=account
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
-id=true
 generatedId=true
 # --field-end--
 # --field-start--
 fieldName=method
-columnName=method
+foreign=true
 # --field-end--
 # --field-start--
 fieldName=time
-columnName=time
+columnName=DATUM_LA
+dataPersister=DATE_STRING
+format=yyyy-MM-dd HH:mm:ss
 # --field-end--
 # --field-start--
 fieldName=location
-columnName=location
 # --field-end--
 # --field-start--
 fieldName=partner
-columnName=partner
 # --field-end--
 # --field-start--
 fieldName=tag
-columnName=tag
+foreign=true
 # --field-end--
 # --field-start--
 fieldName=comment
-columnName=comment
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -44,30 +41,23 @@ tableName=method
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
-id=true
 generatedId=true
 # --field-end--
 # --field-start--
 fieldName=name
-columnName=name
 # --field-end--
 # --field-start--
 fieldName=type
-columnName=type
 # --field-end--
 # --field-start--
 fieldName=comment
-columnName=comment
 # --field-end--
 # --field-start--
 fieldName=predefined
-columnName=predefined
 defaultValue=false
 # --field-end--
 # --field-start--
 fieldName=hidden
-columnName=hidden
 defaultValue=false
 # --field-end--
 # --table-fields-end--
@@ -79,21 +69,16 @@ tableName=tag
 # --table-fields-start--
 # --field-start--
 fieldName=id
-columnName=id
-id=true
 generatedId=true
 # --field-end--
 # --field-start--
 fieldName=name
-columnName=name
 # --field-end--
 # --field-start--
 fieldName=icon
-columnName=icon
 # --field-end--
 # --field-start--
 fieldName=comment
-columnName=comment
 # --field-end--
 # --table-fields-end--
 # --table-end--
