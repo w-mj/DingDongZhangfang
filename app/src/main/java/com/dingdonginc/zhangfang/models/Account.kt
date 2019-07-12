@@ -17,12 +17,13 @@ class Account {
     @DatabaseField(columnName = "DATUM_LA", dataType = DataType.DATE_STRING, format = "yyyy-MM-dd HH:mm:ss")
     lateinit var time: Date  // 付款时间
     @DatabaseField
-    var location = 0  // TODO: 付款地点
+    var longitude = 0.0  // 经度
+    @DatabaseField
+    var latitude = 0.0  // 纬度
     @DatabaseField
     lateinit var partner: String  // 交易对方
     @DatabaseField(foreign = true)
     lateinit var tag: Tag  // 标签
     @DatabaseField
     lateinit var comment: String  // 注释
-
 }

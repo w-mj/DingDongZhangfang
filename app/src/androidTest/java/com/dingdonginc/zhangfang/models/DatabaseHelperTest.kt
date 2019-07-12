@@ -27,8 +27,8 @@ class DatabaseHelperTest {
     @Test
     fun testDataBase() {
         val appContext = InstrumentationRegistry.getTargetContext()
-        var helper = DatabaseHelper.getHelper(appContext)
-        var method_dao = helper.getDao(Method::class.java)
+        val helper = DatabaseHelper.getHelper(appContext)
+        val method_dao = helper.getDao(Method::class.java)
         method_dao.delete(method_dao.queryForAll())
 
         val m = Method()
