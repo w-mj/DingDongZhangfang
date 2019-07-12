@@ -11,22 +11,21 @@ class Accessibility : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        Log.i("ClassName", event.className.toString())
-        var root = rootInActiveWindow
-        var pingzhengText = root.findAccessibilityNodeInfosByText("微信支付凭证")
+        val root = rootInActiveWindow
+        val pingzhengText = root.findAccessibilityNodeInfosByText("微信支付凭证")
+        if (pingzhengText.size == 0)
+            return
         for (every in pingzhengText) {
-            var block = every.parent
-            for (i in 0..block.childCount) {
-                var child = block.getChild(i)
-                Log.i(child.className.toString(), child.text.toString())
+            val block = every.parent ?: continue
+            for (i in 0 until block.childCount) {
+                val child = block.getChild(i)
+                child?: continue
+                Log.i("Children", child.text?.toString()?: "null")
             }
-            break
         }
-        Log.i("Accessibility", pingzhengText.toString())
     }
 
     override fun onInterrupt() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
