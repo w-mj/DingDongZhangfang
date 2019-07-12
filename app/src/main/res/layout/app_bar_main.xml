@@ -27,8 +27,49 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            android:layout_gravity="bottom"
             android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+            app:srcCompat="@mipmap/add"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+<!--<TableLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp">-->
+    <!--<TableRow>-->
+
+
+        <!--<Button-->
+                <!--android:id="@+id/search"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Setting"-->
+                <!--android:textSize="15dp"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingRight="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:drawableLeft="@mipmap/search"-->
+        <!--/>-->
+
+        <!--<Button-->
+                <!--android:id="@+id/calendar"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Setting"-->
+                <!--android:textSize="15dp"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingRight="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:drawableLeft="@mipmap/calendar"-->
+        <!--/>-->
+    <!--</TableRow>-->
+<!--</TableLayout>-->
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

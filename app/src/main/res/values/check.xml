@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="check1">
+        <item>服装</item>
+        <item>宠物</item>
+    </string-array>
+
+    <string-array name="check2">
+        <item>餐饮</item>
+        <item>平板</item>
+        <item>电脑</item>
+    </string-array>
+</resources>
