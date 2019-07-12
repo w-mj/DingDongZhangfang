@@ -87,7 +87,7 @@ class DatabaseHelper private constructor(context: Context) :
     @Synchronized
     @Throws(SQLException::class)
     override fun <D : Dao<T, *>, T> getDao(clazz: Class<T>?): D {
-        var dao: Dao<*, *>? = null
+        var dao: Dao<*, *>?
         val className = clazz!!.simpleName
 
         if (daos.containsKey(className)) {
