@@ -89,3 +89,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 }
+
+//test
+class Calculate{
+    //a+b
+    fun add(a:Int,b:Int):Int=a+b
+    //a*b
+    fun mul(a:Int,b:Int):Int=a*b
+
+
+
+}
