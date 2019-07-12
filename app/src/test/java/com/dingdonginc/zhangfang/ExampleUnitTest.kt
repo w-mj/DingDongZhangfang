@@ -19,7 +19,7 @@ class CalculatorTest{
 
     @Test
     fun testAdd(){
-        assertEquals(6,mCalculator.add(2,2))
+        assertEquals(6,mCalculator.add(4,2))
     }
 
     @Test
