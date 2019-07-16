@@ -36,7 +36,7 @@ class Accessibility : AccessibilityService() {
         }
     }
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent): Unit {
+    fun parseWechat(event: AccessibilityEvent) {
         val root = rootInActiveWindow
         val pingzhengText = root.findAccessibilityNodeInfosByText("付款金额")
         if (pingzhengText.isNotEmpty()) {
@@ -50,6 +50,28 @@ class Accessibility : AccessibilityService() {
                 ParseWechatDetail.parse(webList[i])
 //                printChildren(webList[i])
             }
+        }
+    }
+
+    fun parseAlipay(event: AccessibilityEvent) {
+        val root = rootInActiveWindow
+        printChildren(root)
+        return
+        val zhangdanxiangqing = root.findAccessibilityNodeInfosByText("账单详情")
+        if (zhangdanxiangqing.isNotEmpty()) {
+            webList.clear()
+            findWebView(root)
+            for (i in 0 until webList.size) {
+//                ParseWechatDetail.parse(webList[i])
+                printChildren(webList[i])
+            }
+        }
+    }
+
+    override fun onAccessibilityEvent(event: AccessibilityEvent): Unit {
+        when(event.packageName) {
+            "com.tencent.mm" -> parseWechat(event)
+            "com.eg.android.AlipayGphone" -> parseAlipay(event)
         }
     }
 
