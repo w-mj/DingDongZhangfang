@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.dingdonginc.zhangfang">
-
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -32,6 +32,15 @@
             <meta-data
                     android:name="android.accessibilityservice"
                     android:resource="@xml/accessibility_config"/>
+        </service>
+
+        <service android:name="com.dingdonginc.zhangfang.services.notification.NotificationMonitoringService"
+                 android:label="@string/app_name"
+                 android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+                <action android:name="android.notificationservice.NotificationService" />
+            </intent-filter>
         </service>
     </application>
 

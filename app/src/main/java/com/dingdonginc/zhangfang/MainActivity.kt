@@ -1,6 +1,10 @@
 package com.dingdonginc.zhangfang
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
@@ -11,6 +15,8 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.core.app.NotificationManagerCompat
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -18,6 +24,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //通知权限是否获得
+        if (!isNotificationListenerEnabled(this)) {
+            openNotificationListenSettings()
+        }
+        //KtoggleNotificationListenerService();
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -88,15 +101,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
+    //检测通知监听是否被授权
+    fun isNotificationListenerEnabled(context: Context): Boolean {
+        val packageNames = NotificationManagerCompat.getEnabledListenerPackages(this)
+        if (packageNames.contains(context.packageName)) {
+            Log.i("Private", "successful")
+            return true
+        }
+        return false
+    }
+
+    //打开通知监听设置页面
+    fun openNotificationListenSettings() {
+        try {
+            val intent: Intent
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+            } else {
+                intent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
 }
 
-//test
-class Calculate{
-    //a+b
-    fun add(a:Int,b:Int):Int=a+b
-    //a*b
-    fun mul(a:Int,b:Int):Int=a*b
-
-
-
-}
