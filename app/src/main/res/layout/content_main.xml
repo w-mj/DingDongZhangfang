@@ -145,12 +145,14 @@
 
 
         <ListView
+                android:id="@+id/listView1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/check1"
+
                 android:divider="#778899"
                 android:dividerHeight="1dp"
                 android:footerDividersEnabled="true"
+
         />
 
         <RelativeLayout
@@ -198,6 +200,7 @@
 
 
         <ListView
+                android:id="@+id/listView2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/check2"

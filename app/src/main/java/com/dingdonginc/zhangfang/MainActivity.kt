@@ -1,5 +1,6 @@
 package com.dingdonginc.zhangfang
 
+import android.app.Activity
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -11,13 +12,47 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
+import android.view.View
+import android.widget.AdapterView
+import com.dingdonginc.zhangfang.models.Check
+import org.json.JSONObject
+import java.net.URL
+
+import kotlinx.android.synthetic.main.content_main.*
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
+
+    var lv:ListView?=null
+    var list:ArrayList<Check>?= ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        lv = findViewById(R.id.listView1)
+
+//        Thread(Runnable {
+//            var readText:String = URL("http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=10&page=1").readText()
+//            val jsonObject = JSONObject(readText)
+//            val jsonArray = jsonObject.getJSONArray("data")
+//            for(i in 0..jsonArray.length()-1 step 1){
+//                val jsonObject1 = jsonArray.getJSONObject(i)
+//                val title = jsonObject1.getString("title")
+//                list?.add(Check(title))
+//            }
+//        }).start()
+//        Thread.sleep(1000)
+        list?.add(Check("123"))
+        lv?.adapter=ListViewAdapter(this,list!!)
+
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -35,6 +70,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+
     }
 
     override fun onBackPressed() {
@@ -53,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
+        // Handle action bar listview_item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
@@ -63,7 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
+        // Handle navigation view listview_item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
                 // Handle the camera action
@@ -88,6 +125,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
+
+
+
+
 }
 
 //test
