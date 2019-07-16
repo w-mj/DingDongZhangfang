@@ -4,6 +4,8 @@ import android.accessibilityservice.AccessibilityService
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import java.lang.StringBuilder
+import java.util.*
 
 class Accessibility : AccessibilityService() {
     override fun onCreate() {
@@ -11,41 +13,43 @@ class Accessibility : AccessibilityService() {
         Log.i("Accessibility", "on Create")
     }
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent) {
+    var webList: Vector<AccessibilityNodeInfo> = Vector()
+    private fun findWebView(root: AccessibilityNodeInfo) {
+        for (i in 0 until root.childCount) {
+            val child = root.getChild(i)
+            if (child.className == "android.webkit.WebView") {
+                webList.addElement(child)
+            } else {
+                findWebView(child)
+            }
+        }
+    }
+
+    private fun printChildren(root: AccessibilityNodeInfo, intent:Int = 0) {
+        val builder = StringBuilder()
+        for (i in 0 until intent) {
+            builder.append('=')
+        }
+        Log.i(root.className.toString(), builder.toString() + (root.text?.toString()?:"null"))
+        for (i in 0 until root.childCount) {
+            printChildren(root.getChild(i), intent + 1)
+        }
+    }
+
+    override fun onAccessibilityEvent(event: AccessibilityEvent): Unit {
         val root = rootInActiveWindow
         val pingzhengText = root.findAccessibilityNodeInfosByText("付款金额")
-        if (pingzhengText.size == 0)
-            return
-        val billingItemList = pingzhengText[0].parent?.parent ?: return
-
-        var lastTime: String? = null
-        loop@ for (i in 0 until billingItemList.childCount) {
-            val item = billingItemList.getChild(i)
-            item?:continue
-            when(item.className.toString()) {
-                "android.widget.TextView" -> {
-                    lastTime = item.text.toString()
-                    Log.i("时间", lastTime)
-                }
-                "android.widget.LinearLayout" -> {
-                    lastTime ?: continue@loop
-                    if (item.childCount < 10) {
-                        for (j in 0 until item.childCount) {
-                            val text_in = item.getChild(j)
-                            Log.e("Children < 10", text_in.text?.toString() ?: "null")
-                        }
-                    } else {
-                        Log.i("金额", item.getChild(3).text?.toString()?:"null")
-                        Log.i("对方", item.getChild(5).text?.toString()?:"null")
-                        Log.i("状态", item.getChild(7).text?.toString()?:"null")
-
-                    }
-                }
-                else -> {
-                    Log.e("Unknown Class",item.className.toString() )
-                }
+        if (pingzhengText.isNotEmpty()) {
+            return ParseWechatList.parse(pingzhengText)
+        }
+        val zhangdanxiangqing = root.findAccessibilityNodeInfosByText("账单详情")
+        if (zhangdanxiangqing.isNotEmpty()) {
+            webList.clear()
+            findWebView(root)
+            for (i in 0 until webList.size) {
+                ParseWechatDetail.parse(webList[i])
+//                printChildren(webList[i])
             }
-
         }
     }
 
