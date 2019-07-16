@@ -30,7 +30,7 @@ class Accessibility : AccessibilityService() {
         for (i in 0 until intent) {
             builder.append('=')
         }
-        Log.i(root.className.toString(), builder.toString() + (root.text?.toString()?:"null"))
+        Log.i(root.className.toString(), builder.toString() + (root.contentDescription?.toString()?:"null"))
         for (i in 0 until root.childCount) {
             printChildren(root.getChild(i), intent + 1)
         }
