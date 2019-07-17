@@ -1,4 +1,4 @@
-package com.dingdonginc.zhangfang.services.auto.fetch.accounts
+package com.dingdonginc.zhangfang.services.accessibility
 
 import android.accessibilityservice.AccessibilityService
 import android.util.Log
@@ -30,14 +30,18 @@ class Accessibility : AccessibilityService() {
         for (i in 0 until intent) {
             builder.append('=')
         }
-        Log.i(root.className.toString(), builder.toString() + (root.text?.toString()?:"null"))
+        Log.i(root.className.toString(), builder.toString() + (root.contentDescription?.toString()?:"null"))
         for (i in 0 until root.childCount) {
             printChildren(root.getChild(i), intent + 1)
         }
     }
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent): Unit {
+    fun parseWechat(event: AccessibilityEvent) {
         val root = rootInActiveWindow
+        if (root == null) {
+            Log.e("parse wechat", "root is null")
+            return
+        }
         val pingzhengText = root.findAccessibilityNodeInfosByText("付款金额")
         if (pingzhengText.isNotEmpty()) {
             return ParseWechatList.parse(pingzhengText)
@@ -50,6 +54,27 @@ class Accessibility : AccessibilityService() {
                 ParseWechatDetail.parse(webList[i])
 //                printChildren(webList[i])
             }
+        }
+    }
+
+    fun parseAlipay(event: AccessibilityEvent) {
+        val root = rootInActiveWindow
+
+        val zhangdanxiangqing = root.findAccessibilityNodeInfosByText("账单详情")
+        if (zhangdanxiangqing.isNotEmpty()) {
+            webList.clear()
+            findWebView(root)
+            for (i in 0 until webList.size) {
+//                ParseWechatDetail.parse(webList[i])
+                printChildren(webList[i])
+            }
+        }
+    }
+
+    override fun onAccessibilityEvent(event: AccessibilityEvent): Unit {
+        when(event.packageName) {
+            "com.tencent.mm" -> parseWechat(event)
+            "com.eg.android.AlipayGphone" -> parseAlipay(event)
         }
     }
 
