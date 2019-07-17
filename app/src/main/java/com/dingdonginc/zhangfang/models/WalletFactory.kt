@@ -51,11 +51,17 @@ object WalletFactory {
         }
     }
 
-    fun alipayBalance(context: Context): Wallet {
-        return getWallet("支付宝余额", WalletType.Real, context)
+    private val predefinedWallet = mapOf(
+        "支付宝余额" to WalletType.Real,
+        "微信余额" to WalletType.Real
+    )
+
+    fun isPredefined(name: String) = name in predefinedWallet
+
+    fun getPredefined(name: String, context: Context): Wallet {
+        assert(name in predefinedWallet)
+        return getWallet(name, predefinedWallet.getValue(name), context)
     }
 
-    fun wechatBalance(context: Context) :Wallet {
-        return getWallet("微信余额", WalletType.Real, context)
-    }
+    fun alipayBalance(context: Context) = getPredefined("支付宝余额", context)
 }

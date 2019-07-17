@@ -9,7 +9,29 @@ import java.util.*
  * 账目表
  */
 @DatabaseTable(tableName = "account")
-class Account {
+class Account (){
+    init { }
+    constructor(
+        method: Wallet,
+        amount: Int,
+        tag: Tag,
+        time: Date = Date(),
+        longitude: Double = Double.MAX_VALUE,
+        latitude: Double = Double.MAX_VALUE,
+        partner: String = "",
+        comment: String = "",
+        generatedId: String?=null
+    ) : this() {
+        this.method = method
+        this.amount = amount
+        this.tag = tag
+        this.time = time
+        this.longitude = longitude
+        this.latitude = latitude
+        this.partner = partner
+        this.comment = comment
+        this.generatedId = generatedId
+    }
     @DatabaseField(generatedId = true)
     var id = 0
     @DatabaseField(foreign = true)
@@ -28,4 +50,6 @@ class Account {
     lateinit var tag: Tag  // 标签
     @DatabaseField(defaultValue = "")
     lateinit var comment: String  // 注释
+    @DatabaseField(canBeNull = true, index = true)
+    var generatedId: String? = null  // 由付款软件生成的订单号
 }
