@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.dingdonginc.zhangfang.services.auto.fetch.accounts.Accessibility"
+        <service android:name="com.dingdonginc.zhangfang.services.accessibility.Accessibility"
                  android:label="@string/accessibility_tip"
                  android:exported="true"
                  android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"

@@ -1,4 +1,4 @@
-package com.dingdonginc.zhangfang.services.auto.fetch.accounts
+package com.dingdonginc.zhangfang.services.accessibility
 
 import android.view.accessibility.AccessibilityNodeInfo
 
