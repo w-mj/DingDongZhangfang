@@ -10,20 +10,3 @@ import org.junit.Before
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class CalculatorTest{
-    private lateinit var mCalculator:Calculate
-    @Before
-    fun setUp(){
-        mCalculator= Calculate()
-    }
-
-    @Test
-    fun testAdd(){
-        assertEquals(6,mCalculator.add(4,2))
-    }
-
-    @Test
-    fun testMul(){
-        assertEquals(40,mCalculator.mul(20,2))
-    }
-}
