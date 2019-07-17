@@ -25,4 +25,10 @@ class Method {
     var predefined = false  // 是否为预定义的方式
     @DatabaseField(defaultValue = "false")
     var hidden = false  // 是否为已删除的方式
+
+    companion object {
+        fun AlipayBalance() {
+
+        }
+    }
 }
