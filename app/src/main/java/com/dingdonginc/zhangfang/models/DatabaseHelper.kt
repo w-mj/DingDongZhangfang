@@ -14,7 +14,7 @@ import java.sql.SQLException
 
 
 const val DBName = "dingdongzhangfang.db"
-const val DBVersion = 1
+const val DBVersion = 2
 
 class DatabaseHelper private constructor(context: Context) :
     OrmLiteSqliteOpenHelper(context, DBName, null, DBVersion, R.raw.ormlite_config) {
@@ -55,7 +55,7 @@ class DatabaseHelper private constructor(context: Context) :
     ) {
         try {
             Log.i(DatabaseHelper::class.java.name, "onUpgrade")
-            TableUtils.dropTable<Method, Int>(connectionSource, Method::class.java, true)
+            TableUtils.dropTable<Wallet, Int>(connectionSource, Wallet::class.java, true)
             TableUtils.dropTable<Tag, Int>(connectionSource, Tag::class.java, true)
             TableUtils.dropTable<Account, Int>(connectionSource, Account::class.java, true)
             onCreate(database, connectionSource)
@@ -72,7 +72,7 @@ class DatabaseHelper private constructor(context: Context) :
     override fun onCreate(database: SQLiteDatabase?, connectionSource: ConnectionSource?) {
         try {
             Log.i(DatabaseHelper::class.java.name, "onCreate")
-            TableUtils.createTable(connectionSource, Method::class.java)
+            TableUtils.createTable(connectionSource, Wallet::class.java)
             TableUtils.createTable(connectionSource, Tag::class.java)
             TableUtils.createTable(connectionSource, Account::class.java)
         } catch (e: SQLException) {
@@ -87,7 +87,7 @@ class DatabaseHelper private constructor(context: Context) :
     @Synchronized
     @Throws(SQLException::class)
     override fun <D : Dao<T, *>, T> getDao(clazz: Class<T>?): D {
-        var dao: Dao<*, *>?
+        val dao: Dao<*, *>?
         val className = clazz!!.simpleName
 
         if (daos.containsKey(className)) {

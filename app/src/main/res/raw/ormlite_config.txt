@@ -1,5 +1,5 @@
 #
-# generated on 2019/07/12 08:53:24
+# generated on 2019/07/17 11:09:03
 #
 # --table-start--
 dataClass=com.dingdonginc.zhangfang.models.Account
@@ -27,6 +27,7 @@ fieldName=latitude
 # --field-end--
 # --field-start--
 fieldName=partner
+defaultValue=
 # --field-end--
 # --field-start--
 fieldName=tag
@@ -34,12 +35,13 @@ foreign=true
 # --field-end--
 # --field-start--
 fieldName=comment
+defaultValue=
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.dingdonginc.zhangfang.models.Method
+dataClass=com.dingdonginc.zhangfang.models.Wallet
 tableName=method
 # --table-fields-start--
 # --field-start--
@@ -54,6 +56,7 @@ fieldName=type
 # --field-end--
 # --field-start--
 fieldName=comment
+defaultValue=
 # --field-end--
 # --field-start--
 fieldName=predefined
@@ -62,6 +65,9 @@ defaultValue=false
 # --field-start--
 fieldName=hidden
 defaultValue=false
+# --field-end--
+# --field-start--
+fieldName=balance
 # --field-end--
 # --table-fields-end--
 # --table-end--

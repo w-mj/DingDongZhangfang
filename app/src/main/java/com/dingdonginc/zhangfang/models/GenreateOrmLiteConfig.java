@@ -12,7 +12,7 @@ import java.io.File;
 public class GenreateOrmLiteConfig extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[] {
             Account.class,
-            Method.class,
+            Wallet.class,
             Tag.class
     };
     public static void main(String[] args) throws Exception {

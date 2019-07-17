@@ -6,6 +6,7 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @RunWith(AndroidJUnit4::class)
 class DatabaseHelperTest {
     @Test
@@ -28,17 +29,33 @@ class DatabaseHelperTest {
     fun testDataBase() {
         val appContext = InstrumentationRegistry.getTargetContext()
         val helper = DatabaseHelper.getHelper(appContext)
-        val method_dao = helper.getDao(Method::class.java)
+        val method_dao = helper.getDao(Wallet::class.java)
         method_dao.delete(method_dao.queryForAll())
 
-        val m = Method()
+        val m = Wallet()
         m.comment = "方法注释"
         m.name = "测试方法"
-        m.type = MethodType.Real
+        m.type = WalletType.Real
         m.predefined = true
         m.hidden = false
         method_dao.create(m)
         assertEquals(method_dao.count(), 1)
         assertEquals(method_dao.queryForAll()[0].name, "测试方法")
+    }
+
+    @Test
+    fun testWalletFactory() {
+        val appContext = InstrumentationRegistry.getTargetContext()
+        val helper = DatabaseHelper.getHelper(appContext)
+        val method_dao = helper.getDao(Wallet::class.java)
+        method_dao.delete(method_dao.queryForAll())
+
+        var m = WalletFactory.alipayBalance(appContext)
+        assertEquals(m.name, "支付宝余额")
+        m = WalletFactory.alipayBalance(appContext)
+        assertEquals(m.name, "支付宝余额")
+        m = WalletFactory.alipayBalance(appContext)
+        assertEquals(m.name, "支付宝余额")
+        assertEquals(method_dao.count(), 1)
     }
 }
