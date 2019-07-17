@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="dayAccounts"
+                  type="com.dingdonginc.zhangfang.models.DayAccounts"/>
+    </data>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:background="@drawable/shape_corner"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="20dp">
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+                      android:background="@drawable/bottom_border"
+                      android:paddingBottom="10dp">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="20dp"
+                      android:layout_marginTop="20dp"
+                      android:text="@{dayAccounts.date}"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:text="@{dayAccounts.weekday}"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginLeft="80dp"
+                      android:text="@string/input"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginLeft="5dp"
+                      android:text="@{dayAccounts.inCome}"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginLeft="10dp"
+                      android:text="@string/output"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginLeft="5dp"
+                      android:text="@{dayAccounts.outCome}"/>
+        </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/day"
+            app:adapter="@{dayAccounts._dayAccountAdapter}"/>
+    </LinearLayout>
+</layout>
