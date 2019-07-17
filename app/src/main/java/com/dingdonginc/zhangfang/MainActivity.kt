@@ -29,20 +29,29 @@ import java.net.URL
 import kotlinx.android.synthetic.main.content_main.*
 
 import androidx.core.app.NotificationManagerCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
+import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
+import com.dingdonginc.zhangfang.viewmodels.MainViewModel
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
-
-    var lv:ListView?=null
-    var list:ArrayList<Check>?= ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding: com.dingdonginc.zhangfang.databinding.ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
+        //setContentView(R.layout.content_main)
+        var vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        lv = findViewById(R.id.listView1)
+
+        binding?.let {
+            it.mainViewModel = vm
+            it.setLifecycleOwner(this)
+        }
+//        var lv : ListView = findViewById(R.id.ma)
+//        lv.adapter = ca
 
 //        Thread(Runnable {
 //            var readText:String = URL("http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=10&page=1").readText()
@@ -54,9 +63,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                list?.add(Check(title))
 //            }
 //        }).start()
-//        Thread.sleep(1000)
-        list?.add(Check("123"))
-        lv?.adapter=ListViewAdapter(this,list!!)
+////        Thread.sleep(1000)
+//        list?.add(Check("123"))
+//        lv?.adapter=ListViewAdapter(this,list!!)
 
         //通知权限是否获得
         if (!isNotificationListenerEnabled(this)) {

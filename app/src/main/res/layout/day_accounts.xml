@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="dayAccounts"
+                  type="com.dingdonginc.zhangfang.models.DayAccounts"/>
+    </data>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{dayAccounts.date}"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="收入"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@{dayAccounts.inCome}"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="支出"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@{dayAccounts.outCome}"/>
+        </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/day"
+            app:adapter="@{dayAccounts._dayAccountAdapter}"/>
+    </LinearLayout>
+</layout>
