@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable name="item" type="com.dingdonginc.zhangfang.models.Account"/>
     </data>
     <!-- 下面两个是用来给  activity_main.xml里的ListView赋值,-->
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="@{item.method.name}"
-    />
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginTop="20dp"
+                  android:layout_marginLeft="30dp">
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@mipmap/cloth"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:text="@{item.tag.name}"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="120dp"
+                android:textColor="@color/colorRed"
+                android:text="@{item.comment}"/>
+    </LinearLayout>
 </layout>

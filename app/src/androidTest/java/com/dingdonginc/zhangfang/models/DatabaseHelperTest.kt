@@ -28,10 +28,10 @@ class DatabaseHelperTest {
     fun testDataBase() {
         val appContext = InstrumentationRegistry.getTargetContext()
         val helper = DatabaseHelper.getHelper(appContext)
-        val method_dao = helper.getDao(Method::class.java)
+        val method_dao = helper.getDao(Wallet::class.java)
         method_dao.delete(method_dao.queryForAll())
 
-        val m = Method()
+        val m = Wallet()
         m.comment = "方法注释"
         m.name = "测试方法"
         m.type = MethodType.Real

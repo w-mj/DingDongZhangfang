@@ -1,15 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="mainViewModel"
                   type="com.dingdonginc.zhangfang.viewmodels.MainViewModel"/>
     </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="70dp"
+                   android:orientation="vertical">
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="@drawable/shape_corner"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginRight="10dp"
+                  android:layout_marginBottom="10dp"
+                  android:paddingBottom="10dp"
+                  android:paddingTop="10dp"
+                  android:paddingLeft="30dp">
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:orientation="horizontal">
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@mipmap/cloth"/>
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="25dp"
+                          android:orientation="vertical">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="30.00"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="支出"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:background="@drawable/left_border"
+                          android:layout_marginLeft="20dp"
+                          android:paddingLeft="20dp"
+                          android:orientation="vertical">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="0.00"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="收入"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:background="@drawable/left_border"
+                          android:layout_marginLeft="20dp"
+                          android:paddingLeft="20dp"
+                          android:orientation="vertical">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="1970.0"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="余额"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/ma"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               app:adapter="@{mainViewModel._contentMainAdapter}"/>
-
+    </LinearLayout>
 </layout>

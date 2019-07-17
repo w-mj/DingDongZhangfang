@@ -12,7 +12,7 @@ enum class MethodType{
  * 数据库中的付（收）款方式表
  */
 @DatabaseTable(tableName = "method")
-class Method {
+class Wallet {
     @DatabaseField(id=false, generatedId = true)
     private var id: Int = 0
     @DatabaseField

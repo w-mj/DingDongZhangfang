@@ -39,7 +39,7 @@ fieldName=comment
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.dingdonginc.zhangfang.models.Method
+dataClass=com.dingdonginc.zhangfang.models.Wallet
 tableName=method
 # --table-fields-start--
 # --field-start--
