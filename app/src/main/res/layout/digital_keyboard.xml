@@ -1,26 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    tools:ignore="HardcodedText"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.DigitalKeyboardViewModel"/>
+    </data>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        tools:ignore="HardcodedText">
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            >
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支出"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"/>
+        <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="18"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        />
+        <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="+"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        />
+        <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@{vm.currentInput}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        />
+    </LinearLayout>
+
+
+    <TableLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
     >
+        <TableRow>
+            <Button android:text="9" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"
+                    android:onClick="@{vm::onDigitalKeyClick}"/>
+            <Button android:text="8" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="7" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="日期" android:layout_weight="2" style="?android:attr/buttonBarButtonStyle"/>
+        </TableRow>
+        <TableRow>
+            <Button android:text="6" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="5" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="4" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="+" android:layout_weight="2" style="?android:attr/buttonBarButtonStyle"/>
+        </TableRow>
+        <TableRow>
+            <Button android:text="3" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="2" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="1" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="-" android:layout_weight="2" style="?android:attr/buttonBarButtonStyle"/>
+        </TableRow>
+        <TableRow>
+            <Button android:text="." android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="0" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="⌫" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="完成" android:layout_weight="2" style="?android:attr/buttonBarButtonStyle"/>
+        </TableRow>
+    </TableLayout>
 
-    <TableRow>
-        <Button android:text="9"/>
-        <Button android:text="8"/>
-        <Button android:text="7"/>
-    </TableRow>
-    <TableRow>
-        <Button android:text="6"/>
-        <Button android:text="5"/>
-        <Button android:text="4"/>
-    </TableRow>
-    <TableRow>
-        <Button android:text="3"/>
-        <Button android:text="2"/>
-        <Button android:text="1"/>
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>
+</layout>

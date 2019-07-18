@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.AddAccountFragment">
-
-    <TextView
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="digital_vm" type="com.dingdonginc.zhangfang.viewmodels.DigitalKeyboardViewModel"/>
+    </data>
+    <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello"/>
+            tools:context=".views.AddAccountFragment">
 
-    <include
-        layout="@layout/digital_keyboard"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="Hello"/>-->
 
-</FrameLayout>
+        <include
+                layout="@layout/digital_keyboard"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:vm="@{digital_vm}"
+        />
+
+    </FrameLayout>
+</layout>
