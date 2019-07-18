@@ -3,18 +3,20 @@ package com.dingdonginc.zhangfang.services.accessibility
 import android.content.Context
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.WalletService
+import org.kodein.di.generic.instance
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
 object ParseWechatDetail {
-    fun parse(context: Context, item: AccessibilityNodeInfo) {
+    fun parse(item: AccessibilityNodeInfo) {
         if (item.className.toString() != "android.webkit.WebView") {
             Log.e(item.className.toString(), "class is not a webview")
             return
@@ -60,17 +62,18 @@ object ParseWechatDetail {
             Log.i(a.key, a.value)
         }
         val formatter = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA)
-        val wallet = WalletFactory.wechatBalance(context)
+        val walletFactory: WalletFactory by App.getKodein().instance()
+        val wallet = walletFactory.wechatBalance()
+        val tagFactory: TagFactory by App.getKodein().instance()
         val acc = Account(
             wallet = wallet,
             amount = ((dataMap["金额"]!!).toFloat() * 100).toInt(),
-            tag = TagFactory.cloth(context),
+            tag = tagFactory.cloth(),
             time = formatter.parse(dataMap["时间"]!!)!!,
             partner = (dataMap["商户全称"] ?: dataMap["商家名"])!!,
             generatedId = dataMap["单号"]
         )
-        AccountService.addAccount(context, acc)
-
-
+        val accountService by App.getKodein().instance<AccountService>()
+        accountService.addAccount(acc)
     }
 }

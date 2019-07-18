@@ -7,11 +7,9 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import android.widget.SimpleAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.dingdonginc.zhangfang.services.AccountService
-import java.util.*
-import kotlin.collections.ArrayList
+import org.kodein.di.generic.instance
 
 class WMJActivity : AppCompatActivity() {
 
@@ -24,8 +22,9 @@ class WMJActivity : AppCompatActivity() {
         list.adapter = adapter
         val context: Context = this
         val refresh: Button = findViewById(R.id.wmj_refresh)
+        val accountService: AccountService by App.getKodein().instance()
         refresh.setOnClickListener { v: View -> run{
-            val accountList = AccountService.getAll(context)
+            val accountList = accountService.getAll()
             Log.i("account num", accountList.size.toString())
             data.clear()
             for (acc in accountList) {

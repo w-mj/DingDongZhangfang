@@ -2,9 +2,12 @@ package com.dingdonginc.zhangfang.models
 
 import android.content.Context
 import android.util.Log
+import com.dingdonginc.zhangfang.App
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 import java.lang.Exception
 
-object TagFactory {
+class TagFactory {
     private var idCache: HashMap<String, Int> = HashMap()
 
     private fun generateTag(name: String): Tag {
@@ -15,9 +18,10 @@ object TagFactory {
         return t
     }
 
-    private fun getTag(name: String , context: Context): Tag {
+    private fun getTag(name: String): Tag {
         Log.i("getTag", name)
-        val dao = DatabaseHelper.getHelper(context).getDao(Tag::class.java)
+        val helper: DatabaseHelper by App.getKodein().instance()
+        val dao = helper.getDao(Tag::class.java)
         val query = dao.queryBuilder()
         if (!idCache.containsKey(name)) {
             query.where().eq("name", name)
@@ -43,5 +47,5 @@ object TagFactory {
         }
     }
 
-    fun cloth(context: Context) = getTag("服装", context)
+    fun cloth() = getTag("服装")
 }

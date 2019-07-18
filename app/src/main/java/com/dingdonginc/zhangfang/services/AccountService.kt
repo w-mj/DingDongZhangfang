@@ -1,16 +1,23 @@
 package com.dingdonginc.zhangfang.services
 
 import android.content.Context
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.DatabaseHelper
+import com.j256.ormlite.dao.Dao
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 
-object AccountService {
-    fun getDao(context: Context?=null) = DatabaseHelper.getHelper(context).getDao(Account::class.java)
+class AccountService {
+    fun getDao(): Dao<Account, *> {
+        val helper: DatabaseHelper by App.getKodein().instance()
+        return helper.getDao(Account::class.java)
+    }
 
-    fun getAll(context: Context?=null): List<Account> = getDao(context).queryForAll()
+    fun getAll(): List<Account> = getDao().queryForAll()
 
-    fun addAccount(context: Context?=null, account: Account): Int{
-        val dao = getDao(context)
+    fun addAccount(account: Account): Int{
+        val dao = getDao()
         if (account.generatedId == null)
             return dao.create(account)
         // 已经添加过

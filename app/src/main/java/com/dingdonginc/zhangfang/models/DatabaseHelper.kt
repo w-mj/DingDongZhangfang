@@ -7,7 +7,9 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper
 import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
 import android.util.Log
+import com.dingdonginc.zhangfang.App
 import com.j256.ormlite.dao.Dao
+import org.kodein.di.generic.instance
 import java.sql.SQLException
 
 
@@ -16,31 +18,31 @@ import java.sql.SQLException
 const val DBName = "dingdongzhangfang.db"
 const val DBVersion = 2
 
-class DatabaseHelper private constructor(context: Context) :
+class DatabaseHelper constructor(context: Context) :
     OrmLiteSqliteOpenHelper(context, DBName, null, DBVersion, R.raw.ormlite_config) {
 
 
     /**
      * 获得单例的Helper，不是private
      */
-    companion object {
-        private var daos: HashMap<String, Dao<*, *>> = HashMap()
-        private var instance: DatabaseHelper? = null
-
-
-        fun getHelper(context: Context?): DatabaseHelper {
-            if (instance == null) {
-                synchronized(DatabaseHelper::class.java) {
-                    if (instance == null) {
-                        context!!  // assert (context != null)
-                        val con = context.getApplicationContext()
-                        instance = DatabaseHelper(con)
-                    }
-                }
-            }
-            return instance as DatabaseHelper
-        }
-    }
+    private var daos: HashMap<String, Dao<*, *>> = HashMap()
+//    companion object {
+//        private var instance: DatabaseHelper? = null
+//
+//
+//        fun getHelper(context: Context?): DatabaseHelper {
+//            if (instance == null) {
+//                synchronized(DatabaseHelper::class.java) {
+//                    if (instance == null) {
+//                        context!!  // assert (context != null)
+//                        val con = context.getApplicationContext()
+//                        instance = DatabaseHelper(con)
+//                    }
+//                }
+//            }
+//            return instance as DatabaseHelper
+//        }
+//    }
 
 //    companion object fun getHelper() = getHelper(null)
 
@@ -63,7 +65,6 @@ class DatabaseHelper private constructor(context: Context) :
             Log.e(DatabaseHelper::class.java.name, "Can't drop databases", e)
             throw RuntimeException(e)
         }
-
     }
 
     /**

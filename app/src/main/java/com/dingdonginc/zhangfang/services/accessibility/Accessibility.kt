@@ -52,7 +52,7 @@ class Accessibility : AccessibilityService() {
             webList.clear()
             findWebView(root)
             for (i in 0 until webList.size) {
-                ParseWechatDetail.parse(this, webList[i])
+                ParseWechatDetail.parse(webList[i])
 //                printChildren(webList[i])
             }
         }

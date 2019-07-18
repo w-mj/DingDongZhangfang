@@ -2,9 +2,11 @@ package com.dingdonginc.zhangfang.models
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.dingdonginc.zhangfang.App
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.kodein.di.generic.instance
 
 
 @RunWith(AndroidJUnit4::class)
@@ -20,15 +22,16 @@ class DatabaseHelperTest {
     fun testSingleton(){
         // 测试单例
         val appContext = InstrumentationRegistry.getTargetContext()
-        val helper1 = DatabaseHelper.getHelper(appContext)
-        val helper2 = DatabaseHelper.getHelper(appContext)
+
+        val helper1 : DatabaseHelper by App.getKodein().instance()
+        val helper2 : DatabaseHelper by App.getKodein().instance()
         assertEquals(System.identityHashCode(helper1), System.identityHashCode(helper2))
     }
 
     @Test
     fun testDataBase() {
         val appContext = InstrumentationRegistry.getTargetContext()
-        val helper = DatabaseHelper.getHelper(appContext)
+        val helper :DatabaseHelper by App.getKodein().instance()
         val method_dao = helper.getDao(Wallet::class.java)
         method_dao.delete(method_dao.queryForAll())
 
@@ -46,15 +49,15 @@ class DatabaseHelperTest {
     @Test
     fun testWalletFactory() {
         val appContext = InstrumentationRegistry.getTargetContext()
-        val helper = DatabaseHelper.getHelper(appContext)
+        val helper :DatabaseHelper by App.getKodein().instance()
         val method_dao = helper.getDao(Wallet::class.java)
         method_dao.delete(method_dao.queryForAll())
-
-        var m = WalletFactory.alipayBalance(appContext)
+        val walletFactory: WalletFactory by App.getKodein().instance()
+        var m = walletFactory.alipayBalance()
         assertEquals(m.name, "支付宝余额")
-        m = WalletFactory.alipayBalance(appContext)
+        m = walletFactory.alipayBalance()
         assertEquals(m.name, "支付宝余额")
-        m = WalletFactory.alipayBalance(appContext)
+        m = walletFactory.alipayBalance()
         assertEquals(m.name, "支付宝余额")
         assertEquals(method_dao.count(), 1)
     }

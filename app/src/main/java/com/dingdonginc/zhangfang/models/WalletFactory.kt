@@ -2,12 +2,15 @@ package com.dingdonginc.zhangfang.models
 
 import android.content.Context
 import android.util.Log
+import com.dingdonginc.zhangfang.App
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 import java.lang.Exception
 
 /**
  * 钱包工厂函数
  */
-object WalletFactory {
+class WalletFactory {
     private var idCache: HashMap<String, Int> = HashMap()
 
     private fun generateWallet(name: String, type: WalletType): Wallet {
@@ -21,9 +24,10 @@ object WalletFactory {
         return w
     }
 
-    private fun getWallet(name: String, type: WalletType, context: Context): Wallet {
+    private fun getWallet(name: String, type: WalletType): Wallet {
         Log.i("getWallet", name)
-        val dao = DatabaseHelper.getHelper(context).getDao(Wallet::class.java)
+        val helper: DatabaseHelper by App.getKodein().instance()
+        val dao = helper.getDao(Wallet::class.java)
         val query = dao.queryBuilder()
         if (!idCache.containsKey(name)) {
             query.where()
@@ -58,13 +62,13 @@ object WalletFactory {
 
     fun isPredefined(name: String) = name in predefinedWallet
 
-    fun getPredefined(name: String, context: Context): Wallet {
+    fun getPredefined(name: String): Wallet {
         assert(name in predefinedWallet)
-        return getWallet(name, predefinedWallet.getValue(name), context)
+        return getWallet(name, predefinedWallet.getValue(name))
     }
 
-    fun alipayBalance(context: Context) = getPredefined("支付宝余额", context)
+    fun alipayBalance() = getPredefined("支付宝余额")
 
-    fun wechatBalance(context: Context) = getPredefined("微信余额", context)
+    fun wechatBalance() = getPredefined("微信余额")
 
 }
