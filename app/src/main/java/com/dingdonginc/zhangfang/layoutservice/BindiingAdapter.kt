@@ -6,6 +6,10 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+/*
+   为recyclerview 自定义属性 app:adapter
+   辅助绑定adapter
+*/
 class BindiingAdapter {
     companion object{
         @JvmStatic
