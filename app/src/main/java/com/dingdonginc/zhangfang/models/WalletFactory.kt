@@ -64,4 +64,7 @@ object WalletFactory {
     }
 
     fun alipayBalance(context: Context) = getPredefined("支付宝余额", context)
+
+    fun wechatBalance(context: Context) = getPredefined("微信余额", context)
+
 }

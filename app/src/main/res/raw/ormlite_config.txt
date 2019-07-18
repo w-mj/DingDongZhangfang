@@ -1,5 +1,5 @@
 #
-# generated on 2019/07/17 10:56:05
+# generated on 2019/07/18 10:50:21
 #
 # --table-start--
 dataClass=com.dingdonginc.zhangfang.models.Account
@@ -10,8 +10,10 @@ fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=method
+fieldName=wallet
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=amount
@@ -35,6 +37,8 @@ defaultValue=
 # --field-start--
 fieldName=tag
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=comment
@@ -49,7 +53,7 @@ indexName=account_generatedId_idx
 #################################
 # --table-start--
 dataClass=com.dingdonginc.zhangfang.models.Wallet
-tableName=method
+tableName=wallet
 # --table-fields-start--
 # --field-start--
 fieldName=id
