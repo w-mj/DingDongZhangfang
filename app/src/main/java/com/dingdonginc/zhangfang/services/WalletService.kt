@@ -5,7 +5,6 @@ import com.dingdonginc.zhangfang.models.DatabaseHelper
 import com.dingdonginc.zhangfang.models.Wallet
 import com.dingdonginc.zhangfang.models.WalletType
 import com.j256.ormlite.dao.Dao
-import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
 class WalletService {

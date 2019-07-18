@@ -1,10 +1,8 @@
 package com.dingdonginc.zhangfang.services
 
-import android.content.Context
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.models.DatabaseHelper
 import com.dingdonginc.zhangfang.models.Tag
-import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
 class TagService() {

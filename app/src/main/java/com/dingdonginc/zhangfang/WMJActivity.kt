@@ -23,6 +23,7 @@ class WMJActivity : AppCompatActivity() {
         val context: Context = this
         val refresh: Button = findViewById(R.id.wmj_refresh)
         val accountService: AccountService by App.getKodein().instance()
+
         refresh.setOnClickListener { v: View -> run{
             val accountList = accountService.getAll()
             Log.i("account num", accountList.size.toString())
