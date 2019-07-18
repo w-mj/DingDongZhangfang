@@ -2,6 +2,7 @@ package com.dingdonginc.zhangfang.viewmodels
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
 import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
@@ -9,19 +10,24 @@ import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.Check
 import com.dingdonginc.zhangfang.models.DayAccounts
 import com.dingdonginc.zhangfang.models.Tag
+import com.dingdonginc.zhangfang.services.AccountService
+import com.dingdonginc.zhangfang.services.converter.Converter
+import org.kodein.di.generic.instance
 
 class MainViewModel : ViewModel(){
     var _contentMainAdapter : ContentMainAdapter ?= null
-    val list = ArrayList<DayAccounts>()
+    var list = ArrayList<DayAccounts>()
     init {
-        list.add(DayAccounts())
-        list.add(DayAccounts())
-        list.add(DayAccounts())
+        val accountService: AccountService by App.getKodein().instance()
+        list = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
     }
 
     fun refresh(view: View){
-        list.add(DayAccounts())
+        val accountService: AccountService by App.getKodein().instance()
+        val temp = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
+        list.clear()
+        list.addAll(temp)
         _contentMainAdapter?.notifyDataSetChanged()
     }
 
