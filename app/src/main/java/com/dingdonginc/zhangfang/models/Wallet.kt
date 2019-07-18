@@ -10,7 +10,7 @@ enum class WalletType{
 /**
  * 数据库中的付（收）款方式表
  */
-@DatabaseTable(tableName = "method")
+@DatabaseTable(tableName = "wallet")
 class Wallet {
     @DatabaseField(id=false, generatedId = true)
     var id: Int = 0

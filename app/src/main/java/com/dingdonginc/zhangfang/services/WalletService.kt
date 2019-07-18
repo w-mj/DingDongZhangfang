@@ -1,29 +1,35 @@
 package com.dingdonginc.zhangfang.services
 
-import android.content.Context
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.models.DatabaseHelper
 import com.dingdonginc.zhangfang.models.Wallet
 import com.dingdonginc.zhangfang.models.WalletType
+import com.j256.ormlite.dao.Dao
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 
-object WalletService {
-    private fun getDao(context: Context?)
-            = DatabaseHelper.getHelper(context).getDao(Wallet::class.java)
+class WalletService {
 
-    fun getAll(context: Context? =null): List<Wallet>
-            = getDao(context).queryForAll()
+    private fun getDao(): Dao<Wallet, *> {
+        val helper: DatabaseHelper by App.getKodein().instance()
+        return helper.getDao(Wallet::class.java)
+    }
 
-    fun getPredefined(context: Context? =null): List<Wallet>
-            = getDao(context).queryBuilder().where().ge(Wallet::predefined.name, true).query()
+    fun getAll(): List<Wallet>
+            = getDao().queryForAll()
 
-    fun getUserDefined(context: Context? =null): List<Wallet>
-            = getDao(context).queryBuilder().where().ge(Wallet::predefined.name, false).query()
+    fun getPredefined(): List<Wallet>
+            = getDao().queryBuilder().where().ge(Wallet::predefined.name, true).query()
 
-    fun getVirtual(context: Context? =null): List<Wallet>
-            = getDao(context).queryBuilder().where().ge(Wallet::type.name, WalletType.Virtual).query()
+    fun getUserDefined(): List<Wallet>
+            = getDao().queryBuilder().where().ge(Wallet::predefined.name, false).query()
 
-    fun getReal(context: Context? =null): List<Wallet>
-            = getDao(context).queryBuilder().where().ge(Wallet::type.name, WalletType.Real).query()
+    fun getVirtual(): List<Wallet>
+            = getDao().queryBuilder().where().ge(Wallet::type.name, WalletType.Virtual).query()
 
-    fun addWallet(context: Context? = null, wallet: Wallet): Int
-            = getDao(context).create(wallet)
+    fun getReal(): List<Wallet>
+            = getDao().queryBuilder().where().ge(Wallet::type.name, WalletType.Real).query()
+
+    fun addWallet(wallet: Wallet): Int
+            = getDao().create(wallet)
 }
