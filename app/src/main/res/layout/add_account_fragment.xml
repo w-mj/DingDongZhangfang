@@ -11,4 +11,9 @@
             android:layout_height="match_parent"
             android:text="Hello"/>
 
+    <include
+        layout="@layout/digital_keyboard"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
 </FrameLayout>

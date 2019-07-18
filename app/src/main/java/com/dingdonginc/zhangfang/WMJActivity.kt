@@ -22,6 +22,7 @@ class WMJActivity : AppCompatActivity() {
         list.adapter = adapter
         val context: Context = this
         val refresh: Button = findViewById(R.id.wmj_refresh)
+
         val accountService: AccountService by App.getKodein().instance()
 
         refresh.setOnClickListener { v: View -> run{
