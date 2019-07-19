@@ -11,18 +11,18 @@ import com.dingdonginc.zhangfang.models.Check
 class ListViewAdapter(var context: Context,var list: ArrayList<Check>):BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var vH:ViewHolder?=null
+//        var vH:ViewHolder?=null
         var view:View?=null
-        if(convertView==null){
-            vH = ViewHolder()
-            view = View.inflate(context,R.layout.listview_item,null);
-            vH.textView=view.findViewById(R.id.title)
-            view.tag=vH
-        }else{
-            view=convertView
-            vH=view.tag as ViewHolder
-        }
-        vH.textView?.text=list.get(position).title
+//        if(convertView==null){
+//            vH = ViewHolder()
+//            view = View.inflate(context,R.layout.listview_item,null);
+//            vH.textView=view.findViewById(R.id.title)
+//            view.tag=vH
+//        }else{
+//            view=convertView
+//            vH=view.tag as ViewHolder
+//        }
+//        vH.textView?.text=list.get(position).title
         return view!!
     }
     inner class ViewHolder{

@@ -29,20 +29,57 @@ import java.net.URL
 import kotlinx.android.synthetic.main.content_main.*
 
 import androidx.core.app.NotificationManagerCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
+import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
+import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
+import com.dingdonginc.zhangfang.layoutservice.ViewPagerAdapter
+import com.dingdonginc.zhangfang.viewmodels.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+    private var viewPager : ViewPager ?= null
+    private var bnv : BottomNavigationView ?= null
+    //ViewPagerListener override function
+    override fun onPageScrollStateChanged(state: Int) {
+    }
 
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    }
 
-
-    var lv:ListView?=null
-    var list:ArrayList<Check>?= ArrayList()
+    override fun onPageSelected(position: Int) {
+        val menuItem = bnv?.getMenu()?.getItem(position)
+        menuItem?.setChecked(true)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding: com.dingdonginc.zhangfang.databinding.ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
 
-        lv = findViewById(R.id.listView1)
+        var vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewPager = findViewById(R.id.viewpager)
+        bnv = findViewById(R.id.bottom_nav_view)
+
+        bnv?.setOnNavigationItemSelectedListener(this)
+        var lst = ArrayList<MainViewModel>()
+        lst.add(vm)
+        lst.add(vm)
+        lst.add(vm)
+        var adapter = ViewPagerAdapter<MainViewModel>(this, lst, BR.mainViewModel, R.layout.app_bar_main, getLayoutInflater())
+        viewPager?.setAdapter(adapter)
+        viewPager?.setPageTransformer(true, ViewPagerTransformer())
+        viewPager?.setOnPageChangeListener(this)
+
+        binding?.let {
+            it.mainViewModel = vm
+            it.setLifecycleOwner(this)
+        }
+//        var lv : ListView = findViewById(R.id.ma)
+//        lv.adapter = ca
 
 //        Thread(Runnable {
 //            var readText:String = URL("http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=10&page=1").readText()
@@ -54,9 +91,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                list?.add(Check(title))
 //            }
 //        }).start()
-//        Thread.sleep(1000)
-        list?.add(Check("123"))
-        lv?.adapter=ListViewAdapter(this,list!!)
+////        Thread.sleep(1000)
+//        list?.add(Check("123"))
+//        lv?.adapter=ListViewAdapter(this,list!!)
 
         //通知权限是否获得
         if (!isNotificationListenerEnabled(this)) {
@@ -65,23 +102,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //KtoggleNotificationListenerService();
 
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+//        val toolbar: Toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
+        //val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        //val navView: NavigationView = findViewById(R.id.nav_view)
+//        val toggle = ActionBarDrawerToggle(
+//            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+//        )
+//        drawerLayout.addDrawerListener(toggle)
+//        toggle.syncState()
 
-        navView.setNavigationItemSelectedListener(this)
+        //navView.setNavigationItemSelectedListener(this)
 
 
     }
@@ -115,26 +152,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view listview_item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                viewpager.setCurrentItem(0)
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_chart -> {
+                viewpager.setCurrentItem(1)
             }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_tools -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.nav_fund -> {
+                viewpager.setCurrentItem(2)
             }
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
+//        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+//        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -161,6 +189,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    private class ViewPagerTransformer : ViewPager.PageTransformer{
+        override fun transformPage(page: View, position: Float) {
+            if (position < -1) {
+                page.setAlpha(0F);
+            } else if (position <= 0) {
+                // 左右移动，并且移除时变透明
+                page.setAlpha(1 + position);
+            } else if (position < 1) {
+                // 去除左右移动效果
+                page.setTranslationX(-page.getWidth() * position);
+                // 进入时变大，移除时变小
+                page.setScaleX(1 - position/2);
+                page.setScaleY(1 - position/2);
+                page.setAlpha(1 - position);
+            } else {
+                page.setAlpha(0F);
+            }
         }
 
     }

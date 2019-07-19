@@ -1,5 +1,5 @@
 #
-# generated on 2019/07/12 08:53:24
+# generated on 2019/07/18 10:50:21
 #
 # --table-start--
 dataClass=com.dingdonginc.zhangfang.models.Account
@@ -10,8 +10,13 @@ fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=method
+fieldName=wallet
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=amount
 # --field-end--
 # --field-start--
 fieldName=time
@@ -27,20 +32,28 @@ fieldName=latitude
 # --field-end--
 # --field-start--
 fieldName=partner
+defaultValue=
 # --field-end--
 # --field-start--
 fieldName=tag
 foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
 # --field-end--
 # --field-start--
 fieldName=comment
+defaultValue=
+# --field-end--
+# --field-start--
+fieldName=generatedId
+indexName=account_generatedId_idx
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.dingdonginc.zhangfang.models.Method
-tableName=method
+dataClass=com.dingdonginc.zhangfang.models.Wallet
+tableName=wallet
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -54,6 +67,7 @@ fieldName=type
 # --field-end--
 # --field-start--
 fieldName=comment
+defaultValue=
 # --field-end--
 # --field-start--
 fieldName=predefined
@@ -62,6 +76,9 @@ defaultValue=false
 # --field-start--
 fieldName=hidden
 defaultValue=false
+# --field-end--
+# --field-start--
+fieldName=balance
 # --field-end--
 # --table-fields-end--
 # --table-end--
