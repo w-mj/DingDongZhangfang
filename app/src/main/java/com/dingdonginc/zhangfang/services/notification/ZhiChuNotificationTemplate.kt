@@ -1,5 +1,6 @@
 package com.dingdonginc.zhangfang.services.notification
 
-class ZhiChuNotificationTemplate{
+class ZhiChuNotificationTemplate : NotificationTemplate(){
 
 }
+
