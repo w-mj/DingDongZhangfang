@@ -1,46 +1,43 @@
-package com.dingdonginc.zhangfang
+package com.dingdonginc.zhangfang.views
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
 import android.view.View
-import android.widget.AdapterView
-import com.dingdonginc.zhangfang.models.Check
-import org.json.JSONObject
-import java.net.URL
-
-import kotlinx.android.synthetic.main.content_main.*
 
 import androidx.core.app.NotificationManagerCompat
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
-import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
-import com.dingdonginc.zhangfang.layoutservice.ViewPagerAdapter
-import com.dingdonginc.zhangfang.viewmodels.MainViewModel
+import com.dingdonginc.zhangfang.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.singleton
 import java.lang.Exception
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+class MainActivity :
+        AppCompatActivity(),
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        ViewPager.OnPageChangeListener,
+        KodeinAware
+{
+    private val _parentKodein by closestKodein()
+    override val kodein: Kodein = Kodein.lazy {
+        extend(_parentKodein)
+        bind<AddAccountFragment>() with singleton { AddAccountFragment() }
+        bind<AccountListFragment>() with singleton { AccountListFragment() }
+    }
+
     private var viewPager : ViewPager ?= null
     private var bnv : BottomNavigationView ?= null
     //ViewPagerListener override function
@@ -55,29 +52,61 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         menuItem?.setChecked(true)
     }
 
+    fun hideAllFragment() {
+        val ft = supportFragmentManager.beginTransaction()
+        for (f in supportFragmentManager.fragments)
+            ft.hide(f)
+        ft.commitAllowingStateLoss()
+    }
+
+    inline fun <reified T : Fragment> showFragment() {
+        hideAllFragment()
+        val ft = supportFragmentManager.beginTransaction()
+        val f: T by kodein.instance<T>()
+        ft.show(f)
+        ft.commitAllowingStateLoss()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: com.dingdonginc.zhangfang.databinding.ActivityMainBinding = DataBindingUtil.setContentView(
-            this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-        var vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewPager = findViewById(R.id.viewpager)
+//        val binding: com.dingdonginc.zhangfang.databinding.ActivityMainBinding =
+//            DataBindingUtil.setContentView(this, R.layout.activity_main)
+//
+//        val vm = ViewModelProviders.of(this).get(AccountListViewModel::class.java)
         bnv = findViewById(R.id.bottom_nav_view)
 
         bnv?.setOnNavigationItemSelectedListener(this)
-        var lst = ArrayList<MainViewModel>()
-        lst.add(vm)
-        lst.add(vm)
-        lst.add(vm)
-        var adapter = ViewPagerAdapter<MainViewModel>(this, lst, BR.mainViewModel, R.layout.app_bar_main, getLayoutInflater())
-        viewPager?.setAdapter(adapter)
-        viewPager?.setPageTransformer(true, ViewPagerTransformer())
-        viewPager?.setOnPageChangeListener(this)
 
-        binding?.let {
-            it.mainViewModel = vm
-            it.setLifecycleOwner(this)
-        }
+//        var lst = ArrayList<AccountListViewModel>()
+//        lst.add(vm)
+//        lst.add(vm)
+//        lst.add(vm)
+//        viewPager = findViewById(R.id.viewpager)
+//
+//        var adapter = ViewPagerAdapter<AccountListViewModel>(this, lst, BR.mainViewModel, R.layout.app_bar_main, getLayoutInflater())
+//        viewPager?.setAdapter(adapter)
+//        viewPager?.setPageTransformer(true, ViewPagerTransformer())
+//        viewPager?.setOnPageChangeListener(this)
+
+//        binding.let {
+//            it.mainViewModel = vm
+//            it.setLifecycleOwner(this)
+//        }
+
+
+        val fm = supportFragmentManager
+        val ft = fm.beginTransaction()
+        val fr: AddAccountFragment by kodein.instance()
+        ft.add(R.id.main_frame, fr)
+        ft.hide(fr)
+        val fr2: AccountListFragment by kodein.instance()
+        ft.add(R.id.main_frame, fr2)
+        ft.show(fr2)
+        ft.commitAllowingStateLoss()
+        showFragment<AccountListFragment>()
+
 //        var lv : ListView = findViewById(R.id.ma)
 //        lv.adapter = ca
 
@@ -106,9 +135,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //        setSupportActionBar(toolbar)
 
 //        val fab: FloatingActionButton = findViewById(R.id.fab)
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
+//        fab.setOnClickListener {
+//            showFragment<AddAccountFragment>()
 //        }
         //val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         //val navView: NavigationView = findViewById(R.id.nav_view)
@@ -123,14 +151,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     }
 
-    override fun onBackPressed() {
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
+//    override fun onBackPressed() {
+//        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout.closeDrawer(GravityCompat.START)
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -152,13 +180,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         // Handle navigation view listview_item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                viewpager.setCurrentItem(0)
+                showFragment<AccountListFragment>()
+//                viewpager.setCurrentItem(0)
             }
             R.id.nav_chart -> {
-                viewpager.setCurrentItem(1)
+                showFragment<AddAccountFragment>()
+//                viewpager.setCurrentItem(1)
             }
             R.id.nav_fund -> {
-                viewpager.setCurrentItem(2)
+//                viewpager.setCurrentItem(2)
             }
         }
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
