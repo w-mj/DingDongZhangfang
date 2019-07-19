@@ -4,19 +4,25 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel;
+import com.dingdonginc.zhangfang.App
+import com.dingdonginc.zhangfang.services.ExpressionService
+import org.kodein.di.generic.instance
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddAccountViewModel : ViewModel() {
     val currentInput = ObservableField<String>()
+    val datetime = ObservableField<String>()
     val sum = 0
+    private val parser = SimpleDateFormat("yyyy-MM-dd\nHH:mm", Locale.CHINA)
 
     init {
-//        currentInput.set(0)
         currentInput.set("")
+        val now = Date()
+        datetime.set(parser.format(now))
     }
-
-    private var kbState = 0
 
 
     fun onDigitalKeyClick(view: View) {
@@ -59,10 +65,19 @@ class AddAccountViewModel : ViewModel() {
         }
     }
 
+//    val submitCommand: ReplyCommand
+
     fun onBackspaceClick(view: View) {
         val str = currentInput.get()?:""
         if (str == "")
             return
         currentInput.set(str.substring(0, str.length - 1))
+    }
+
+    fun onSubmitClick(view: View) {
+        val expSer: ExpressionService by App.getKodein().instance()
+        val str = currentInput.get()?:return
+        val datetime = parser.parse(datetime.get()!!)!!
+        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()}")
     }
 }
