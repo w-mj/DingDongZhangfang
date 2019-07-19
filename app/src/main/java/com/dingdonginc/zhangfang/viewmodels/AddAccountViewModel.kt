@@ -6,17 +6,18 @@ import android.widget.Button
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel;
+import com.dingdonginc.zhangfang.App
+import com.dingdonginc.zhangfang.services.ExpressionService
+import org.kodein.di.generic.instance
+import kotlin.math.exp
 
 class AddAccountViewModel : ViewModel() {
     val currentInput = ObservableField<String>()
     val sum = 0
 
     init {
-//        currentInput.set(0)
         currentInput.set("")
     }
-
-    private var kbState = 0
 
 
     fun onDigitalKeyClick(view: View) {
@@ -64,5 +65,11 @@ class AddAccountViewModel : ViewModel() {
         if (str == "")
             return
         currentInput.set(str.substring(0, str.length - 1))
+    }
+
+    fun onSubmitClick(view: View) {
+        val expSer: ExpressionService by App.getKodein().instance()
+        val str = currentInput.get()?:return
+        Log.i("创建账目", expSer.eval(str).toString())
     }
 }
