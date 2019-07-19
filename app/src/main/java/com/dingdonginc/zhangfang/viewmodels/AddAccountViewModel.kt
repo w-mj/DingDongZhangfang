@@ -23,37 +23,38 @@ class AddAccountViewModel : ViewModel() {
         val b: Button = view as Button
         val str = currentInput.get()?: ""
         if (str == "") {
-            if (b.text == "+" || b.text == "-")
+            // 输入序列为空
+            if (b.text == "+" || b.text == "-")  // 忽略第一个+-
                 return
-            if (b.text == ".")
+            if (b.text == ".")  // 第一个.前面加0
                 currentInput.set("0.")
             else
-                currentInput.set(b.text.toString())
+                currentInput.set(b.text.toString())  // 数字键
         } else {
             if (b.text == "+" || b.text == "-") {
-                if (str.last() == '+' || str.last() == '-')
+                if (str.last() == '+' || str.last() == '-')  // 忽略连续的符号
                     return
-                if (str.last() == '.')
+                if (str.last() == '.')  // .后面直接接符号，去掉.
                     currentInput.set(str.substring(0, str.lastIndex) + b.text)
                 else
-                    currentInput.set(str + b.text)
+                    currentInput.set(str + b.text)  // 加入符号
             } else if (b.text == ".") {
                 var i = str.lastIndex
                 while (i >= 0) {
                     if (str[i] == '+' || str[i] == '-')
                         break
                     if (str[i] == '.')
-                        return
+                        return  // 同一个数字里面不能有两个点
                     i--
                 }
-                if (i == str.lastIndex)
+                if (i == str.lastIndex)  // 点之前是符号，加个0
                     currentInput.set("${str}0.")
                 else
                     currentInput.set("$str.")
             } else {
-                if (str.length > 3 && str[str.length - 3] == '.')
+                if (str.length > 3 && str[str.length - 3] == '.')  // 小数位数不能超过3
                     return
-                currentInput.set(str + b.text.toString())
+                currentInput.set(str + b.text.toString())  // 加入数字
             }
         }
     }
