@@ -51,6 +51,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
 //    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
 //    compile group: 'com.j256.ormlite', name: 'ormlite-android', version: '5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -61,10 +62,9 @@ dependencies {
     implementation 'org.kodein.di:kodein-di-generic-jvm:5.2.0'
     // Android扩展组件
     implementation 'org.kodein.di:kodein-di-framework-android-core:5.2.0'
-    // support扩展组件，我的项目中用到了v4包的Fragment，因此我需要它
+    // support扩展组件，他的项目中用到了v4包的Fragment，因此他需要它
     implementation 'org.kodein.di:kodein-di-framework-android-support:5.2.0'
 //    compile 'org.kodein.di:kodein-di-conf-jvm:6.3.3'
-
 
 
 }
