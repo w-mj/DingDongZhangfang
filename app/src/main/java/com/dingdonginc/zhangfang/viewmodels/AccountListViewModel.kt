@@ -14,7 +14,7 @@ import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.converter.Converter
 import org.kodein.di.generic.instance
 
-class MainViewModel : ViewModel(){
+class AccountListViewModel : ViewModel(){
     var _contentMainAdapter : ContentMainAdapter ?= null
     var list = ArrayList<DayAccounts>()
     init {
