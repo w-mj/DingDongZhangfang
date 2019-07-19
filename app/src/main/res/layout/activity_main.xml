@@ -19,12 +19,6 @@
                 android:layout_height="wrap_content"
                 tools:ignore="MissingConstraints"/>
 
-        <!--<include-->
-                <!--layout="@layout/app_bar_main"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:mainViewModel="@{mainViewModel}"/>-->
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_nav_view"
                 android:layout_width="0dp"

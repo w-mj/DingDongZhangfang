@@ -41,7 +41,7 @@
                       android:layout_height="wrap_content"
                       android:layout_marginTop="20dp"
                       android:layout_marginLeft="5dp"
-                      android:text="@{dayAccounts.inCome}"/>
+                      android:text="@{String.valueOf(dayAccounts.inCome)}"/>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="20dp"
@@ -51,7 +51,7 @@
                       android:layout_height="wrap_content"
                       android:layout_marginTop="20dp"
                       android:layout_marginLeft="5dp"
-                      android:text="@{dayAccounts.outCome}"/>
+                      android:text="@{String.valueOf(dayAccounts.outCome)}"/>
         </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

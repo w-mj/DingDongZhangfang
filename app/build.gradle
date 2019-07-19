@@ -62,7 +62,6 @@ dependencies {
 //    compile 'org.kodein.di:kodein-di-conf-jvm:6.3.3'
 
 
-
 }
 
 kapt {
