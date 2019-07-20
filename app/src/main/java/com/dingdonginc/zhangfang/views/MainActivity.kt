@@ -34,8 +34,8 @@ class MainActivity :
     private val _parentKodein by closestKodein()
     override val kodein: Kodein = Kodein.lazy {
         extend(_parentKodein)
-        bind<AddAccountFragment>() with singleton { AddAccountFragment() }
         bind<AccountListFragment>() with singleton { AccountListFragment() }
+        bind<WalletFragment>() with singleton { WalletFragment() }
     }
 
     private var viewPager : ViewPager ?= null
@@ -52,17 +52,20 @@ class MainActivity :
         menuItem?.setChecked(true)
     }
 
-    fun hideAllFragment() {
+    private fun hideAllFragment() {
         val ft = supportFragmentManager.beginTransaction()
         for (f in supportFragmentManager.fragments)
             ft.hide(f)
         ft.commitAllowingStateLoss()
     }
 
-    inline fun <reified T : Fragment> showFragment() {
+    private inline fun <reified T : Fragment> showFragment() {
         hideAllFragment()
         val ft = supportFragmentManager.beginTransaction()
         val f: T by kodein.instance<T>()
+        if (f !in supportFragmentManager.fragments) {
+            ft.add(R.id.main_frame, f)
+        }
         ft.show(f)
         ft.commitAllowingStateLoss()
     }
@@ -95,17 +98,6 @@ class MainActivity :
 //            it.setLifecycleOwner(this)
 //        }
 
-
-        val fm = supportFragmentManager
-        val ft = fm.beginTransaction()
-        val fr: AddAccountFragment by kodein.instance()
-        ft.add(R.id.main_frame, fr)
-        ft.hide(fr)
-        val fr2: AccountListFragment by kodein.instance()
-        ft.add(R.id.main_frame, fr2)
-        ft.show(fr2)
-        ft.commitAllowingStateLoss()
-        showFragment<AccountListFragment>()
 
 //        var lv : ListView = findViewById(R.id.ma)
 //        lv.adapter = ca
@@ -147,7 +139,7 @@ class MainActivity :
 //        toggle.syncState()
 
         //navView.setNavigationItemSelectedListener(this)
-
+        showFragment<AccountListFragment>()
 
     }
 
@@ -184,11 +176,12 @@ class MainActivity :
 //                viewpager.setCurrentItem(0)
             }
             R.id.nav_chart -> {
-                showFragment<AddAccountFragment>()
+//                showFragment<AddAccountFragment>()
 //                viewpager.setCurrentItem(1)
             }
             R.id.nav_fund -> {
 //                viewpager.setCurrentItem(2)
+                showFragment<WalletFragment>()
             }
         }
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

@@ -16,6 +16,9 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 
 class AddAccountFragment : Fragment() {
+    init {
+        Log.i("AddAccountFragment", "init")
+    }
 
     companion object {
         fun newInstance() = AddAccountFragment()
@@ -28,6 +31,8 @@ class AddAccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("AddAccountFragment", "onCreateView")
+
         binding = DataBindingUtil.inflate(inflater, R.layout.add_account_fragment, container, false)
         viewModel = ViewModelProviders.of(this).get(AddAccountViewModel::class.java)
         binding.vm = viewModel
@@ -56,6 +61,7 @@ class AddAccountFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Log.i("AddAccountFragment", "onActivityCreated")
         val datetimeButton = view!!.findViewById<Button>(R.id.digital_datetime)
         datetimeButton.setOnClickListener {
             val datePicker = DatePickerDialog.newInstance(OnDatePickerCallBack())
