@@ -1,25 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
     <data>
-        <variable name="upadapter" type="com.dingdonginc.zhangfang.layoutservice.TypesAdapter"/>
-        <variable name="downadapter" type="com.dingdonginc.zhangfang.layoutservice.TypesAdapter"/>
+        <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.AddAccountViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
-                  android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:adapter="@{upadapter}">
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:adapter="@{downadapter}">
-        </androidx.recyclerview.widget.RecyclerView>
+                  android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal"
+                      android:paddingBottom="10dp"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/bottom_border">
+            <RadioGroup android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:src="@mipmap/wechat"
+                            android:layout_marginLeft="5dp"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:layout_gravity="center_vertical"/>
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:src="@mipmap/zfb"
+                           android:layout_marginLeft="5dp"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:layout_gravity="center_vertical"/>
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:src="@mipmap/jd"
+                           android:layout_marginLeft="5dp"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:layout_gravity="center_vertical"/>
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:src="@mipmap/creditcard"
+                           android:layout_marginLeft="5dp"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:layout_gravity="center_vertical"/>
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:background="@drawable/bottom_border"
+                      android:paddingBottom="10dp"
+                      android:paddingTop="10dp"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content">
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="5dp"
+                       android:src="@mipmap/cloth"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_vertical"
+                      android:layout_marginLeft="20dp"
+                      android:textSize="20dp"
+                      android:text="@{vm.currentTag.comment}"/>
+        </LinearLayout>
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/typeview"
+                android:background="@drawable/bottom_border"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+        </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
 </layout>

@@ -8,9 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
+import androidx.viewpager.widget.ViewPager
+import com.dingdonginc.zhangfang.BR
 
 import com.dingdonginc.zhangfang.R
+import com.dingdonginc.zhangfang.layoutservice.ViewPagerAdapter
+import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.viewmodels.AddAccountViewModel
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
@@ -63,4 +68,10 @@ class AddAccountFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        var viewPager : ViewPager = getView()!!.findViewById(R.id.typeview)
+        var adapter = ViewPagerAdapter<Tag>(viewModel.typeList, viewModel, BR.tag , R.layout.typelist_item, getLayoutInflater())
+        viewPager?.setAdapter(adapter)
+    }
 }

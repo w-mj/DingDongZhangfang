@@ -1,19 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="tag" type="com.dingdonginc.zhangfang.models.Account"/>
+        <variable name="tag" type="java.util.List&lt;com.dingdonginc.zhangfang.models.Tag>"/>
+        <variable name="addvm" type="com.dingdonginc.zhangfang.viewmodels.AddAccountViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="100dp"
-                  android:layout_height="wrap_content">
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center_horizontal"
-                   android:src="@mipmap/cloth"/>
-        <TextView android:layout_width="wrap_content"
+                  android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:layout_gravity="center_horizontal"
-                  android:text="@{tag.comment}"/>
+                  android:orientation="vertical">
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 1 ? 0 : 4}"
+                          android:layout_width="wrap_content"
+                          android:layout_weight="1"
+                          android:layout_height="wrap_content"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[0].comment}">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:tag="@{tag[0].comment}"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[0].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 2 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[1].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[1].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 3 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[2].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[2].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 4 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[3].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[3].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 5 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[4].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[4].comment}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:orientation="horizontal">
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 6 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[5].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[5].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 7 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[6].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[6].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 8 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[7].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[7].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 9 ? 0 : 4}"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[8].comment}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[8].comment}"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical"
+                          android:layout_weight="1"
+                          android:onClick="@{addvm::selectType}"
+                          android:tag="@{tag[9].comment}"
+                          android:visibility="@{tag.size >= 10 ? 0 : 4}"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@mipmap/cloth"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:text="@{tag[9].comment}"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </layout>
