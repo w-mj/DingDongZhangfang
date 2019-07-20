@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.viewpager.widget.PagerAdapter
+import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.databinding.DayAccountsBinding
+import com.dingdonginc.zhangfang.viewmodels.AddAccountViewModel
 
-class ViewPagerAdapter<T>(val context : Context, var viewList : List<T>,
+class ViewPagerAdapter<T>(var viewList : List<List<T>>,var vm : AddAccountViewModel,
                           val varId1 : Int, val layoutId : Int, val layoutInflater: LayoutInflater) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -25,6 +27,7 @@ class ViewPagerAdapter<T>(val context : Context, var viewList : List<T>,
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val binding : ViewDataBinding = DataBindingUtil.inflate(layoutInflater, layoutId, container, true)
         binding.setVariable(varId1, viewList.get(position))
+        binding.setVariable(BR.addvm, vm)
         return binding
     }
 

@@ -3,8 +3,10 @@ package com.dingdonginc.zhangfang.layoutservice
 import android.widget.BaseAdapter
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dingdonginc.zhangfang.models.Tag
 
 /*
    为recyclerview 自定义属性 app:adapter

@@ -14,31 +14,31 @@ object Converter {
         var input : Float = 0F
         var output : Float = 0F
         //按时间升序排序
-        accList.sortBy { it.time  }
+        accList.sortByDescending { it.time  }
         //按日期分组
         if(accList.size != 0) {
             lastTime = accList[0].time
             for (acc in accList) {
-                if(acc.amount > 0)
-                    input += acc.amount/100
-                else
-                    output += -acc.amount/100
                 if (acc.time.date == lastTime.date &&
                     acc.time.month == lastTime.month &&
                     acc.time.year == lastTime.year)
                     partofAcc.add(acc)
                 else {
                     dayAccountsList.add(DayAccounts(partofAcc, DateIntToString(lastTime.date),
-                        DayIntToString(lastTime.day), input.toString(), output.toString()))
+                        DayIntToString(lastTime.day), input, output))
                     lastTime = acc.time
                     partofAcc = ArrayList<Account>()
                     input = 0F
                     output = 0F
                     partofAcc.add(acc)
                 }
+                if(acc.amount > 0)
+                    input += acc.amount/100F
+                else
+                    output += -acc.amount/100F
             }
             dayAccountsList.add(DayAccounts(partofAcc,  DateIntToString(lastTime.date),
-                DayIntToString(lastTime.day),input.toString(),output.toString()))
+                DayIntToString(lastTime.day),input,output))
         }
         return dayAccountsList
     }
