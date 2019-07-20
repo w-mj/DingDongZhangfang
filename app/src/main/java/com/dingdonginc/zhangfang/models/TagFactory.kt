@@ -1,18 +1,50 @@
 package com.dingdonginc.zhangfang.models
 
-import android.content.Context
 import android.util.Log
 import com.dingdonginc.zhangfang.App
-import org.kodein.di.Kodein
+import com.dingdonginc.zhangfang.R
+import com.j256.ormlite.dao.Dao
 import org.kodein.di.generic.instance
 import java.lang.Exception
 
+
 class TagFactory {
     private var idCache: HashMap<String, Int> = HashMap()
+    enum class Type {
+        Cloth, DailyUse, DailyCost, Eat, Pet, Shopping, Food
+    }
+    companion object {
+        val predefinedTag: HashMap<Type, Tag> = hashMapOf(
+            Type.Cloth to Tag("服装", R.mipmap.cloth),
+            Type.DailyCost to Tag("日常消费", R.mipmap.dailyuse),
+            Type.DailyUse to Tag("日用品", R.mipmap.dailycost),
+            Type.Eat to Tag("餐饮", R.mipmap.eat),
+            Type.Pet to Tag("宠物", R.mipmap.pet),
+            Type.Shopping to Tag("购物", R.mipmap.shopping),
+            Type.Food to Tag("食物", R.mipmap.vegetable)
+        )
+    }
+
+    fun insertPredefinedToDb(dao: Dao<Tag, Int>) {
+        for (pre in predefinedTag) {
+            if (dao.queryForEq("name", pre.value.name).count() > 0) {
+                continue
+            }
+            dao.create(pre.value)
+            Log.i("TagFactory", "create predefined tag ${pre.value.name}")
+        }
+    }
+
+    private var nameIcon: HashMap<String, Int> = hashMapOf(
+        "服装" to R.mipmap.cloth,
+        "日常消费" to R.mipmap.dailycost,
+        "日用品" to R.mipmap.dailyuse,
+        "食品" to R.mipmap.eat
+    )
 
     private fun generateTag(name: String): Tag {
         val t = Tag()
-        t.icon = 0
+        t.icon = R.mipmap.cloth
         t.name = name
         t.comment = ""
         return t
@@ -45,6 +77,10 @@ class TagFactory {
                 throw Exception()
             }
         }
+    }
+
+    fun getPredefined(which: Type): Tag {
+        return predefinedTag[which]!!
     }
 
     fun cloth() = getTag("服装")
