@@ -4,12 +4,16 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import androidx.databinding.BindingConversion
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel;
 import com.dingdonginc.zhangfang.App
+import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.services.ExpressionService
+import com.dingdonginc.zhangfang.services.TagService
+import com.dingdonginc.zhangfang.services.converter.Converter
 import org.kodein.di.generic.instance
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -20,45 +24,35 @@ class AddAccountViewModel : ViewModel() {
     val currentInput = ObservableField<String>()
     val datetime = ObservableField<String>()
     val sum = 0
-    val typeList = ArrayList<ArrayList<Tag>>()
+    var typeList = ArrayList<ArrayList<Tag>>()
     var currentTag = ObservableField<Tag>()
     private val parser = SimpleDateFormat("yyyy-MM-dd\nHH:mm", Locale.CHINA)
+    private val tagService: TagService by App.getKodein().instance()
+    private lateinit var tagList: List<Tag>
+    private var method = "1"
 
     init {
         currentInput.set("")
         val now = Date()
         datetime.set(parser.format(now))
         var temptag = Tag()
-        temptag.comment = "其他"
+        temptag.icon = R.mipmap.add
+        temptag.name = "其他"
         currentTag.set(temptag)
-        var list = ArrayList<Tag>()
-        var list1 = ArrayList<Tag>()
-        var ta = Tag()
-        ta.comment = "111"
-        list.add(ta)
-        list.add(ta)
-        list.add(ta)
-        list.add(ta)
-        list.add(ta)
-        var ta1 = Tag()
-        ta1.comment = "222"
-        list1.add(ta1)
-        list1.add(ta1)
-        list1.add(ta1)
-        list1.add(ta1)
-        list1.add(ta1)
-        list1.add(ta1)
-        list1.add(ta1)
-        list1.add(ta1)
-        typeList.add(list)
-        typeList.add(list1)
+        tagList = tagService.getAll()
+        typeList = Converter.GroupTagList(tagList)
     }
 
     fun selectType(view: View){
         var linearLayout = view as LinearLayout
-        var tag = Tag()
-        tag.comment = linearLayout.tag.toString()
+        var tag = tagList.find { it.id == linearLayout.tag }
         currentTag.set(tag)
+    }
+
+    fun selectMethod(view: View){
+        var radioButton = view as RadioButton
+        method = radioButton.tag as String
+        Log.d(method, method)
     }
 
     fun onDigitalKeyClick(view: View) {

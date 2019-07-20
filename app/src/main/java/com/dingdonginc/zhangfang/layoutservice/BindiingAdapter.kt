@@ -1,6 +1,7 @@
 package com.dingdonginc.zhangfang.layoutservice
 
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
@@ -20,6 +21,12 @@ class BindiingAdapter {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
             recyclerView.adapter = adapter
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:src")
+        fun setSrc(view: ImageView, resId: Int) {
+            view.setImageResource(resId)
         }
     }
 }
