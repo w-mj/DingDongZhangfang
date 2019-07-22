@@ -19,21 +19,29 @@
                             android:src="@mipmap/wechat"
                             android:layout_marginLeft="5dp"/>
                 <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:tag="1"
+                              android:onClick="@{vm::selectMethod}"
                               android:layout_gravity="center_vertical"/>
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:src="@mipmap/zfb"
                            android:layout_marginLeft="5dp"/>
                 <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:tag="2"
+                             android:onClick="@{vm::selectMethod}"
                              android:layout_gravity="center_vertical"/>
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:src="@mipmap/jd"
                            android:layout_marginLeft="5dp"/>
                 <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:tag="3"
+                             android:onClick="@{vm::selectMethod}"
                              android:layout_gravity="center_vertical"/>
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:src="@mipmap/creditcard"
                            android:layout_marginLeft="5dp"/>
                 <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:tag="4"
+                             android:onClick="@{vm::selectMethod}"
                              android:layout_gravity="center_vertical"/>
             </RadioGroup>
         </LinearLayout>
@@ -46,13 +54,13 @@
             <ImageView android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_marginLeft="5dp"
-                       android:src="@mipmap/cloth"/>
+                       android:src="@{vm.currentTag.icon}"/>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_gravity="center_vertical"
                       android:layout_marginLeft="20dp"
                       android:textSize="20dp"
-                      android:text="@{vm.currentTag.comment}"/>
+                      android:text="@{vm.currentTag.name}"/>
         </LinearLayout>
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/typeview"

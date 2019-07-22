@@ -2,6 +2,7 @@ package com.dingdonginc.zhangfang.layoutservice
 
 import android.util.Log
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
@@ -28,6 +29,11 @@ class BindiingAdapter {
         fun setAdapter(listView: ListView, adapter: BaseAdapter) {
             Log.i("setAdapter", "List Adapter")
             listView.adapter = adapter
+        }
+
+        @BindingAdapter("android:src")
+        fun setSrc(view: ImageView, resId: Int) {
+            view.setImageResource(resId)
         }
     }
 }
