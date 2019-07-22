@@ -13,84 +13,83 @@
                       android:orientation="horizontal">
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 1 ? 0 : 4}"
-                          android:layout_width="wrap_content"
+                          android:layout_width="match_parent"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[0].comment}">
+                          android:tag="@{tag[0].id}">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:tag="@{tag[0].comment}"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[0].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[0].comment}"/>
+                          android:text="@{tag[0].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 2 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[1].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[1].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[1].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[1].comment}"/>
+                          android:text="@{tag[1].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 3 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[2].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[2].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[2].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[2].comment}"/>
+                          android:text="@{tag[2].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 4 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[3].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[3].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[3].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[3].comment}"/>
+                          android:text="@{tag[3].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 5 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[4].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[4].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[4].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[4].comment}"/>
+                          android:text="@{tag[4].name}"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -100,83 +99,83 @@
                       android:orientation="horizontal">
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 6 ? 0 : 4}"
+                          android:layout_width="match_parent"
                           android:layout_weight="1"
+                          android:layout_height="wrap_content"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[5].comment}"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content">
+                          android:tag="@{tag[5].id}">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[5].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[5].comment}"/>
+                          android:text="@{tag[5].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 7 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[6].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[6].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[6].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[6].comment}"/>
+                          android:text="@{tag[6].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 8 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[7].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[7].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[7].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[7].comment}"/>
+                          android:text="@{tag[7].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 9 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[8].comment}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[8].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[8].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[8].comment}"/>
+                          android:text="@{tag[8].name}"/>
             </LinearLayout>
             <LinearLayout android:orientation="vertical"
+                          android:visibility="@{tag.size >= 10 ? 0 : 4}"
                           android:layout_weight="1"
                           android:onClick="@{addvm::selectType}"
-                          android:tag="@{tag[9].comment}"
-                          android:visibility="@{tag.size >= 10 ? 0 : 4}"
-                          android:layout_width="wrap_content"
+                          android:tag="@{tag[9].id}"
+                          android:layout_width="match_parent"
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_gravity="center_horizontal"
-                           android:src="@mipmap/cloth"/>
+                           android:src="@{tag[9].icon}"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
-                          android:text="@{tag[9].comment}"/>
+                          android:text="@{tag[9].name}"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.dingdonginc.zhangfang.services.converter
 
 import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.DayAccounts
+import com.dingdonginc.zhangfang.models.Tag
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -58,6 +59,24 @@ object Converter {
             6 -> "· 星期六"
             else -> "· undefined"
         }
+    }
+
+    fun GroupTagList(tagList: List<Tag>): ArrayList<ArrayList<Tag>>{
+        var count = 0
+        var tags = ArrayList<Tag>()
+        val tagGroup = ArrayList<ArrayList<Tag>>()
+        for (tag in tagList){
+            tags.add(tag)
+            count++
+            if(count == 10){
+                tagGroup.add(tags)
+                count = 0
+                tags = ArrayList<Tag>()
+            }
+        }
+        if(tags.size != 0)
+            tagGroup.add(tags)
+        return tagGroup
     }
 }
 
