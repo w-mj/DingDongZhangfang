@@ -11,36 +11,53 @@ import java.lang.Exception
 class TagFactory {
     private var idCache: HashMap<String, Int> = HashMap()
     enum class Type {
-        Cloth, DailyUse, DailyCost, Eat, Pet, Shopping, Food
+        Cloth, DailyUse, DailyCost, Eat,
+        Pet, Shopping, Food,
+        Study, Transport,
+        Entertainment, Cigarette, Fruit, House, Makeup, Health, Party,
     }
-    companion object {
-        val predefinedTag: HashMap<Type, Tag> = hashMapOf(
-            Type.Cloth to Tag("服装", R.mipmap.cloth),
-            Type.DailyCost to Tag("日常消费", R.mipmap.dailyuse),
-            Type.DailyUse to Tag("日用品", R.mipmap.dailycost),
-            Type.Eat to Tag("餐饮", R.mipmap.eat),
-            Type.Pet to Tag("宠物", R.mipmap.pet),
-            Type.Shopping to Tag("购物", R.mipmap.shopping),
-            Type.Food to Tag("食物", R.mipmap.vegetable)
-        )
+    private val predefinedTag: HashMap<Type, Tag> = hashMapOf(
+        Type.Cloth to Tag("服装", R.mipmap.cloth),
+        Type.DailyCost to Tag("日常消费", R.mipmap.dailyuse),
+        Type.DailyUse to Tag("日用品", R.mipmap.dailycost),
+        Type.Eat to Tag("餐饮", R.mipmap.eat),
+        Type.Pet to Tag("宠物", R.mipmap.pet),
+        Type.Shopping to Tag("购物", R.mipmap.shopping),
+        Type.Food to Tag("食物", R.mipmap.vegetable),
+        Type.Study to Tag("学习", R.mipmap.book),
+        Type.Transport to Tag("交通", R.mipmap.transport),
+        Type.Cigarette to Tag("吸烟？", R.mipmap.cigarette),
+        Type.Fruit to Tag("水果？", R.mipmap.fruit),
+        Type.House to Tag("居住", R.mipmap.house),
+        Type.Makeup to Tag("美容", R.mipmap.makeup),
+        Type.Health to Tag("健康", R.mipmap.medicine),
+        Type.Party to Tag("聚会", R.mipmap.party)
+    )
+
+    fun initDb() {
+        val databaseHelper: DatabaseHelper by App.getKodein().instance()
+        val dao: Dao<Tag, Int> = databaseHelper.getDao(Tag::class.java)
+        insertPredefinedToDb(dao)
     }
 
-    fun insertPredefinedToDb(dao: Dao<Tag, Int>) {
+    private fun insertPredefinedToDb(dao: Dao<Tag, Int>) {
+        Log.i("TagFactory", predefinedTag.count().toString())
+
         for (pre in predefinedTag) {
-            if (dao.queryForEq("name", pre.value.name).count() > 0) {
-                continue
+            Log.i("TagFactory", "check ${pre.value.name}")
+            try {
+                val t = dao.queryForEq(Tag::name.name, pre.value.name)[0]
+                if (t.icon != pre.value.icon) {
+                    t.icon = pre.value.icon
+                    dao.update(t)
+                    Log.i("TagFactory", "update predefined tag ${pre.value.name}")
+                }
+            } catch(e: IndexOutOfBoundsException) {
+                dao.create(pre.value)
+                Log.i("TagFactory", "create predefined tag ${pre.value.name}")
             }
-            dao.create(pre.value)
-            Log.i("TagFactory", "create predefined tag ${pre.value.name}")
         }
     }
-
-    private var nameIcon: HashMap<String, Int> = hashMapOf(
-        "服装" to R.mipmap.cloth,
-        "日常消费" to R.mipmap.dailycost,
-        "日用品" to R.mipmap.dailyuse,
-        "食品" to R.mipmap.eat
-    )
 
     private fun generateTag(name: String): Tag {
         val t = Tag()

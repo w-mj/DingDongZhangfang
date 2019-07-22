@@ -15,7 +15,10 @@ import android.view.View
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
+import com.dingdonginc.zhangfang.models.TagFactory
+import com.dingdonginc.zhangfang.models.WalletFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -74,6 +77,12 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_main)
+
+
+        val tagFactory: TagFactory by kodein.instance()
+        tagFactory.initDb()
+        val walletFactory: WalletFactory by kodein.instance()
+        walletFactory.initDb()
 
 //        val binding: com.dingdonginc.zhangfang.databinding.ActivityMainBinding =
 //            DataBindingUtil.setContentView(this, R.layout.activity_main)

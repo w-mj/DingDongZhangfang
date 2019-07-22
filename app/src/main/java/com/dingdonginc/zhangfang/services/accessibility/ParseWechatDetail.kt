@@ -63,7 +63,7 @@ object ParseWechatDetail {
         }
         val formatter = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA)
         val walletFactory: WalletFactory by App.getKodein().instance()
-        val wallet = walletFactory.wechatBalance()
+        val wallet = walletFactory.getPredefined(WalletFactory.Type.WechatBalance)
         val tagFactory: TagFactory by App.getKodein().instance()
         val acc = Account(
             wallet = wallet,

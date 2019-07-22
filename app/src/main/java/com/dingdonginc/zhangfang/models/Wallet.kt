@@ -1,5 +1,6 @@
 package com.dingdonginc.zhangfang.models
 
+import com.dingdonginc.zhangfang.R
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 
@@ -11,7 +12,20 @@ enum class WalletType{
  * 数据库中的付（收）款方式表
  */
 @DatabaseTable(tableName = "wallet")
-class Wallet {
+class Wallet() {
+    constructor(
+        name: String,
+        type: WalletType,
+        comment: String="",
+        predefined: Boolean=false,
+        icon: Int = R.drawable.baseline_sentiment_very_satisfied_black_36
+    ): this() {
+        this.name = name
+        this.type = type
+        this.comment = comment
+        this.predefined = predefined
+        this.icon = icon
+    }
     @DatabaseField(id=false, generatedId = true)
     var id: Int = 0
     @DatabaseField

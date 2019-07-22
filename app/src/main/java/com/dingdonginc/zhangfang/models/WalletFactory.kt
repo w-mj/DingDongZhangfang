@@ -6,6 +6,7 @@ import com.dingdonginc.zhangfang.R
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.stmt.query.In
 import org.kodein.di.generic.instance
+import java.lang.IndexOutOfBoundsException
 
 /**
  * 钱包工厂函数
@@ -59,39 +60,33 @@ class WalletFactory {
     enum class Type {
         AlipayBalance, WechatBalance, Huabei
     }
-    private val predefineIcon = hashMapOf(
-        Type.AlipayBalance to R.mipmap.zfb,
-        Type.WechatBalance to R.mipmap.wechat,
-        Type.Huabei to R.mipmap.huabei
-    )
-    private val predefinedWallet = hashMapOf(
-        Type.AlipayBalance to "支付宝余额",
-        Type.WechatBalance to "微信余额",
-        Type.Huabei to "蚂蚁花呗"
-    )
-    private val predefinedWalletType = mapOf(
-        Type.AlipayBalance to WalletType.Real,
-        Type.WechatBalance to WalletType.Real,
-        Type.Huabei to WalletType.Virtual
+
+    private val predefinedWallet = hashMapOf<Type, Wallet>(
+        Type.AlipayBalance to Wallet("支付宝余额", WalletType.Real,predefined=true, icon=R.mipmap.zfb),
+        Type.WechatBalance to Wallet("微信余额", WalletType.Real,predefined=true, icon=R.mipmap.wechat),
+        Type.Huabei to Wallet("蚂蚁花呗", WalletType.Virtual, predefined=true, icon=R.mipmap.huabei)
     )
 
-    fun insertPredefinedToDb(dao: Dao<Wallet, Int>) {
-        for (w in predefinedWallet){
-            getWallet(w.value, predefinedWalletType[w.key]!!, predefineIcon[w.key]!!)
+    fun initDb() {
+        val databaseHelper: DatabaseHelper by App.getKodein().instance()
+        val dao: Dao<Wallet, Int> = databaseHelper.getDao(Wallet::class.java)
+        insertPredefinedToDb(dao)
+    }
+
+    private fun insertPredefinedToDb(dao: Dao<Wallet, Int>) {
+        for (wa in predefinedWallet) {
+            try {
+                val w = dao.queryForEq(Wallet::name.name, wa.value.name)[0]
+                if (w.icon != wa.value.icon) {
+                    w.icon = wa.value.icon
+                    dao.update(w)
+                }
+            } catch(e: IndexOutOfBoundsException) {
+                dao.create(wa.value)
+                Log.i("WalletFactory", "create predefined tag ${wa.value.name}")
+            }
         }
     }
 
-    private fun getPredefined(name: Type): Wallet {
-        return getWallet(predefinedWallet.getValue(name),
-            predefinedWalletType.getValue(name),
-            predefineIcon.getValue(name)
-        )
-    }
-
-    fun alipayBalance() = getPredefined(Type.AlipayBalance)
-
-    fun wechatBalance() = getPredefined(Type.WechatBalance)
-
-    fun huabei() = getPredefined(Type.Huabei)
-
+    fun getPredefined(type: Type): Wallet = predefinedWallet[type]!!
 }

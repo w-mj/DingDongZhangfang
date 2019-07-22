@@ -31,6 +31,7 @@ class BindiingAdapter {
             listView.adapter = adapter
         }
 
+        @JvmStatic
         @BindingAdapter("android:src")
         fun setSrc(view: ImageView, resId: Int) {
             view.setImageResource(resId)

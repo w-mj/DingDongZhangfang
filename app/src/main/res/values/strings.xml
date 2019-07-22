@@ -21,4 +21,5 @@
     <string name="accessibility_desc">叮咚账房自动记账</string>
     <string name="input">收入:</string>
     <string name="output">支出:</string>
+    <string name="ContentDescriptor">Image</string>
 </resources>
