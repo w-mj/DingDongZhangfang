@@ -1,11 +1,9 @@
 package com.dingdonginc.zhangfang.models
 
-import android.content.Context
 import android.util.Log
 import com.dingdonginc.zhangfang.App
-import org.kodein.di.Kodein
+import com.j256.ormlite.dao.Dao
 import org.kodein.di.generic.instance
-import java.lang.Exception
 
 /**
  * 钱包工厂函数
@@ -55,20 +53,35 @@ class WalletFactory {
         }
     }
 
-    private val predefinedWallet = mapOf(
-        "支付宝余额" to WalletType.Real,
-        "微信余额" to WalletType.Real
-    )
-
-    fun isPredefined(name: String) = name in predefinedWallet
-
-    fun getPredefined(name: String): Wallet {
-        assert(name in predefinedWallet)
-        return getWallet(name, predefinedWallet.getValue(name))
+    enum class Type {
+        AlipayBalance, WechatBalance, Huabei
     }
 
-    fun alipayBalance() = getPredefined("支付宝余额")
+    companion object {
+        val predefinedWallet = hashMapOf<Type, String>(
+            Type.AlipayBalance to "支付宝余额",
+            Type.WechatBalance to "微信余额",
+            Type.Huabei to "蚂蚁花呗"
+        )
+        private val predefinedWalletType = mapOf(
+            Type.AlipayBalance to WalletType.Real,
+            Type.WechatBalance to WalletType.Real,
+            Type.Huabei to WalletType.Virtual
+        )
+    }
 
-    fun wechatBalance() = getPredefined("微信余额")
+    fun insertPredefinedToDb(dao: Dao<Wallet, Int>) {
+        for (w in predefinedWallet){
+            predefinedWalletType[w.key]?.let { getWallet(w.value, it) }
+        }
+    }
+
+    fun getPredefined(name: Type): Wallet {
+        return getWallet(predefinedWallet.getValue(name), predefinedWalletType.getValue(name))
+    }
+
+    fun alipayBalance() = getPredefined(Type.AlipayBalance)
+
+    fun wechatBalance() = getPredefined(Type.WechatBalance)
 
 }

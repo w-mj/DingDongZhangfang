@@ -1,5 +1,6 @@
 package com.dingdonginc.zhangfang.layoutservice
 
+import android.util.Log
 import android.widget.BaseAdapter
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
@@ -20,6 +21,13 @@ class BindiingAdapter {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
             recyclerView.adapter = adapter
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["adapter"])
+        fun setAdapter(listView: ListView, adapter: BaseAdapter) {
+            Log.i("setAdapter", "List Adapter")
+            listView.adapter = adapter
         }
     }
 }

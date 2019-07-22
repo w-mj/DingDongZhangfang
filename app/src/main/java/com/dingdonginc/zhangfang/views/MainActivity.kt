@@ -118,7 +118,8 @@ class MainActivity :
 
         //通知权限是否获得
         if (!isNotificationListenerEnabled(this)) {
-            openNotificationListenSettings()
+            Log.i("MainActivity", "未获得读取通知权限")
+            // openNotificationListenSettings()
         }
         //KtoggleNotificationListenerService();
 

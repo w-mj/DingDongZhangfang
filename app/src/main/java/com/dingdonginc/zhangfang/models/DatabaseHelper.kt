@@ -78,6 +78,8 @@ class DatabaseHelper constructor(context: Context) :
             TableUtils.createTable(connectionSource, Account::class.java)
             val tagFactory: TagFactory by App.getKodein().instance()
             tagFactory.insertPredefinedToDb(getDao(Tag::class.java))
+            val walletFactory: WalletFactory by App.getKodein().instance()
+            walletFactory.insertPredefinedToDb(getDao(Wallet::class.java))
         } catch (e: SQLException) {
             Log.e(DatabaseHelper::class.java.name, "Can't create database", e)
             throw RuntimeException(e)

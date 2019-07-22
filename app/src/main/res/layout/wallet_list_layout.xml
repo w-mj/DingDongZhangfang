@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.WalletViewModel"/>
     </data>
@@ -7,14 +7,13 @@
                   android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
-        <Button
+        <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{vm::update}"
-        />
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@{vm.text}"/>
+                android:layout_height="match_parent"
+                app:adapter="@{vm.adapter}"
+        >
+
+        </ListView>
 
     </LinearLayout>
 </layout>
