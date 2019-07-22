@@ -22,7 +22,7 @@ class WMJActivity : AppCompatActivity(), KodeinAware {
         setContentView(R.layout.activity_wmj)
         val data: ArrayList<String> = ArrayList()
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data)
-        val list: ListView = findViewById<ListView>(R.id.wmj_list)
+        val list: ListView = findViewById(R.id.wmj_list)
         list.adapter = adapter
         val context: Context = this
         val refresh: Button = findViewById(R.id.wmj_refresh)

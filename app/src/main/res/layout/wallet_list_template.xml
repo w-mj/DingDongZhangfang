@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="wallet" type="com.dingdonginc.zhangfang.models.Wallet"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+    >
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@{wallet.name}"
+        />
+
+    </FrameLayout>
+</layout>

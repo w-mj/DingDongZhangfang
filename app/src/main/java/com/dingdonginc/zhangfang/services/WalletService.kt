@@ -18,16 +18,16 @@ class WalletService {
             = getDao().queryForAll()
 
     fun getPredefined(): List<Wallet>
-            = getDao().queryBuilder().where().ge(Wallet::predefined.name, true).query()
+            = getDao().queryBuilder().where().eq(Wallet::predefined.name, true).query()
 
     fun getUserDefined(): List<Wallet>
-            = getDao().queryBuilder().where().ge(Wallet::predefined.name, false).query()
+            = getDao().queryBuilder().where().eq(Wallet::predefined.name, false).query()
 
     fun getVirtual(): List<Wallet>
-            = getDao().queryBuilder().where().ge(Wallet::type.name, WalletType.Virtual).query()
+            = getDao().queryBuilder().where().eq(Wallet::type.name, WalletType.Virtual).query()
 
     fun getReal(): List<Wallet>
-            = getDao().queryBuilder().where().ge(Wallet::type.name, WalletType.Real).query()
+            = getDao().queryBuilder().where().eq(Wallet::type.name, WalletType.Real).query()
 
     fun addWallet(wallet: Wallet): Int
             = getDao().create(wallet)

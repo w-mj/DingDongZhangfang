@@ -7,12 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.viewpager.widget.PagerAdapter
+import com.dingdonginc.zhangfang.BR
+import com.dingdonginc.zhangfang.R
 import java.lang.Exception
 
 class WalletViewPagerAdapter(
     private val mList: List<ViewModel>,
-    private val varId: Int,
-    private val layoutId: Int,
     private val layoutInflater: LayoutInflater
 ): PagerAdapter() {
     /**
@@ -47,8 +47,9 @@ class WalletViewPagerAdapter(
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val binding: ViewDataBinding = DataBindingUtil.inflate(layoutInflater, layoutId, container, true)
-        binding.setVariable(varId, mList[position])
+        val binding: ViewDataBinding = DataBindingUtil.inflate(layoutInflater,
+            R.layout.wallet_list_layout, container, true)
+        binding.setVariable(BR.vm, mList[position])
         return binding
     }
 
