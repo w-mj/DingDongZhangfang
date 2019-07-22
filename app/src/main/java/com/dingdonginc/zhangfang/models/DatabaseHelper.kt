@@ -16,7 +16,7 @@ import java.sql.SQLException
 
 
 const val DBName = "dingdongzhangfang.db"
-const val DBVersion = 2
+const val DBVersion = 3
 
 class DatabaseHelper constructor(context: Context) :
     OrmLiteSqliteOpenHelper(context, DBName, null, DBVersion, R.raw.ormlite_config) {

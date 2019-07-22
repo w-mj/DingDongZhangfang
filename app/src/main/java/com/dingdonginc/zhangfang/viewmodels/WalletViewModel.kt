@@ -19,7 +19,7 @@ class WalletViewModel : ViewModel() {
     }
 
     fun switch(i: Int) {
-        Log.i("WalletViewModel" , "switch $i")
+//        Log.i("WalletViewModel" , "switch $i")
         val walletService: WalletService by App.getKodein().instance()
         list.clear()
         when(i) {
@@ -27,6 +27,8 @@ class WalletViewModel : ViewModel() {
             1-> walletService.getVirtual().forEach { list.add(it)}
             else -> throw Exception("WalletViewModel: i must be 1 or 0")
         }
+        adapter.notifyDataSetChanged()
+        // Log.i("WalletViewMode", list.joinToString { it.name })
     }
 
 }

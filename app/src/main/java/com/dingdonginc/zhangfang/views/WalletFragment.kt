@@ -1,18 +1,14 @@
 package com.dingdonginc.zhangfang.views
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.dingdonginc.zhangfang.BR
-
 import com.dingdonginc.zhangfang.R
-import com.dingdonginc.zhangfang.databinding.WalletFragmentBinding
 import com.dingdonginc.zhangfang.layoutservice.WalletViewPagerAdapter
 import com.dingdonginc.zhangfang.viewmodels.WalletViewModel
 import com.google.android.material.tabs.TabLayout
@@ -89,10 +85,8 @@ class WalletFragment : Fragment() {
          * @param position Position index of the new selected page.
          */
         override fun onPageSelected(position: Int) {
-            Log.i("onPageSelected", position.toString())
+            // Log.i("onPageSelected", position.toString())
             listViewModel.switch(position)
         }
-
     }
-
 }

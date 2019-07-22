@@ -35,7 +35,7 @@ class WalletListAdapter(private val list: ObservableList<Wallet>): BaseAdapter()
 
 
     init {
-        list.addOnListChangedCallback(callback())
+        // list.addOnListChangedCallback(callback())
     }
     override fun getView(p0: Int, convertView: View?, parent: ViewGroup?): View {
         val binding: ViewDataBinding? = if (convertView == null) {

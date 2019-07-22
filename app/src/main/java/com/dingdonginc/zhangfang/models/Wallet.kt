@@ -26,4 +26,6 @@ class Wallet {
     var hidden = false  // 是否为已删除的方式
     @DatabaseField      // 余额
     var balance = 0
+    @DatabaseField
+    var icon = 0
 }
