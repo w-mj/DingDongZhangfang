@@ -2,36 +2,54 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="wallet" type="com.dingdonginc.zhangfang.models.Wallet"/>
+        <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.WalletViewModel"/>
     </data>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-    >
+        >
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@{wallet.icon}"
-                android:contentDescription="@string/ContentDescriptor"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{wallet.icon}"
+            android:contentDescription="@string/ContentDescriptor"
+        />
         <TextView
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{wallet.name}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:layout_gravity="center"
-                />
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{wallet.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_gravity="center"
+        />
         <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="余额:"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:paddingEnd="20dp"
+            android:text="@{Integer.toString(wallet.balance)}"
+        />
         <ImageView
-                android:layout_gravity="end"
-                android:contentDescription="@string/ContentDescriptor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_create_black_36"
+            android:layout_gravity="end"
+            android:contentDescription="@string/ContentDescriptor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_create_black_36"
+            android:onClick="@{()->vm.onModifyWallet(wallet)}"
         />
 
     </LinearLayout>
