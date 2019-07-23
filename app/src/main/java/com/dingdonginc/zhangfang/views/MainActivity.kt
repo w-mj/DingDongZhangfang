@@ -19,6 +19,7 @@ import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
+import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -77,7 +78,6 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_main)
-
 
         val tagFactory: TagFactory by kodein.instance()
         tagFactory.initDb()

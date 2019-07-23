@@ -5,13 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.layoutservice.WalletViewPagerAdapter
+import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.dingdonginc.zhangfang.viewmodels.WalletViewModel
 import com.google.android.material.tabs.TabLayout
+import org.kodein.di.generic.instance
 
 class WalletFragment : Fragment() {
 
@@ -46,6 +51,8 @@ class WalletFragment : Fragment() {
         val tab = view!!.findViewById<TabLayout>(R.id.wallet_tab)
         tab.setupWithViewPager(pager)
         pager.currentItem = 0
+        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
+        mainActivityDialogService.setFm(fragmentManager!!)
     }
 
     private inner class OnPageChange: ViewPager.OnPageChangeListener {
@@ -87,6 +94,10 @@ class WalletFragment : Fragment() {
         override fun onPageSelected(position: Int) {
             // Log.i("onPageSelected", position.toString())
             listViewModel.switch(position)
+        }
+
+        fun showDialog(dialog: DialogFragment, tag: String) {
+            dialog.show(fragmentManager, tag)
         }
     }
 }
