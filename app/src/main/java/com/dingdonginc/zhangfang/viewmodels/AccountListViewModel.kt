@@ -1,10 +1,11 @@
 package com.dingdonginc.zhangfang.viewmodels
 
 import android.util.Log
+import android.view.Gravity
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
@@ -16,6 +17,7 @@ import com.dingdonginc.zhangfang.models.DayAccounts
 import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.converter.Converter
+import com.dingdonginc.zhangfang.views.SelectDialog
 import org.kodein.di.generic.instance
 
 class AccountListViewModel : ViewModel(){
@@ -65,4 +67,5 @@ class AccountListViewModel : ViewModel(){
         }
         Log.d("options", options.toString())
     }
+
 }
