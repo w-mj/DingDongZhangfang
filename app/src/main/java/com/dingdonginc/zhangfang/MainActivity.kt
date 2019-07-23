@@ -1,44 +1,24 @@
 package com.dingdonginc.zhangfang
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import android.view.MenuItem
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import com.dingdonginc.zhangfang.models.Check
-import org.json.JSONObject
-import java.net.URL
-
-import kotlinx.android.synthetic.main.content_main.*
-
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
-import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
 import com.dingdonginc.zhangfang.layoutservice.ViewPagerAdapter
 import com.dingdonginc.zhangfang.viewmodels.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     private var viewPager : ViewPager ?= null

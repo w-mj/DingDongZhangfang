@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.viewmodels.MainViewModel
 import com.dingdonginc.zhangfang.views.AddAccountFragment
+import com.test.chart.PieChartFragment
 import org.kodein.di.generic.instance
 
 class WMJActivity : AppCompatActivity() {
@@ -43,7 +44,7 @@ class WMJActivity : AppCompatActivity() {
 
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        val fr = AddAccountFragment()
+        val fr = PieChartFragment()
         ft.add(R.id.wmj_frame, fr)
         ft.show(fr)
         ft.commitAllowingStateLoss()
