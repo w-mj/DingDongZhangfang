@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.SelectDialogViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:orientation="vertical">
+            <LinearLayout android:layout_width="450dp"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="付款方式 : "/>
+                <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:checked="@={vm.methods[0]}"
+                          android:text="支付宝"/>
+                <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:checked="@={vm.methods[1]}"
+                          android:text="微信"/>
+                <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:checked="@={vm.methods[2]}"
+                          android:text="银行卡"/>
+                <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:checked="@={vm.methods[3]}"
+                          android:text="现金"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="50dp"
+                       android:orientation="horizontal">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="日期范围 : "/>
+            <Button android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:text="@{vm.startdate}"
+                    android:id="@+id/startdate"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                       android:text=" -- "/>
+            <Button android:layout_width="match_parent" android:layout_height="match_parent"
+                             android:text="@{vm.enddate}"
+                             android:id="@+id/enddate"/>
+            <!--<DatePicker android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+                         <!--android:datePickerMode="spinner"></DatePicker>-->
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="50dp"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="付款范围 : "/>
+            <EditText android:layout_width="50dp" android:layout_height="match_parent"
+                      android:inputType="numberDecimal"
+                      android:text="@={vm.minMoney}"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text=" -- "/>
+            <EditText android:layout_width="50dp" android:layout_height="match_parent"
+                      android:inputType="numberDecimal"
+                      android:text="@={vm.maxMoney}"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="50dp"
+                       android:orientation="horizontal">
+            <Button android:layout_width="wrap_content" android:layout_height="match_parent"
+                     android:text="@string/mdtp_ok"
+                     android:onClick="@{vm::confirm}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
