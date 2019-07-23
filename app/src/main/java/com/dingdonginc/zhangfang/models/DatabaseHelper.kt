@@ -16,7 +16,7 @@ import java.sql.SQLException
 
 
 const val DBName = "dingdongzhangfang.db"
-const val DBVersion = 2
+const val DBVersion = 3
 
 class DatabaseHelper constructor(context: Context) :
     OrmLiteSqliteOpenHelper(context, DBName, null, DBVersion, R.raw.ormlite_config) {
@@ -76,6 +76,7 @@ class DatabaseHelper constructor(context: Context) :
             TableUtils.createTable(connectionSource, Wallet::class.java)
             TableUtils.createTable(connectionSource, Tag::class.java)
             TableUtils.createTable(connectionSource, Account::class.java)
+
         } catch (e: SQLException) {
             Log.e(DatabaseHelper::class.java.name, "Can't create database", e)
             throw RuntimeException(e)

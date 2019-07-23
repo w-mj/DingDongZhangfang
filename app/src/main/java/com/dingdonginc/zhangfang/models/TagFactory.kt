@@ -1,18 +1,67 @@
 package com.dingdonginc.zhangfang.models
 
-import android.content.Context
 import android.util.Log
 import com.dingdonginc.zhangfang.App
-import org.kodein.di.Kodein
+import com.dingdonginc.zhangfang.R
+import com.j256.ormlite.dao.Dao
 import org.kodein.di.generic.instance
 import java.lang.Exception
 
+
 class TagFactory {
     private var idCache: HashMap<String, Int> = HashMap()
+    enum class Type {
+        Cloth, DailyUse, DailyCost, Eat,
+        Pet, Shopping, Food,
+        Study, Transport,
+        Entertainment, Cigarette, Fruit, House, Makeup, Health, Party,
+    }
+    private val predefinedTag: HashMap<Type, Tag> = hashMapOf(
+        Type.Cloth to Tag("服装", R.mipmap.cloth),
+        Type.DailyCost to Tag("日常消费", R.mipmap.dailyuse),
+        Type.DailyUse to Tag("日用品", R.mipmap.dailycost),
+        Type.Eat to Tag("餐饮", R.mipmap.eat),
+        Type.Pet to Tag("宠物", R.mipmap.pet),
+        Type.Shopping to Tag("购物", R.mipmap.shopping),
+        Type.Food to Tag("食物", R.mipmap.vegetable),
+        Type.Study to Tag("学习", R.mipmap.book),
+        Type.Transport to Tag("交通", R.mipmap.transport),
+        Type.Cigarette to Tag("吸烟？", R.mipmap.cigarette),
+        Type.Fruit to Tag("水果？", R.mipmap.fruit),
+        Type.House to Tag("居住", R.mipmap.house),
+        Type.Makeup to Tag("美容", R.mipmap.makeup),
+        Type.Health to Tag("健康", R.mipmap.medicine),
+        Type.Party to Tag("聚会", R.mipmap.party)
+    )
+
+    fun initDb() {
+        val databaseHelper: DatabaseHelper by App.getKodein().instance()
+        val dao: Dao<Tag, Int> = databaseHelper.getDao(Tag::class.java)
+        insertPredefinedToDb(dao)
+    }
+
+    private fun insertPredefinedToDb(dao: Dao<Tag, Int>) {
+        Log.i("TagFactory", predefinedTag.count().toString())
+
+        for (pre in predefinedTag) {
+            Log.i("TagFactory", "check ${pre.value.name}")
+            try {
+                val t = dao.queryForEq(Tag::name.name, pre.value.name)[0]
+                if (t.icon != pre.value.icon) {
+                    t.icon = pre.value.icon
+                    dao.update(t)
+                    Log.i("TagFactory", "update predefined tag ${pre.value.name}")
+                }
+            } catch(e: IndexOutOfBoundsException) {
+                dao.create(pre.value)
+                Log.i("TagFactory", "create predefined tag ${pre.value.name}")
+            }
+        }
+    }
 
     private fun generateTag(name: String): Tag {
         val t = Tag()
-        t.icon = 0
+        t.icon = R.mipmap.cloth
         t.name = name
         t.comment = ""
         return t
@@ -45,6 +94,10 @@ class TagFactory {
                 throw Exception()
             }
         }
+    }
+
+    fun getPredefined(which: Type): Tag {
+        return predefinedTag[which]!!
     }
 
     fun cloth() = getTag("服装")

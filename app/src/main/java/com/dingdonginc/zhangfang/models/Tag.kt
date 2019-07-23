@@ -7,7 +7,11 @@ import com.j256.ormlite.table.DatabaseTable
  * 账目标签表
  */
 @DatabaseTable(tableName = "tag")
-class Tag {
+class Tag() {
+    constructor(name: String, icon: Int) : this() {
+        this.name = name
+        this.icon = icon
+    }
     @DatabaseField(generatedId = true)
     var id = 0
     @DatabaseField

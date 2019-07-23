@@ -5,7 +5,7 @@ import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
 
 class DayAccounts(var accounts : ArrayList<Account> = ArrayList(),
                   val date : String, val weekday : String,
-                  val inCome : String, val outCome : String) {
+                  val inCome : Float, val outCome : Float) {
     var _dayAccountAdapter : DayAccountAdapter
     init {
         _dayAccountAdapter = DayAccountAdapter(BR.item, accounts)

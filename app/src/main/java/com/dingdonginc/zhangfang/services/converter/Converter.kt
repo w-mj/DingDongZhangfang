@@ -2,6 +2,7 @@ package com.dingdonginc.zhangfang.services.converter
 
 import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.DayAccounts
+import com.dingdonginc.zhangfang.models.Tag
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,31 +15,31 @@ object Converter {
         var input : Float = 0F
         var output : Float = 0F
         //按时间升序排序
-        accList.sortBy { it.time  }
+        accList.sortByDescending { it.time  }
         //按日期分组
         if(accList.size != 0) {
             lastTime = accList[0].time
             for (acc in accList) {
-                if(acc.amount > 0)
-                    input += acc.amount/100
-                else
-                    output += -acc.amount/100
                 if (acc.time.date == lastTime.date &&
                     acc.time.month == lastTime.month &&
                     acc.time.year == lastTime.year)
                     partofAcc.add(acc)
                 else {
                     dayAccountsList.add(DayAccounts(partofAcc, DateIntToString(lastTime.date),
-                        DayIntToString(lastTime.day), input.toString(), output.toString()))
+                        DayIntToString(lastTime.day), input, output))
                     lastTime = acc.time
                     partofAcc = ArrayList<Account>()
                     input = 0F
                     output = 0F
                     partofAcc.add(acc)
                 }
+                if(acc.amount > 0)
+                    input += acc.amount/100F
+                else
+                    output += -acc.amount/100F
             }
             dayAccountsList.add(DayAccounts(partofAcc,  DateIntToString(lastTime.date),
-                DayIntToString(lastTime.day),input.toString(),output.toString()))
+                DayIntToString(lastTime.day),input,output))
         }
         return dayAccountsList
     }
@@ -58,6 +59,24 @@ object Converter {
             6 -> "· 星期六"
             else -> "· undefined"
         }
+    }
+
+    fun GroupTagList(tagList: List<Tag>): ArrayList<ArrayList<Tag>>{
+        var count = 0
+        var tags = ArrayList<Tag>()
+        val tagGroup = ArrayList<ArrayList<Tag>>()
+        for (tag in tagList){
+            tags.add(tag)
+            count++
+            if(count == 10){
+                tagGroup.add(tags)
+                count = 0
+                tags = ArrayList<Tag>()
+            }
+        }
+        if(tags.size != 0)
+            tagGroup.add(tags)
+        return tagGroup
     }
 }
 

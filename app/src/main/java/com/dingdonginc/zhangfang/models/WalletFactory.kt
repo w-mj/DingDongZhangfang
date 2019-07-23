@@ -1,11 +1,12 @@
 package com.dingdonginc.zhangfang.models
 
-import android.content.Context
 import android.util.Log
 import com.dingdonginc.zhangfang.App
-import org.kodein.di.Kodein
+import com.dingdonginc.zhangfang.R
+import com.j256.ormlite.dao.Dao
+import com.j256.ormlite.stmt.query.In
 import org.kodein.di.generic.instance
-import java.lang.Exception
+import java.lang.IndexOutOfBoundsException
 
 /**
  * 钱包工厂函数
@@ -13,7 +14,7 @@ import java.lang.Exception
 class WalletFactory {
     private var idCache: HashMap<String, Int> = HashMap()
 
-    private fun generateWallet(name: String, type: WalletType): Wallet {
+    private fun generateWallet(name: String, type: WalletType, icon: Int): Wallet {
         val w = Wallet()
         w.balance = 0
         w.comment = name + "账户"
@@ -21,10 +22,11 @@ class WalletFactory {
         w.name = name
         w.predefined = true
         w.type = type
+        w.icon = icon
         return w
     }
 
-    private fun getWallet(name: String, type: WalletType): Wallet {
+    private fun getWallet(name: String, type: WalletType, icon: Int): Wallet {
         Log.i("getWallet", name)
         val helper: DatabaseHelper by App.getKodein().instance()
         val dao = helper.getDao(Wallet::class.java)
@@ -40,7 +42,7 @@ class WalletFactory {
         when {
             queryResult.size == 0 -> {
                 Log.i("getWallet", "Build $name balance")
-                val w = generateWallet(name, type)
+                val w = generateWallet(name, type, icon)
                 dao.create(w)
                 idCache[name] = w.id
                 return w
@@ -55,20 +57,36 @@ class WalletFactory {
         }
     }
 
-    private val predefinedWallet = mapOf(
-        "支付宝余额" to WalletType.Real,
-        "微信余额" to WalletType.Real
-    )
-
-    fun isPredefined(name: String) = name in predefinedWallet
-
-    fun getPredefined(name: String): Wallet {
-        assert(name in predefinedWallet)
-        return getWallet(name, predefinedWallet.getValue(name))
+    enum class Type {
+        AlipayBalance, WechatBalance, Huabei
     }
 
-    fun alipayBalance() = getPredefined("支付宝余额")
+    private val predefinedWallet = hashMapOf<Type, Wallet>(
+        Type.AlipayBalance to Wallet("支付宝余额", WalletType.Real,predefined=true, icon=R.mipmap.zfb),
+        Type.WechatBalance to Wallet("微信余额", WalletType.Real,predefined=true, icon=R.mipmap.wechat),
+        Type.Huabei to Wallet("蚂蚁花呗", WalletType.Virtual, predefined=true, icon=R.mipmap.huabei)
+    )
 
-    fun wechatBalance() = getPredefined("微信余额")
+    fun initDb() {
+        val databaseHelper: DatabaseHelper by App.getKodein().instance()
+        val dao: Dao<Wallet, Int> = databaseHelper.getDao(Wallet::class.java)
+        insertPredefinedToDb(dao)
+    }
 
+    private fun insertPredefinedToDb(dao: Dao<Wallet, Int>) {
+        for (wa in predefinedWallet) {
+            try {
+                val w = dao.queryForEq(Wallet::name.name, wa.value.name)[0]
+                if (w.icon != wa.value.icon) {
+                    w.icon = wa.value.icon
+                    dao.update(w)
+                }
+            } catch(e: IndexOutOfBoundsException) {
+                dao.create(wa.value)
+                Log.i("WalletFactory", "create predefined tag ${wa.value.name}")
+            }
+        }
+    }
+
+    fun getPredefined(type: Type): Wallet = predefinedWallet[type]!!
 }

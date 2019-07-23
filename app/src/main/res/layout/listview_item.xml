@@ -26,7 +26,7 @@
                 android:textSize="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="120dp"
-                android:textColor="@color/colorRed"
-                android:text="@{item.comment}"/>
+                android:textColor="@{item.amount > 0 ? @color/colorGreen : @color/colorRed}"
+                android:text="@{String.valueOf(item.amount/100)+ String.valueOf('.') + String.valueOf(-item.amount%100)}"/>
     </LinearLayout>
 </layout>

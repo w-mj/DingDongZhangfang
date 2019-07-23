@@ -1,10 +1,14 @@
 package com.dingdonginc.zhangfang.layoutservice
 
+import android.util.Log
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dingdonginc.zhangfang.models.Tag
 
 /*
    为recyclerview 自定义属性 app:adapter
@@ -18,6 +22,19 @@ class BindiingAdapter {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
             recyclerView.adapter = adapter
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["adapter"])
+        fun setAdapter(listView: ListView, adapter: BaseAdapter) {
+            Log.i("setAdapter", "List Adapter")
+            listView.adapter = adapter
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:src")
+        fun setSrc(view: ImageView, resId: Int) {
+            view.setImageResource(resId)
         }
     }
 }
