@@ -16,7 +16,9 @@ import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.viewmodels.AccountListViewModel
+import com.github.mikephil.charting.charts.PieChart
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.test.chart.PieChartFragment
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
@@ -35,6 +37,7 @@ class MainActivity :
         extend(_parentKodein)
         bind<AccountListFragment>() with singleton { AccountListFragment() }
         bind<WalletFragment>() with singleton { WalletFragment() }
+        bind<PieChartFragment>() with singleton {PieChartFragment() }
     }
 
     private var viewPager : ViewPager ?= null
@@ -175,7 +178,7 @@ class MainActivity :
         }
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {1
         // Handle navigation view listview_item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
@@ -183,7 +186,7 @@ class MainActivity :
 //                viewpager.setCurrentItem(0)
             }
             R.id.nav_chart -> {
-//                showFragment<AddAccountFragment>()
+                showFragment<PieChartFragment>()
 //                viewpager.setCurrentItem(1)
             }
             R.id.nav_fund -> {

@@ -41,16 +41,7 @@ class PieChartFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.activity_piechart, container, false)
 
-       // viewMoudel = ViewModelProviders.of
-       /* getWindow().setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
 
-        setTitle("PieChart")
-*/
-
-        //setContentView( R.layout.activity_piechart)
         chart = root.findViewById(R.id.chart1)
 //        Log.i("1", chart.contentDescription.toString())
         chart!!.setUsePercentValues(true)
