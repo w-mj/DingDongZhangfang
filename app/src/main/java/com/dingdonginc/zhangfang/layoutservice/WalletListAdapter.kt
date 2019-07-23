@@ -10,10 +10,10 @@ import androidx.databinding.ObservableList
 import androidx.databinding.ViewDataBinding
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.R
-import org.kodein.di.bindings.newScopeRegistry
+import com.dingdonginc.zhangfang.viewmodels.WalletViewModel
 
 
-class WalletListAdapter(private val list: ObservableList<Wallet>): BaseAdapter() {
+class WalletListAdapter(private val list: ObservableList<Wallet>, private val vm: WalletViewModel): BaseAdapter() {
     private inner class callback: ObservableList.OnListChangedCallback<ObservableList<Wallet>>() {
         override fun onChanged(sender: ObservableList<Wallet>?) {
             this@WalletListAdapter.notifyDataSetChanged()
@@ -38,16 +38,17 @@ class WalletListAdapter(private val list: ObservableList<Wallet>): BaseAdapter()
         // list.addOnListChangedCallback(callback())
     }
     override fun getView(p0: Int, convertView: View?, parent: ViewGroup?): View {
-        val binding: ViewDataBinding? = if (convertView == null) {
+        val binding: ViewDataBinding = if (convertView == null) {
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent!!.context),
                 R.layout.wallet_list_template,
                 parent,
                 false)
         } else {
-            DataBindingUtil.getBinding(convertView)
+            DataBindingUtil.getBinding(convertView)!!
         }
-        binding!!.setVariable(BR.wallet, list[p0])
+        binding.setVariable(BR.wallet, list[p0])
+        binding.setVariable(BR.vm, vm)
         return binding.root
     }
 

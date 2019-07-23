@@ -12,11 +12,15 @@ import org.kodein.di.generic.instance
 
 class WalletViewModel : ViewModel() {
     var list = ObservableArrayList<Wallet>()
-    var adapter = WalletListAdapter(list)
+    var adapter = WalletListAdapter(list, this)
 //    private val realAdapter: ObservableField<WalletListAdapter>
 //    private val virtualAdapter: ObservableField<WalletListAdapter>
     init {
         switch(0)
+    }
+
+    fun onModifyWallet(wallet: Wallet) {
+        Log.i("onModifyWallet", wallet.name)
     }
 
     fun switch(i: Int) {

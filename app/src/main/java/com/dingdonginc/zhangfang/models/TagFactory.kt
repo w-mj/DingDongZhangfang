@@ -13,8 +13,8 @@ class TagFactory {
     enum class Type {
         Cloth, DailyUse, DailyCost, Eat,
         Pet, Shopping, Food,
-        Study, Transport,
-        Entertainment, Cigarette, Fruit, House, Makeup, Health, Party,
+        Study, Transport, Camera,
+        Tour, Cigarette, Fruit, House, Makeup, Health, Party,
     }
     private val predefinedTag: HashMap<Type, Tag> = hashMapOf(
         Type.Cloth to Tag("服装", R.mipmap.cloth),
@@ -25,7 +25,9 @@ class TagFactory {
         Type.Shopping to Tag("购物", R.mipmap.shopping),
         Type.Food to Tag("食物", R.mipmap.vegetable),
         Type.Study to Tag("学习", R.mipmap.book),
+        Type.Camera to Tag("摄影", R.mipmap.camera),
         Type.Transport to Tag("交通", R.mipmap.transport),
+        Type.Tour to Tag("旅行", R.mipmap.tour),
         Type.Cigarette to Tag("吸烟？", R.mipmap.cigarette),
         Type.Fruit to Tag("水果？", R.mipmap.fruit),
         Type.House to Tag("居住", R.mipmap.house),
@@ -41,10 +43,7 @@ class TagFactory {
     }
 
     private fun insertPredefinedToDb(dao: Dao<Tag, Int>) {
-        Log.i("TagFactory", predefinedTag.count().toString())
-
         for (pre in predefinedTag) {
-            Log.i("TagFactory", "check ${pre.value.name}")
             try {
                 val t = dao.queryForEq(Tag::name.name, pre.value.name)[0]
                 if (t.icon != pre.value.icon) {
