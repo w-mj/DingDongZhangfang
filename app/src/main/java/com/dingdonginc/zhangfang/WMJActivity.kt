@@ -10,6 +10,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.views.AddAccountFragment
+import com.test.chart.PieChartFragment
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
@@ -42,7 +43,7 @@ class WMJActivity : AppCompatActivity(), KodeinAware {
 
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        val fr = AddAccountFragment()
+        val fr = PieChartFragment()
         ft.add(R.id.wmj_frame, fr)
         ft.show(fr)
         ft.commitAllowingStateLoss()
