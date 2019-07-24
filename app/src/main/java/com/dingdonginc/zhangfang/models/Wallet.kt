@@ -42,6 +42,8 @@ class Wallet() {
     var balance = 0
     @DatabaseField
     var icon = 0
+    @DatabaseField
+    var autoFetch = false
 
 
     fun displayRMB(): String = "${balance / 100}.${balance % 100}"

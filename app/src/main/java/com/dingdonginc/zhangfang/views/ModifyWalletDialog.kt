@@ -18,7 +18,7 @@ import com.dingdonginc.zhangfang.models.Wallet
 import com.dingdonginc.zhangfang.viewmodelfactorys.ModifyWalletViewModelFactory
 import com.dingdonginc.zhangfang.viewmodels.ModifyWalletViewModel
 
-class ModifyWalletDialog(private val wallet: Wallet, private val autoFetch: Boolean=false) : DialogFragment() {
+class ModifyWalletDialog(private val wallet: Wallet) : DialogFragment() {
     private lateinit var binding: WalletModifyNormalDialogBinding
     private var vm: ModifyWalletViewModel? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,7 +27,7 @@ class ModifyWalletDialog(private val wallet: Wallet, private val autoFetch: Bool
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        vm = ViewModelProviders.of(this, ModifyWalletViewModelFactory(wallet, autoFetch)).get(ModifyWalletViewModel::class.java)
+        vm = ViewModelProviders.of(this, ModifyWalletViewModelFactory(wallet)).get(ModifyWalletViewModel::class.java)
         binding.setVariable(BR.vm, vm)
         view!!.findViewById<Button>(R.id.wallet_modify_normal_submit).setOnClickListener(OnSubmit())
         view!!.findViewById<Button>(R.id.wallet_modify_normal_cancel).setOnClickListener(OnCancel())

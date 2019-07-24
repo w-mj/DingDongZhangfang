@@ -15,6 +15,7 @@
                     android:labelFor="@id/wallet_modify_normal_billing"
             />
             <EditText
+                    android:selectAllOnFocus="true"
                     android:minWidth="100dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -24,13 +25,13 @@
                     android:autofillHints="金额"
             />
         </TableRow >
-        <TableRow android:visibility="@{vm.autoFetch}">
+        <TableRow android:visibility="@{vm.wallet.predefined}">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="自动更新"
             />
-            <Switch/>
+            <Switch android:checked="@={vm.wallet.autoFetch}"/>
         </TableRow>
         <TableRow>
             <Button

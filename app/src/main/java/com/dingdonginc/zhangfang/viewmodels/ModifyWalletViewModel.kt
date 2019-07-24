@@ -8,10 +8,7 @@ import com.dingdonginc.zhangfang.models.Wallet
 import com.dingdonginc.zhangfang.services.MessageService
 import org.kodein.di.generic.instance
 
-class ModifyWalletViewModel(val wallet: Wallet, val autoFetch: Boolean): ViewModel() {
-    init {
-        Log.i("modify wallet viewmodel", wallet.name)
-    }
+class ModifyWalletViewModel(val wallet: Wallet): ViewModel() {
     val input = ObservableField<String>(wallet.displayRMB())
     fun submit() {
         val messageService: MessageService by App.getKodein().instance()
