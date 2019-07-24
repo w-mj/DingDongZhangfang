@@ -1,5 +1,8 @@
 package com.dingdonginc.zhangfang.viewmodels
 
+import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -11,20 +14,22 @@ import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
 import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
-import com.dingdonginc.zhangfang.models.Account
-import com.dingdonginc.zhangfang.models.Check
-import com.dingdonginc.zhangfang.models.DayAccounts
-import com.dingdonginc.zhangfang.models.Tag
+import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
+import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
 import com.dingdonginc.zhangfang.views.SelectDialog
 import org.kodein.di.generic.instance
+import java.util.*
+import kotlin.collections.ArrayList
 
-class AccountListViewModel : ViewModel(){
+class AccountListViewModel : ViewModel(), Handler.Callback{
     var _contentMainAdapter : ContentMainAdapter ?= null
     var list = ArrayList<DayAccounts>()
     private lateinit var options: ArrayList<Int>
     init {
+        val messageService: MessageService by App.getKodein().instance()
+        messageService.register(this)
         val accountService: AccountService by App.getKodein().instance()
         list = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
@@ -68,4 +73,40 @@ class AccountListViewModel : ViewModel(){
         Log.d("options", options.toString())
     }
 
+    override fun handleMessage(msg: Message): Boolean {
+        val bundle: Bundle = msg.getData()
+        val sDate = Date(bundle.getInt("syear")-1900, bundle.getInt("smonth"), bundle.getInt("sday"))
+        val eDate = Date(bundle.getInt("eyear")-1900, bundle.getInt("emonth"), bundle.getInt("eday"))
+        val accountService: AccountService by App.getKodein().instance()
+        val AllAccounts = accountService.getAll() as ArrayList<Account>
+        val tempAccounts  = ArrayList<Account>()
+        var income = 0F
+        var outcome = 0F
+        val wallet = Wallet("微信",WalletType.Real,"", false, 1)
+        for(acc in AllAccounts){
+            acc.wallet = wallet
+            Log.d(acc.time.toString(), sDate.toString())
+            Log.d(acc.time.toString(), eDate.toString())
+            Log.d("compare", (acc.time >= sDate).toString())
+            Log.d("compare", (acc.time <= eDate).toString())
+            if(acc.time >= sDate && acc.time <= eDate) {
+                Log.d("1st",acc.amount.toString())
+                if (Math.abs(acc.amount) >= 100 * bundle.getFloat("min")
+                    && Math.abs(acc.amount) <= 100 * bundle.getFloat("max")) {
+                    Log.d("2st",acc.wallet.name)
+                    if (bundle.getStringArrayList("methods")?.contains(acc.wallet.name)!!) {
+                        tempAccounts.add(acc)
+                        if (acc.amount >= 0)
+                            income += acc.amount/100F
+                        else
+                            outcome += -acc.amount/100F
+                    }
+                }
+            }
+        }
+        list.clear()
+        list.add(DayAccounts(tempAccounts, "筛选结果", "", income, outcome))
+        _contentMainAdapter?.notifyDataSetChanged()
+        return true
+    }
 }

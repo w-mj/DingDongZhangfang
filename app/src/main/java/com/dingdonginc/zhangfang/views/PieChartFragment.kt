@@ -42,7 +42,7 @@ class PieChartFragment : Fragment() {
         val root = inflater.inflate(R.layout.activity_piechart, container, false)
 
 
-        chart = root.findViewById(R.id.chart1)
+        chart = root.findViewById(R.id.piechart)
 //        Log.i("1", chart.contentDescription.toString())
         chart!!.setUsePercentValues(true)
         chart!!.description.isEnabled = false

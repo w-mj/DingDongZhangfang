@@ -61,7 +61,7 @@
                        android:orientation="horizontal">
             <Button android:layout_width="wrap_content" android:layout_height="match_parent"
                      android:text="@string/mdtp_ok"
-                     android:onClick="@{vm::confirm}"/>
+                     android:onClick="@{vm::submit}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

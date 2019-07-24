@@ -12,6 +12,7 @@ import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.viewmodels.AccountListViewModel
 import com.dingdonginc.zhangfang.viewmodels.SelectDialogViewModel
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import kotlinx.android.synthetic.main.day_accounts.*
 
 
 class SelectDialog: DialogFragment() {
@@ -50,13 +51,13 @@ class SelectDialog: DialogFragment() {
 
     private inner class OnDatePickerCallBack: DatePickerDialog.OnDateSetListener {
         override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-            viewModel.startdate.set(String.format("%4d-%02d-%02d", year, monthOfYear, dayOfMonth))
+            viewModel.setStart(year, monthOfYear, dayOfMonth)
         }
     }
 
     private inner class OnDatePickerCallBack1: DatePickerDialog.OnDateSetListener {
         override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-            viewModel.enddate.set(String.format("%4d-%02d-%02d", year, monthOfYear, dayOfMonth))
+            viewModel.setEnd(year, monthOfYear, dayOfMonth)
         }
     }
 }

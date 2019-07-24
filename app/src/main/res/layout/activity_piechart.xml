@@ -3,33 +3,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-        <RadioGroup android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                <RadioButton
-                             android:id="@+id/Pie"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="饼状图"
-                             android:onClick="onRadioButtonClicked"
-                />
-                <RadioButton
-                             android:id="@+id/Line"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="线状图"
-                             android:onClick="onRadioButtonClicked"
-                />
-                <RadioButton
-                             android:id="@+id/Bar"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="柱状图"
-                             android:onClick="onRadioButtonClicked"
-                />
-        </RadioGroup>
         <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart1"
+                android:id="@+id/piechart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
         />
