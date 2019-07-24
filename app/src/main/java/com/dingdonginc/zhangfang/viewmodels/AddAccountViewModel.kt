@@ -5,17 +5,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RadioButton
-import androidx.databinding.BindingConversion
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
-import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.models.Tag
+import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.services.ExpressionService
 import com.dingdonginc.zhangfang.services.TagService
 import com.dingdonginc.zhangfang.services.converter.Converter
 import org.kodein.di.generic.instance
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,7 +21,6 @@ import kotlin.collections.ArrayList
 class AddAccountViewModel : ViewModel() {
     val currentInput = ObservableField<String>()
     val datetime = ObservableField<String>()
-    val sum = 0
     var typeList = ArrayList<ArrayList<Tag>>()
     var currentTag = ObservableField<Tag>()
     private val parser = SimpleDateFormat("yyyy-MM-dd\nHH:mm", Locale.CHINA)
@@ -35,22 +32,21 @@ class AddAccountViewModel : ViewModel() {
         currentInput.set("")
         val now = Date()
         datetime.set(parser.format(now))
-        var temptag = Tag()
-        temptag.icon = R.mipmap.add
-        temptag.name = "其他"
+        val tagFactory: TagFactory by App.getKodein().instance()
+        val temptag = tagFactory.getPredefined(TagFactory.Type.Unknown)
         currentTag.set(temptag)
         tagList = tagService.getAll()
         typeList = Converter.GroupTagList(tagList)
     }
 
     fun selectType(view: View){
-        var linearLayout = view as LinearLayout
-        var tag = tagList.find { it.id == linearLayout.tag }
+        val linearLayout = view as LinearLayout
+        val tag = tagList.find { it.id == linearLayout.tag }
         currentTag.set(tag)
     }
 
     fun selectMethod(view: View){
-        var radioButton = view as RadioButton
+        val radioButton = view as RadioButton
         method = radioButton.tag as String
         Log.d(method, method)
     }

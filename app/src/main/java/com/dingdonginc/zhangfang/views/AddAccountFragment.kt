@@ -9,11 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.dingdonginc.zhangfang.BR
 
 import com.dingdonginc.zhangfang.R
+import com.dingdonginc.zhangfang.imageradio.ImageRadio
+import com.dingdonginc.zhangfang.imageradio.ImageRadioAdapter
+import com.dingdonginc.zhangfang.imageradio.ImageRadioItemViewModel
 import com.dingdonginc.zhangfang.layoutservice.ViewPagerAdapter
 import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.viewmodels.AddAccountViewModel
@@ -76,8 +83,16 @@ class AddAccountFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        var viewPager : ViewPager = getView()!!.findViewById(R.id.typeview)
-        var adapter = ViewPagerAdapter<Tag>(viewModel.typeList, viewModel, BR.tag , R.layout.typelist_item, getLayoutInflater())
-        viewPager?.setAdapter(adapter)
+        val viewPager : ViewPager = view!!.findViewById(R.id.typeview)
+        val adapter = ViewPagerAdapter<Tag>(viewModel.typeList, viewModel, BR.tag , R.layout.typelist_item, getLayoutInflater())
+        viewPager.adapter = adapter
+
+        val list = ArrayList<ImageRadioItemViewModel>()
+        list.add(ImageRadioItemViewModel(R.mipmap.wechat))
+        list.add(ImageRadioItemViewModel(R.mipmap.zfb))
+        list.add(ImageRadioItemViewModel(R.mipmap.huabei))
+        val imageRadio = view!!.findViewById<RecyclerView>(R.id.image_radio)
+        imageRadio.adapter = ImageRadioAdapter(list)
+        imageRadio.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 }
