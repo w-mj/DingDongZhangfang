@@ -23,22 +23,26 @@
             <LinearLayout android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:orientation="horizontal">
-                <Spinner android:layout_width="match_parent" android:layout_height="match_parent"
-                          android:id="@+id/spin"
-                          android:tag="1"
-                          android:onItemSelected="@{vm::onitemSelected}"></Spinner>
-                <Spinner android:layout_width="match_parent" android:layout_height="match_parent"
-                         android:id="@+id/spin2"
-                         android:tag="2"
-                         android:onItemSelected="@{vm::onitemSelected}"></Spinner>
-                <Spinner android:layout_width="match_parent" android:layout_height="match_parent"
-                         android:tag="3"
-                         android:id="@+id/spin3"
-                         android:onItemSelected="@{vm::onitemSelected}"></Spinner>
-                <Spinner android:layout_width="match_parent" android:layout_height="match_parent"
-                         android:tag="4"
-                         android:id="@+id/spin4"
-                         android:onItemSelected="@{vm::onitemSelected}"></Spinner>
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:id="@+id/selectbt"/>
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:onClick="@{vm::refresh}"/>
+                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
+                          <!--android:id="@+id/spin"-->
+                          <!--android:tag="1"-->
+                          <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
+                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
+                         <!--android:id="@+id/spin2"-->
+                         <!--android:tag="2"-->
+                         <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
+                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
+                         <!--android:tag="3"-->
+                         <!--android:id="@+id/spin3"-->
+                         <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
+                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
+                         <!--android:tag="4"-->
+                         <!--android:id="@+id/spin4"-->
+                         <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
             </LinearLayout>
             <LinearLayout android:layout_width="wrap_content"
                           android:layout_height="wrap_content"

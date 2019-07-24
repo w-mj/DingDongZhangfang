@@ -2,21 +2,17 @@ package com.dingdonginc.zhangfang.models
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.dingdonginc.zhangfang.R
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper
+import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
-import android.util.Log
-import com.dingdonginc.zhangfang.App
-import com.j256.ormlite.dao.Dao
-import org.kodein.di.generic.instance
 import java.sql.SQLException
 
 
-
-
 const val DBName = "dingdongzhangfang.db"
-const val DBVersion = 3
+const val DBVersion = 4
 
 class DatabaseHelper constructor(context: Context) :
     OrmLiteSqliteOpenHelper(context, DBName, null, DBVersion, R.raw.ormlite_config) {

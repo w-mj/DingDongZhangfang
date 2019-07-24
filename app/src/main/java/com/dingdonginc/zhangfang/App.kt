@@ -5,6 +5,7 @@ import com.dingdonginc.zhangfang.models.DatabaseHelper
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.*
+import com.dingdonginc.zhangfang.services.MessageService
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule
@@ -24,6 +25,8 @@ class App: Application(), KodeinAware {
             bind<WalletService>() with singleton { WalletService() }
             bind<TestService>() with singleton { TestService(applicationContext) }
             bind<ExpressionService>() with singleton { ExpressionService() }
+            bind<MainActivityDialogService>() with singleton { MainActivityDialogService() }
+            bind<MessageService>() with singleton { MessageService() }
         }
 
     companion object {
