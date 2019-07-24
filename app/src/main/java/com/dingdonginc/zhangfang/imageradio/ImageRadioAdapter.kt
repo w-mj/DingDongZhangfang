@@ -8,9 +8,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.R
+import java.lang.ref.WeakReference
 
 class ImageRadioAdapter(private val vms: List<ImageRadioItemViewModel>):
     RecyclerView.Adapter<ImageRadioAdapter.Holder>() {
+    init {
+        ImageRadioService.vms = WeakReference(vms)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.image_radio, parent, false)
@@ -26,16 +30,9 @@ class ImageRadioAdapter(private val vms: List<ImageRadioItemViewModel>):
     inner class Holder(private val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             binding.setVariable(BR.vm, vms[pos])
-            binding.setVariable(BR.onclick, OnClick(pos))
+            binding.setVariable(BR.pos, pos)
             binding.executePendingBindings()
         }
     }
 
-    inner class OnClick(private val it: Int): View.OnClickListener {
-        override fun onClick(p0: View?) {
-            for (vm in vms)
-                vm.clicked.set(false)
-            vms[it].clicked.set(true)
-        }
-    }
 }

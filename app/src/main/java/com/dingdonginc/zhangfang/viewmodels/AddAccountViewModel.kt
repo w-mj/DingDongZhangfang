@@ -28,6 +28,8 @@ class AddAccountViewModel : ViewModel() {
     private lateinit var tagList: List<Tag>
     private var method = "1"
 
+    val selectedWallet = ObservableField<Int>()
+
     init {
         currentInput.set("")
         val now = Date()
@@ -104,6 +106,6 @@ class AddAccountViewModel : ViewModel() {
         val expSer: ExpressionService by App.getKodein().instance()
         val str = currentInput.get()?:return
         val datetime = parser.parse(datetime.get()!!)!!
-        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()}")
+        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()} wallet ${selectedWallet.get()}")
     }
 }

@@ -3,43 +3,82 @@ package com.dingdonginc.zhangfang.imageradio
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
-import android.widget.ListAdapter
-import android.widget.ListView
-import androidx.core.view.children
-import androidx.databinding.BindingAdapter
+import android.widget.RemoteViews
 import androidx.recyclerview.widget.RecyclerView
-
-class ImageRadio: ListView {
-    constructor(context: Context): super(context)
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int): super(context, attrs, defStyle)
-
-    override fun setAdapter(ad: ListAdapter?) {
-        super.setAdapter(ad)
-        children.forEachIndexed { index, view -> view.setOnClickListener{onClick(index)} }
-        Log.i("ImageRadio", children.count().toString())
-    }
+import java.lang.ref.WeakReference
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import androidx.databinding.*
 
 
-    private val onClick : (Int)->Unit = {
-        for (i in 0 until count) {
-            val vm = adapter.getItem(i) as ImageRadioItemViewModel
-            vm.clicked.set(false)
+@InverseBindingMethods(
+    InverseBindingMethod(
+        type=ImageRadio::class,
+        attribute="app:selected1",
+        event="selected1AttrChanged",
+        method="getSelected"
+    )
+)
+class ImageRadio : RecyclerView {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+
+//    val selected: ObservableField<Int>? = null
+    private var onSelectedChangeListener: (()->Unit)? = null
+    var selected = 0
+        set(value) {
+            field = value
+            onSelectedChangeListener?.invoke()
         }
-        val vm = adapter.getItem(it) as ImageRadioItemViewModel
-        vm.clicked.set(false)
+
+    init {
+        ImageRadioService.view = WeakReference(this)
+//        selected?.addOnPropertyChangedCallback(OnPropertyChange())
     }
+
+//    private inner class OnPropertyChange : Observable.OnPropertyChangedCallback() {
+//        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+//            if (selected.get() != null)
+//                ImageRadioService.click(selected.get()!!)
+//            else
+//                Log.d("ImageRadio", "selected is null")
+//        }
+//
+//    }
+
 
     companion object {
         @JvmStatic
         @BindingAdapter("android:background")
-        fun setBackground(view: ImageView, boundary: Boolean) {
+        fun setImageRadioItemBackground(view: ImageView, boundary: Boolean) {
             if (boundary)
                 view.setBackgroundColor(0xFFFFC107.toInt())
             else
                 view.setBackgroundColor(0x00FFC107)
         }
+
+        @JvmStatic
+        @BindingAdapter("selected1")
+        fun setSelectItem(view: ImageRadio, selected: Int) {
+            ImageRadioService.click(selected)
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "selected1")
+        fun getSelected(view: ImageRadio): Int {
+            return view.selected
+        }
+
+        @JvmStatic
+        @BindingAdapter("selected1AttrChanged")
+        fun setListener(radio: View?, selectedAttrChanged: InverseBindingListener?) {
+            val img = radio as ImageRadio
+            img.onSelectedChangeListener = {selectedAttrChanged!!.onChange()}
+        }
     }
+
 }
+

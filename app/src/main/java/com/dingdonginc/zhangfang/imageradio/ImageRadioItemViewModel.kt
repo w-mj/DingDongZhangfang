@@ -8,4 +8,6 @@ class ImageRadioItemViewModel(icon: Int) {
     init {
         src.set(icon)
     }
+
+    fun onClick(i: Int) = ImageRadioService.click(i)
 }
