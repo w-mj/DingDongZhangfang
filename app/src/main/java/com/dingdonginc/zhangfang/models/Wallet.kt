@@ -42,4 +42,7 @@ class Wallet() {
     var balance = 0
     @DatabaseField
     var icon = 0
+
+
+    fun displayRMB(): String = "${balance / 100}.${balance % 100}"
 }

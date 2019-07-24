@@ -29,6 +29,7 @@ class WalletService {
     fun getReal(): List<Wallet>
             = getDao().queryBuilder().where().eq(Wallet::type.name, WalletType.Real).query()
 
-    fun addWallet(wallet: Wallet): Int
-            = getDao().create(wallet)
+    fun addWallet(wallet: Wallet): Int = getDao().create(wallet)
+
+    fun update(wallet: Wallet):Int = getDao().update(wallet)
 }
