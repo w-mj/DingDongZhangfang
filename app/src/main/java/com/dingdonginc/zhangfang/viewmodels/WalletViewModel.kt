@@ -34,7 +34,7 @@ class WalletViewModel : ViewModel(), Handler.Callback {
     fun onModifyWallet(wallet: Wallet) {
         Log.i("onModifyWallet", wallet.name)
         val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
-        mainActivityDialogService.showNormalDialog()
+        mainActivityDialogService.showNormalDialog(wallet)
     }
 
     fun switch(i: Int) {
@@ -50,7 +50,11 @@ class WalletViewModel : ViewModel(), Handler.Callback {
 
 
     override fun handleMessage(msg: Message): Boolean {
-        Log.i("Msg", msg.what.toString())
+        val w: Wallet = msg.obj as Wallet
+        Log.i("Msg", "update billing ${msg.what}: ${w.balance}")
+        val walletService: WalletService by App.getKodein().instance()
+        walletService.update(w)
+        adapter.notifyDataSetChanged()
         return true
     }
 }

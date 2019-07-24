@@ -2,6 +2,7 @@ package com.dingdonginc.zhangfang.services
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.dingdonginc.zhangfang.models.Wallet
 import com.dingdonginc.zhangfang.views.ModifyWalletDialog
 
 class MainActivityDialogService {
@@ -11,8 +12,8 @@ class MainActivityDialogService {
         fm = a
     }
 
-    fun showNormalDialog() {
-        val d = ModifyWalletDialog()
+    fun showNormalDialog(wallet: Wallet) {
+        val d = ModifyWalletDialog(wallet)
         d.show(fm!!, "Modify")
     }
 

@@ -41,7 +41,7 @@
             android:layout_gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:paddingEnd="20dp"
-            android:text="@{Integer.toString(wallet.balance)}"
+            android:text="@{wallet.displayRMB()}"
         />
         <ImageView
             android:layout_gravity="end"

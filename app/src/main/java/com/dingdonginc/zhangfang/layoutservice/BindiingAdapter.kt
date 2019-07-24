@@ -1,6 +1,7 @@
 package com.dingdonginc.zhangfang.layoutservice
 
 import android.util.Log
+import android.view.View
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.ListView
@@ -35,6 +36,15 @@ class BindiingAdapter {
         @BindingAdapter("android:src")
         fun setSrc(view: ImageView, resId: Int) {
             view.setImageResource(resId)
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["android:visibility"])
+        fun setVisibility(view: View, vis: Boolean) {
+            if (vis)
+                view.visibility = View.VISIBLE
+            else
+                view.visibility = View.GONE
         }
     }
 }
