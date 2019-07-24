@@ -37,7 +37,7 @@ class MainActivity :
         extend(_parentKodein)
         bind<AccountListFragment>() with singleton { AccountListFragment() }
         bind<WalletFragment>() with singleton { WalletFragment() }
-        bind<PieChartFragment>() with singleton {PieChartFragment() }
+        bind<ChartFragment>() with singleton { ChartFragment() }
     }
 
     private var viewPager : ViewPager ?= null
@@ -186,7 +186,7 @@ class MainActivity :
 //                viewpager.setCurrentItem(0)
             }
             R.id.nav_chart -> {
-                showFragment<PieChartFragment>()
+                showFragment<ChartFragment>()
 //                viewpager.setCurrentItem(1)
             }
             R.id.nav_fund -> {
