@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.databinding.*
+import androidx.recyclerview.widget.LinearLayoutManager
 
 
 @InverseBindingMethods(
@@ -26,7 +27,6 @@ class ImageRadio : RecyclerView {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-//    val selected: ObservableField<Int>? = null
     private var onSelectedChangeListener: (()->Unit)? = null
     var selected = 0
         set(value) {
@@ -36,18 +36,9 @@ class ImageRadio : RecyclerView {
 
     init {
         ImageRadioService.view = WeakReference(this)
-//        selected?.addOnPropertyChangedCallback(OnPropertyChange())
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-//    private inner class OnPropertyChange : Observable.OnPropertyChangedCallback() {
-//        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-//            if (selected.get() != null)
-//                ImageRadioService.click(selected.get()!!)
-//            else
-//                Log.d("ImageRadio", "selected is null")
-//        }
-//
-//    }
 
 
     companion object {
@@ -55,7 +46,7 @@ class ImageRadio : RecyclerView {
         @BindingAdapter("android:background")
         fun setImageRadioItemBackground(view: ImageView, boundary: Boolean) {
             if (boundary)
-                view.setBackgroundColor(0xFFFFC107.toInt())
+                view.setBackgroundColor(0xfff48fb1.toInt())
             else
                 view.setBackgroundColor(0x00FFC107)
         }
@@ -78,7 +69,12 @@ class ImageRadio : RecyclerView {
             val img = radio as ImageRadio
             img.onSelectedChangeListener = {selectedAttrChanged!!.onChange()}
         }
-    }
 
+        @JvmStatic
+        @BindingAdapter("src")
+        fun setSrc(view: ImageRadio, lst: List<Int>) {
+            view.adapter = ImageRadioAdapter(lst.map { ImageRadioItemViewModel(it) })
+        }
+    }
 }
 

@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.models.TagFactory
+import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.ExpressionService
 import com.dingdonginc.zhangfang.services.TagService
+import com.dingdonginc.zhangfang.services.WalletService
 import com.dingdonginc.zhangfang.services.converter.Converter
 import org.kodein.di.generic.instance
 import java.text.SimpleDateFormat
@@ -28,6 +30,7 @@ class AddAccountViewModel : ViewModel() {
     private lateinit var tagList: List<Tag>
     private var method = "1"
 
+    var selectableTags: List<Int>
     val selectedWallet = ObservableField<Int>()
 
     init {
@@ -39,6 +42,9 @@ class AddAccountViewModel : ViewModel() {
         currentTag.set(temptag)
         tagList = tagService.getAll()
         typeList = Converter.GroupTagList(tagList)
+
+        val walletService: WalletService by App.getKodein().instance()
+        selectableTags = walletService.getAll().map { it.icon }
     }
 
     fun selectType(view: View){
