@@ -17,6 +17,7 @@ import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.ActivityService
+import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.test.chart.PieChartFragment
 import org.kodein.di.Kodein
@@ -90,9 +91,9 @@ class MainActivity :
 //
 //        val vm = ViewModelProviders.of(this).get(AccountListViewModel::class.java)
         bnv = findViewById(R.id.bottom_nav_view)
-
         bnv?.setOnNavigationItemSelectedListener(this)
-
+        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
+        mainActivityDialogService.setFm(supportFragmentManager!!)
 //        var lst = ArrayList<AccountListViewModel>()
 //        lst.add(vm)
 //        lst.add(vm)

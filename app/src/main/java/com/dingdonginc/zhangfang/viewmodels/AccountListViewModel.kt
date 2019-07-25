@@ -4,23 +4,21 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.widget.*
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import android.widget.AdapterView
+import android.widget.LinearLayout
+import android.widget.Spinner
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
-import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.ActivityService
+import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
 import com.dingdonginc.zhangfang.views.AddAccountActivity
-import com.dingdonginc.zhangfang.views.SelectDialog
 import org.kodein.di.generic.instance
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,11 +27,11 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     var _contentMainAdapter : ContentMainAdapter ?= null
     var list = ArrayList<DayAccounts>()
     private lateinit var options: ArrayList<Int>
+    private val accountService: AccountService by App.getKodein().instance()
     init {
         val messageService: MessageService by App.getKodein().instance()
         messageService.register(this)
-        val accountService: AccountService by App.getKodein().instance()
-        list = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
+        list = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
 
         options = ArrayList<Int>()
@@ -44,8 +42,7 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     }
 
     fun refresh(view: View){
-        val accountService: AccountService by App.getKodein().instance()
-        val temp = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
+        val temp = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         list.clear()
         list.addAll(temp)
         _contentMainAdapter?.notifyDataSetChanged()
@@ -79,7 +76,6 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
         val bundle: Bundle = msg.getData()
         val sDate = Date(bundle.getInt("syear")-1900, bundle.getInt("smonth"), bundle.getInt("sday"))
         val eDate = Date(bundle.getInt("eyear")-1900, bundle.getInt("emonth"), bundle.getInt("eday"))
-        val accountService: AccountService by App.getKodein().instance()
         val AllAccounts = accountService.getAll() as ArrayList<Account>
         val tempAccounts  = ArrayList<Account>()
         var income = 0F
@@ -107,7 +103,7 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
             }
         }
         list.clear()
-        list.add(DayAccounts(tempAccounts, "筛选结果", "", income, outcome))
+        list.add(DayAccounts(this, tempAccounts, "筛选结果", "", income, outcome))
         _contentMainAdapter?.notifyDataSetChanged()
         return true
     }
@@ -115,5 +111,13 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     fun onAddAccount() {
         val activityService: ActivityService by App.getKodein().instance()
         activityService.switchActivity(AddAccountActivity::class.java)
+    }
+    fun info(view: View){
+        val linearLayout: LinearLayout = view as LinearLayout
+        val id = linearLayout.tag
+        val tempAccounts = accountService.getAll()
+        val account = tempAccounts.find { it.id == id }
+        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
+        mainActivityDialogService.showInfoDialog(account!!)
     }
 }

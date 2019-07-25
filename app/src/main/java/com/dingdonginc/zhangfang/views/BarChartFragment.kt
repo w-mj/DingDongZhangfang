@@ -27,12 +27,10 @@ class BarChartFragment : Fragment(){
         val root = inflater.inflate(R.layout.activity_barchart, container, false)
 
             chart = root.findViewById(R.id.barchart)
+            setData()
 
             chart!!.description.isEnabled = false
-
-            // if more than 60 entries are displayed in the chart, no values will be
-            // drawn
-            chart!!.setMaxVisibleValueCount(60)
+            chart!!.setDrawValueAboveBar(true)
 
             // scaling can now only be done on x- and y-axis separately
             chart!!.setPinchZoom(false)
@@ -58,19 +56,17 @@ class BarChartFragment : Fragment(){
 
             chart!!.legend.isEnabled = false
 
-            setData()
-
         return root
         }
 
 
-        fun setData() {
+        private fun setData() {
 
             val values = ArrayList<BarEntry>()
 
             for (i in months.indices) {
-                val MaxY = 10000.toFloat()
-                val `val` = (Math.random() * MaxY).toFloat() + MaxY / 3
+                val maxY = 10000.toFloat()
+                val `val` = (Math.random() * maxY).toFloat() + maxY / 3
                 values.add(BarEntry(i.toFloat(), `val`))
             }
 

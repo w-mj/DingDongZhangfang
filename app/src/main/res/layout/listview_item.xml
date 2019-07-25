@@ -3,16 +3,19 @@
 
     <data>
         <variable name="item" type="com.dingdonginc.zhangfang.models.Account"/>
+        <variable name="alvm" type="com.dingdonginc.zhangfang.viewmodels.AccountListViewModel"/>
     </data>
     <!-- 下面两个是用来给  activity_main.xml里的ListView赋值,-->
     <LinearLayout android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
+                  android:onClick="@{alvm::info}"
+                  android:tag="@{item.id}"
                   android:layout_marginTop="20dp"
                   android:layout_marginLeft="30dp">
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:src="@mipmap/cloth"/>
+                   android:src="@{item.tag.icon}"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
