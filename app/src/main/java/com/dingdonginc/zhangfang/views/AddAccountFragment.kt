@@ -84,11 +84,7 @@ class AddAccountFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val viewPager : ViewPager = view!!.findViewById(R.id.typeview)
-        val adapter = ViewPagerAdapter<Tag>(viewModel.typeList, viewModel, BR.tag , R.layout.typelist_item, getLayoutInflater())
+        val adapter = ViewPagerAdapter(viewModel.typeList, viewModel, BR.tag , R.layout.typelist_item, getLayoutInflater())
         viewPager.adapter = adapter
-        val list = ArrayList<ImageRadioItemViewModel>()
-        list.add(ImageRadioItemViewModel(R.mipmap.wechat))
-        list.add(ImageRadioItemViewModel(R.mipmap.zfb))
-        list.add(ImageRadioItemViewModel(R.mipmap.huabei))
     }
 }

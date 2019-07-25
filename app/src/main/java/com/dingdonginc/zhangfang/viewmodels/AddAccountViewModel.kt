@@ -8,9 +8,11 @@ import android.widget.RadioButton
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
+import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.models.TagFactory
-import com.dingdonginc.zhangfang.models.WalletFactory
+import com.dingdonginc.zhangfang.models.Wallet
+import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.ExpressionService
 import com.dingdonginc.zhangfang.services.TagService
 import com.dingdonginc.zhangfang.services.WalletService
@@ -30,7 +32,8 @@ class AddAccountViewModel : ViewModel() {
     private lateinit var tagList: List<Tag>
     private var method = "1"
 
-    var selectableTags: List<Int>
+    private var selectableWallet: List<Wallet>
+    var walletIcon: List<Int>
     val selectedWallet = ObservableField<Int>()
 
     init {
@@ -44,7 +47,8 @@ class AddAccountViewModel : ViewModel() {
         typeList = Converter.GroupTagList(tagList)
 
         val walletService: WalletService by App.getKodein().instance()
-        selectableTags = walletService.getAll().map { it.icon }
+        selectableWallet = walletService.getAll()
+        walletIcon = selectableWallet.map { it.icon }
     }
 
     fun selectType(view: View){
@@ -112,6 +116,16 @@ class AddAccountViewModel : ViewModel() {
         val expSer: ExpressionService by App.getKodein().instance()
         val str = currentInput.get()?:return
         val datetime = parser.parse(datetime.get()!!)!!
-        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()} wallet ${selectedWallet.get()}")
+        if (selectedWallet.get() == null)
+            return
+        val accountService: AccountService by App.getKodein().instance()
+        val acc = Account(
+            wallet=selectableWallet[selectedWallet.get()!!],
+            amount=expSer.eval(str),
+            tag=currentTag.get()!!,
+            time=datetime
+        )
+        accountService.addAccount(acc)
+//        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()} wallet ${selectedWallet.get()}")
     }
 }
