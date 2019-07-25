@@ -1,13 +1,10 @@
 package com.dingdonginc.zhangfang.views
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TableRow
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
@@ -36,8 +33,8 @@ class ModifyWalletDialog(private val wallet: Wallet) : DialogFragment() {
 
     private inner class OnSubmit: View.OnClickListener {
         override fun onClick(p0: View?) {
-            this@ModifyWalletDialog.dismiss()
             vm!!.submit()
+            this@ModifyWalletDialog.dismiss()
         }
     }
 
