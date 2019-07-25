@@ -32,7 +32,7 @@ class AddAccountViewModel : ViewModel() {
 
     private var selectableWallet: List<Wallet>
     var walletIcon: List<Int>
-    val selectedWallet = ObservableField<Int>(0)
+    val selectedWallet = ObservableField(0)
 
     init {
         currentInput.set("")
@@ -126,6 +126,8 @@ class AddAccountViewModel : ViewModel() {
                 time = datetime
             )
             accountService.addAccount(acc)
+            val notificationService: NotificationService by App.getKodein().instance()
+            notificationService.sendAutoTally(amount)
         }
         val activityService: ActivityService by App.getKodein().instance()
         activityService.switchActivity(MainActivity::class.java)
