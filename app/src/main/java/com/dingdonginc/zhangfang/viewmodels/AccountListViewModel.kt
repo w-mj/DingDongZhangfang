@@ -11,13 +11,16 @@ import android.widget.Spinner
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
+import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
+
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.ActivityService
 import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
+
 import com.dingdonginc.zhangfang.views.AddAccountActivity
 import org.kodein.di.generic.instance
 import java.util.*
@@ -28,12 +31,12 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     var list = ArrayList<DayAccounts>()
     private lateinit var options: ArrayList<Int>
     private val accountService: AccountService by App.getKodein().instance()
+
     init {
         val messageService: MessageService by App.getKodein().instance()
         messageService.register(this)
         list = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
-
         options = ArrayList<Int>()
         options.add(0)
         options.add(0)
