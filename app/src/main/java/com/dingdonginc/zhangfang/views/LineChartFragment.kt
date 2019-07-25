@@ -32,11 +32,11 @@ class LineChartFragment : Fragment() {
     private val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.activity_piechart, container, false)
+        val root = inflater.inflate(R.layout.activity_linechart, container, false)
 
         run {
             // // Chart Style // //
-            chart = root.findViewById(R.id.chart1)
+            chart = root.findViewById(R.id.linechart)
 
             // background color
             chart!!.setBackgroundColor(Color.WHITE)
@@ -149,10 +149,8 @@ class LineChartFragment : Fragment() {
         val values = ArrayList<Entry>()
 
         for (i in months.indices) {
-
             //数据替换这里
             val `val` = (Math.random() * 180).toFloat() - 30
-           // values.add(Entry(i, `val`, getResources().getDrawable(R.drawable.star)))
         }
 
         val set1: LineDataSet

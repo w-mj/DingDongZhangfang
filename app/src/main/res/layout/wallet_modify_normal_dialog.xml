@@ -5,7 +5,9 @@
     </data>
 
     <TableLayout
-            android:layout_width="wrap_content" android:layout_height="wrap_content">
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:paddingStart="20dp" android:paddingTop="20dp" android:paddingLeft="20dp"
+            android:paddingRight="20dp" android:paddingEnd="20dp">
 
         <TableRow>
             <TextView
@@ -24,7 +26,7 @@
                     android:id="@+id/wallet_modify_normal_billing"
                     android:autofillHints="金额"
             />
-        </TableRow >
+        </TableRow>
         <TableRow android:visibility="@{vm.wallet.predefined}">
             <TextView
                     android:layout_width="wrap_content"
@@ -39,6 +41,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/wallet_modify_normal_cancel"
                     android:text="取消"
+                    style="@style/Widget.AppCompat.Button.Borderless"
             />
 
             <Button
@@ -46,6 +49,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/wallet_modify_normal_submit"
                     android:text="确定"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
             />
         </TableRow>
     </TableLayout>
