@@ -13,7 +13,6 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
 class App: Application(), KodeinAware {
-
     override val kodein: Kodein
         get() = Kodein.lazy {
             import(androidModule(this@App))

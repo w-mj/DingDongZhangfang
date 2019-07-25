@@ -14,7 +14,7 @@ class TagFactory {
         Cloth, DailyUse, DailyCost, Eat,
         Pet, Shopping, Food,
         Study, Transport, Camera,
-        Tour, Cigarette, Fruit, House, Makeup, Health, Party,
+        Tour, Cigarette, Fruit, House, Makeup, Health, Party, Unknown
     }
     private val predefinedTag: HashMap<Type, Tag> = hashMapOf(
         Type.Cloth to Tag("服装", R.mipmap.cloth),
@@ -33,7 +33,8 @@ class TagFactory {
         Type.House to Tag("居住", R.mipmap.house),
         Type.Makeup to Tag("美容", R.mipmap.makeup),
         Type.Health to Tag("健康", R.mipmap.medicine),
-        Type.Party to Tag("聚会", R.mipmap.party)
+        Type.Party to Tag("聚会", R.mipmap.party),
+        Type.Unknown to Tag("未指定", R.drawable.baseline_sentiment_very_satisfied_black_36)
     )
 
     fun initDb() {

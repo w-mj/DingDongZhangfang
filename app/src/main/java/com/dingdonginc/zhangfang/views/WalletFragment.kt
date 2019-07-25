@@ -51,8 +51,6 @@ class WalletFragment : Fragment() {
         val tab = view!!.findViewById<TabLayout>(R.id.wallet_tab)
         tab.setupWithViewPager(pager)
         pager.currentItem = 0
-        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
-        mainActivityDialogService.setFm(fragmentManager!!)
     }
 
     private inner class OnPageChange: ViewPager.OnPageChangeListener {
