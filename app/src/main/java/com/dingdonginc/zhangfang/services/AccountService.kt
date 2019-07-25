@@ -16,11 +16,13 @@ class AccountService {
 
     fun addAccount(account: Account): Int{
         val dao = getDao()
-        if (account.generatedId == null)
-            return dao.create(account)
         // 已经添加过
-        if (dao.queryForEq(Account::generatedId.name, account.generatedId).size >= 1)
+        if (account.generatedId != null &&
+            dao.queryForEq(Account::generatedId.name, account.generatedId).size >= 1)
             return 0
+        account.wallet.balance -= account.amount
+        val walletService: WalletService by App.getKodein().instance()
+        walletService.update(account.wallet)
         return dao.create(account)
     }
 }

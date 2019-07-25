@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.widget.*
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import android.widget.AdapterView
+import android.widget.LinearLayout
+import android.widget.Spinner
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
-import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
+import com.dingdonginc.zhangfang.services.ActivityService
 import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
-import com.dingdonginc.zhangfang.views.SelectDialog
+import com.dingdonginc.zhangfang.views.AddAccountActivity
 import org.kodein.di.generic.instance
 import java.util.*
 import kotlin.collections.ArrayList
@@ -109,6 +108,10 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
         return true
     }
 
+    fun onAddAccount() {
+        val activityService: ActivityService by App.getKodein().instance()
+        activityService.switchActivity(AddAccountActivity::class.java)
+    }
     fun info(view: View){
         val linearLayout: LinearLayout = view as LinearLayout
         val id = linearLayout.tag

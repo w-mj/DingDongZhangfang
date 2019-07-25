@@ -16,6 +16,7 @@ import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
+import com.dingdonginc.zhangfang.services.ActivityService
 import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.test.chart.PieChartFragment
@@ -81,6 +82,9 @@ class MainActivity :
         tagFactory.initDb()
         val walletFactory: WalletFactory by kodein.instance()
         walletFactory.initDb()
+
+        val activityService: ActivityService by App.getKodein().instance()
+        activityService.activity = this
 
 //        val binding: com.dingdonginc.zhangfang.databinding.ActivityMainBinding =
 //            DataBindingUtil.setContentView(this, R.layout.activity_main)
