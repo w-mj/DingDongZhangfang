@@ -2,7 +2,9 @@ package com.dingdonginc.zhangfang.services
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.Wallet
+import com.dingdonginc.zhangfang.views.InfoDialog
 import com.dingdonginc.zhangfang.views.ModifyWalletDialog
 
 class MainActivityDialogService {
@@ -19,5 +21,10 @@ class MainActivityDialogService {
 
     fun showDialog(dialog: DialogFragment, tag: String) {
         dialog.show(fm!!, tag)
+    }
+
+    fun showInfoDialog(acc: Account){
+        val dialog = InfoDialog(acc)
+        dialog.show(fm!!, "Info")
     }
 }

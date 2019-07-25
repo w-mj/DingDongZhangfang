@@ -3,11 +3,12 @@ package com.dingdonginc.zhangfang.services.converter
 import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.DayAccounts
 import com.dingdonginc.zhangfang.models.Tag
+import com.dingdonginc.zhangfang.viewmodels.AccountListViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 object Converter {
-    fun AccListToDayAccList(accounts : ArrayList<Account>) : ArrayList<DayAccounts>{
+    fun AccListToDayAccList(alvm: AccountListViewModel, accounts : ArrayList<Account>) : ArrayList<DayAccounts>{
         var dayAccountsList = ArrayList<DayAccounts>()
         var lastTime : Date //= accList[0].time
         var partofAcc = ArrayList<Account>()
@@ -25,7 +26,7 @@ object Converter {
                     acc.time.year == lastTime.year)
                     partofAcc.add(acc)
                 else {
-                    dayAccountsList.add(DayAccounts(partofAcc, DateIntToString(lastTime.date),
+                    dayAccountsList.add(DayAccounts(alvm, partofAcc, DateIntToString(lastTime.date),
                         DayIntToString(lastTime.day), input, output))
                     lastTime = acc.time
                     partofAcc = ArrayList<Account>()
@@ -38,7 +39,7 @@ object Converter {
                 else
                     output += -acc.amount/100F
             }
-            dayAccountsList.add(DayAccounts(partofAcc,  DateIntToString(lastTime.date),
+            dayAccountsList.add(DayAccounts(alvm, partofAcc,  DateIntToString(lastTime.date),
                 DayIntToString(lastTime.day),input,output))
         }
         return dayAccountsList

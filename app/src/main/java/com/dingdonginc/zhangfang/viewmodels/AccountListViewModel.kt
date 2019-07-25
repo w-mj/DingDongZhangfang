@@ -16,6 +16,7 @@ import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
 import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
+import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
 import com.dingdonginc.zhangfang.views.SelectDialog
@@ -27,11 +28,11 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     var _contentMainAdapter : ContentMainAdapter ?= null
     var list = ArrayList<DayAccounts>()
     private lateinit var options: ArrayList<Int>
+    private val accountService: AccountService by App.getKodein().instance()
     init {
         val messageService: MessageService by App.getKodein().instance()
         messageService.register(this)
-        val accountService: AccountService by App.getKodein().instance()
-        list = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
+        list = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
 
         options = ArrayList<Int>()
@@ -42,8 +43,7 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     }
 
     fun refresh(view: View){
-        val accountService: AccountService by App.getKodein().instance()
-        val temp = Converter.AccListToDayAccList(accountService.getAll() as ArrayList<Account>)
+        val temp = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         list.clear()
         list.addAll(temp)
         _contentMainAdapter?.notifyDataSetChanged()
@@ -77,7 +77,6 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
         val bundle: Bundle = msg.getData()
         val sDate = Date(bundle.getInt("syear")-1900, bundle.getInt("smonth"), bundle.getInt("sday"))
         val eDate = Date(bundle.getInt("eyear")-1900, bundle.getInt("emonth"), bundle.getInt("eday"))
-        val accountService: AccountService by App.getKodein().instance()
         val AllAccounts = accountService.getAll() as ArrayList<Account>
         val tempAccounts  = ArrayList<Account>()
         var income = 0F
@@ -105,8 +104,17 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
             }
         }
         list.clear()
-        list.add(DayAccounts(tempAccounts, "筛选结果", "", income, outcome))
+        list.add(DayAccounts(this, tempAccounts, "筛选结果", "", income, outcome))
         _contentMainAdapter?.notifyDataSetChanged()
         return true
+    }
+
+    fun info(view: View){
+        val linearLayout: LinearLayout = view as LinearLayout
+        val id = linearLayout.tag
+        val tempAccounts = accountService.getAll()
+        val account = tempAccounts.find { it.id == id }
+        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
+        mainActivityDialogService.showInfoDialog(account!!)
     }
 }
