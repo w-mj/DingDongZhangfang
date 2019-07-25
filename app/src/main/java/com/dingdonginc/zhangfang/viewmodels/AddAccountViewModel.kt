@@ -99,7 +99,7 @@ class AddAccountViewModel : ViewModel() {
         }
     }
 
-//    val submitCommand: ReplyCommand
+//    val submitCommand: RelayCommand
 
     fun onBackspaceClick(view: View) {
         val str = currentInput.get()?:""

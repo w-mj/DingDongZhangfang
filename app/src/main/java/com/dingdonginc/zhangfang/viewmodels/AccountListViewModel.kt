@@ -4,23 +4,22 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.*
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
+import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
-import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
+import com.dingdonginc.zhangfang.lib.command.RelayCommand
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.MainActivityDialogService
 import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
-import com.dingdonginc.zhangfang.views.SelectDialog
 import org.kodein.di.generic.instance
+import rx.functions.Action1
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -29,12 +28,12 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
     var list = ArrayList<DayAccounts>()
     private lateinit var options: ArrayList<Int>
     private val accountService: AccountService by App.getKodein().instance()
+
     init {
         val messageService: MessageService by App.getKodein().instance()
         messageService.register(this)
         list = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
-
         options = ArrayList<Int>()
         options.add(0)
         options.add(0)
