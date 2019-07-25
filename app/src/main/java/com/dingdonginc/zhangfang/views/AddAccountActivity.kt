@@ -3,15 +3,20 @@ package com.dingdonginc.zhangfang.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
+import com.dingdonginc.zhangfang.services.ActivityService
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 
 class AddAccountActivity : AppCompatActivity(), KodeinAware {
+    private val _kodein by closestKodein()
     override val kodein = Kodein.lazy {
+        extend(_kodein)
         bind<AddAccountFragment>() with singleton {AddAccountFragment()}
     }
 
@@ -24,14 +29,14 @@ class AddAccountActivity : AppCompatActivity(), KodeinAware {
                 .replace(R.id.container, fragment)
                 .commitNow()
         }
+        val activityService: ActivityService by kodein.instance()
+        activityService.activity = this
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent()
-        intent.setClass(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        val activityService: ActivityService by App.getKodein().instance()
+        activityService.switchActivity(MainActivity::class.java)
     }
 
 }

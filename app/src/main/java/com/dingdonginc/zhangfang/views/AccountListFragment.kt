@@ -33,13 +33,13 @@ class AccountListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val fab = view!!.findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val itent = Intent()
-            itent.setClass(context!!, AddAccountActivity::class.java)
-            startActivity(itent);
-            activity!!.finish()
-        }
+//        val fab = view!!.findViewById<FloatingActionButton>(R.id.fab)
+//        fab.setOnClickListener {
+//            val itent = Intent()
+//            itent.setClass(context!!, AddAccountActivity::class.java)
+//            startActivity(itent);
+//            activity!!.finish()
+//        }
         val sbt = view!!.findViewById<Button>(R.id.selectbt)
         sbt.setOnClickListener{
             click()

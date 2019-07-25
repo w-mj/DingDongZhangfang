@@ -16,8 +16,10 @@ import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
 import com.dingdonginc.zhangfang.layoutservice.DayAccountAdapter
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
+import com.dingdonginc.zhangfang.services.ActivityService
 import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
+import com.dingdonginc.zhangfang.views.AddAccountActivity
 import com.dingdonginc.zhangfang.views.SelectDialog
 import org.kodein.di.generic.instance
 import java.util.*
@@ -108,5 +110,10 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
         list.add(DayAccounts(tempAccounts, "筛选结果", "", income, outcome))
         _contentMainAdapter?.notifyDataSetChanged()
         return true
+    }
+
+    fun onAddAccount() {
+        val activityService: ActivityService by App.getKodein().instance()
+        activityService.switchActivity(AddAccountActivity::class.java)
     }
 }
