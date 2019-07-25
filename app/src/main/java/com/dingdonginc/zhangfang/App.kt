@@ -26,6 +26,8 @@ class App: Application(), KodeinAware {
             bind<ExpressionService>() with singleton { ExpressionService() }
             bind<MainActivityDialogService>() with singleton { MainActivityDialogService() }
             bind<MessageService>() with singleton { MessageService() }
+            bind<ActivityService>() with singleton { ActivityService() }
+            bind<NotificationService>() with singleton { NotificationService(applicationContext) }
         }
 
     companion object {

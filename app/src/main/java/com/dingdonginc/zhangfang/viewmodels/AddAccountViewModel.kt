@@ -8,13 +8,13 @@ import android.widget.RadioButton
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
+import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.Tag
 import com.dingdonginc.zhangfang.models.TagFactory
-import com.dingdonginc.zhangfang.models.WalletFactory
-import com.dingdonginc.zhangfang.services.ExpressionService
-import com.dingdonginc.zhangfang.services.TagService
-import com.dingdonginc.zhangfang.services.WalletService
+import com.dingdonginc.zhangfang.models.Wallet
+import com.dingdonginc.zhangfang.services.*
 import com.dingdonginc.zhangfang.services.converter.Converter
+import com.dingdonginc.zhangfang.views.MainActivity
 import org.kodein.di.generic.instance
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,8 +30,9 @@ class AddAccountViewModel : ViewModel() {
     private lateinit var tagList: List<Tag>
     private var method = "1"
 
-    var selectableTags: List<Int>
-    val selectedWallet = ObservableField<Int>()
+    private var selectableWallet: List<Wallet>
+    var walletIcon: List<Int>
+    val selectedWallet = ObservableField(0)
 
     init {
         currentInput.set("")
@@ -44,7 +45,8 @@ class AddAccountViewModel : ViewModel() {
         typeList = Converter.GroupTagList(tagList)
 
         val walletService: WalletService by App.getKodein().instance()
-        selectableTags = walletService.getAll().map { it.icon }
+        selectableWallet = walletService.getAll()
+        walletIcon = selectableWallet.map { it.icon }
     }
 
     fun selectType(view: View){
@@ -112,6 +114,23 @@ class AddAccountViewModel : ViewModel() {
         val expSer: ExpressionService by App.getKodein().instance()
         val str = currentInput.get()?:return
         val datetime = parser.parse(datetime.get()!!)!!
-        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()} wallet ${selectedWallet.get()}")
+        if (selectedWallet.get() == null)
+            return
+        val amount = expSer.eval(str)
+        if (amount != 0) {
+            val accountService: AccountService by App.getKodein().instance()
+            val acc = Account(
+                wallet = selectableWallet[selectedWallet.get()!!],
+                amount = amount,
+                tag = currentTag.get()!!,
+                time = datetime
+            )
+            accountService.addAccount(acc)
+            val notificationService: NotificationService by App.getKodein().instance()
+            notificationService.sendAutoTally(amount)
+        }
+        val activityService: ActivityService by App.getKodein().instance()
+        activityService.switchActivity(MainActivity::class.java)
+//        Log.i("创建账目", expSer.eval(str).toString() + " at ${datetime.toString()} wallet ${selectedWallet.get()}")
     }
 }

@@ -10,7 +10,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 class MyFormatterNew(private val mValues: Array<String>) : ValueFormatter() {
 
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-        Log.d(TAG, "------>getAxisLable$value")
+        Log.d(TAG, "------>AxisLable$value")
         return mValues[value.toInt() % mValues.size]
     }
 

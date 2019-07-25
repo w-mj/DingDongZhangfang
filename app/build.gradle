@@ -67,7 +67,7 @@ dependencies {
     implementation 'org.kodein.di:kodein-di-framework-android-core:5.2.0'
     // support扩展组件，他的项目中用到了v4包的Fragment，因此他需要它
     implementation 'org.kodein.di:kodein-di-framework-android-support:5.2.0'
-//    compile 'org.kodein.di:kodein-di-conf-jvm:6.3.3'
+    // compile 'org.kodein.di:kodein-di-conf-jvm:6.3.3'
 
     implementation 'com.wdullaer:materialdatetimepicker:4.2.1'
 
