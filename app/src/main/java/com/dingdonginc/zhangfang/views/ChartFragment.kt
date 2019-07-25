@@ -35,6 +35,7 @@ class ChartFragment : Fragment() {
             viewPager!!.setCurrentItem(1)
             viewPager!!.setOffscreenPageLimit(3)
 
+
             //必须放tab前
             //必须先清除再手动添
             tabLayout!!.setupWithViewPager(viewPager)
