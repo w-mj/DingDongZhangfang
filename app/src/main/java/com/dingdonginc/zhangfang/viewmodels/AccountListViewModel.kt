@@ -13,6 +13,7 @@ import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.BR
 import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.layoutservice.ContentMainAdapter
+import com.dingdonginc.zhangfang.lib.command.RelayCommand
 
 import com.dingdonginc.zhangfang.models.*
 import com.dingdonginc.zhangfang.services.AccountService
@@ -22,58 +23,50 @@ import com.dingdonginc.zhangfang.services.MessageService
 import com.dingdonginc.zhangfang.services.converter.Converter
 
 import com.dingdonginc.zhangfang.views.AddAccountActivity
+import com.dingdonginc.zhangfang.views.SelectDialog
+import com.j256.ormlite.stmt.query.Not
 import org.kodein.di.generic.instance
+import rx.functions.Action0
 import java.util.*
 import kotlin.collections.ArrayList
 
 class AccountListViewModel : ViewModel(), Handler.Callback{
-    var _contentMainAdapter : ContentMainAdapter ?= null
-    var list = ArrayList<DayAccounts>()
-    private lateinit var options: ArrayList<Int>
+    /* * * binding data * * */
+    val _contentMainAdapter : ContentMainAdapter
+
+    /* * * private variables * * */
+    private var list = ArrayList<DayAccounts>()
+
+    /* * * private services * * */
     private val accountService: AccountService by App.getKodein().instance()
+    private val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
+    private val messageService: MessageService by App.getKodein().instance()
 
     init {
-        val messageService: MessageService by App.getKodein().instance()
         messageService.register(this)
         list = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         _contentMainAdapter = ContentMainAdapter(BR.dayAccounts, list)
-        options = ArrayList<Int>()
-        options.add(0)
-        options.add(0)
-        options.add(0)
-        options.add(0)
     }
 
-    fun refresh(view: View){
+    /* * * binding commands * * */
+    /**
+     * @summary Refresh the AccountListView(page), the newest data is from the database
+     * @param no param
+     */
+    val refresh = RelayCommand<Nothing>(Action0 {
         val temp = Converter.AccListToDayAccList(this, accountService.getAll() as ArrayList<Account>)
         list.clear()
         list.addAll(temp)
         _contentMainAdapter?.notifyDataSetChanged()
-    }
+    })
 
-    fun itemrefresh(view: View){
-        var account = Account()
-        account.tag = Tag()
-        account.tag.name = "支付宝"
-        account.tag.icon = 1
-        account.amount = -10
-        account.comment = "-8.00"
-        list[0].accounts.add(account)
-        list[1].accounts.add(account)
-        //list[0]._dayAccountAdapter.notifyDataSetChanged()
-        _contentMainAdapter?.notifyDataSetChanged()
-    }
-
-    fun onitemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long){
-        var spinner = p0 as Spinner
-        when(spinner.tag){
-            "1" -> options[0] = p2
-            "2" -> options[1] = p2
-            "3" -> options[2] = p2
-            "4" -> options[3] = p2
-        }
-        Log.d("options", options.toString())
-    }
+    /**
+     * @summary Popup filterDialog
+     * @param no param
+     */
+    val filterDialog = RelayCommand<Nothing>(Action0 {
+        mainActivityDialogService.showFilterDialog()
+    })
 
     override fun handleMessage(msg: Message): Boolean {
         val bundle: Bundle = msg.getData()
@@ -115,12 +108,12 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
         val activityService: ActivityService by App.getKodein().instance()
         activityService.switchActivity(AddAccountActivity::class.java)
     }
+
     fun info(view: View){
         val linearLayout: LinearLayout = view as LinearLayout
         val id = linearLayout.tag
         val tempAccounts = accountService.getAll()
         val account = tempAccounts.find { it.id == id }
-        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
         mainActivityDialogService.showInfoDialog(account!!)
     }
 }
