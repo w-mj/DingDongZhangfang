@@ -26,6 +26,10 @@ import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
+import java.net.CookieHandler
+import java.net.CookieManager
+import java.net.CookiePolicy
+
 
 class MainActivity :
         AppCompatActivity(),
@@ -75,6 +79,9 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val manager = CookieManager()
+        manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
+        CookieHandler.setDefault(manager)
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_main)
 
@@ -154,6 +161,8 @@ class MainActivity :
         //navView.setNavigationItemSelectedListener(this)
         showFragment<AccountListFragment>()
 
+//        val dialog = ModifyWalletNEUDialog()
+//        dialog.show(supportFragmentManager, "dialog")
     }
 
 //    override fun onBackPressed() {
