@@ -36,7 +36,7 @@ class Account (){
     }
     @DatabaseField(generatedId = true)
     var id = 0
-    @DatabaseField(foreign = true, foreignAutoRefresh=true)
+    @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh=true)
     lateinit var wallet: Wallet  // 付款方式
     @DatabaseField
     var amount = 0  // 金额，以分为单位（+为收入，-为支出）
@@ -48,7 +48,7 @@ class Account (){
     var latitude = 0.0  // 纬度
     @DatabaseField(defaultValue = "")
     lateinit var partner: String  // 交易对方
-    @DatabaseField(foreign = true, foreignAutoRefresh=true)
+    @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh=true)
     lateinit var tag: Tag  // 标签
     @DatabaseField(defaultValue = "")
     lateinit var comment: String  // 注释

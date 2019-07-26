@@ -81,10 +81,12 @@ class WalletFactory {
                 if (w.icon != wa.value.icon) {
                     w.icon = wa.value.icon
                     dao.update(w)
+                    Log.i("WalletFactory", "update predefined tag ${wa.value.name} id ${wa.value.id}")
                 }
+                wa.value.id = w.id
             } catch(e: IndexOutOfBoundsException) {
                 dao.create(wa.value)
-                Log.i("WalletFactory", "create predefined tag ${wa.value.name}")
+                Log.i("WalletFactory", "create predefined tag ${wa.value.name} id ${wa.value.id}")
             }
         }
     }

@@ -9,6 +9,9 @@ import java.lang.Exception
 
 
 class TagFactory {
+    init {
+        Log.d("TagFactory", "init")
+    }
     private var idCache: HashMap<String, Int> = HashMap()
     enum class Type {
         Cloth, DailyUse, DailyCost, Eat,
@@ -16,7 +19,7 @@ class TagFactory {
         Study, Transport, Camera,
         Tour, Cigarette, Fruit, House, Makeup, Health, Party, Unknown
     }
-    private val predefinedTag: HashMap<Type, Tag> = hashMapOf(
+    val predefinedTag: HashMap<Type, Tag> = hashMapOf(
         Type.Cloth to Tag("服装", R.mipmap.cloth),
         Type.DailyCost to Tag("日常消费", R.mipmap.dailyuse),
         Type.DailyUse to Tag("日用品", R.mipmap.dailycost),
@@ -50,12 +53,14 @@ class TagFactory {
                 if (t.icon != pre.value.icon) {
                     t.icon = pre.value.icon
                     dao.update(t)
-                    Log.i("TagFactory", "update predefined tag ${pre.value.name}")
+                    Log.i("TagFactory", "update predefined tag ${pre.value.name} ${pre.value.id}")
                 }
+                pre.value.id = t.id
             } catch(e: IndexOutOfBoundsException) {
                 dao.create(pre.value)
-                Log.i("TagFactory", "create predefined tag ${pre.value.name}")
+                Log.i("TagFactory", "create predefined tag ${pre.value.name} ${pre.value.id}")
             }
+            dao.refresh(pre.value)
         }
     }
 
@@ -96,9 +101,7 @@ class TagFactory {
         }
     }
 
-    fun getPredefined(which: Type): Tag {
-        return predefinedTag[which]!!
-    }
+    fun getPredefined(which: Type): Tag = predefinedTag[which]!!
 
     fun cloth() = getTag("服装")
 }

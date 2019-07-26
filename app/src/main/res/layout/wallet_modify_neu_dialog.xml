@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.ModifyWalletNEUViewModel"/>
+        <variable name="view" type="com.dingdonginc.zhangfang.views.ModifyWalletNEUDialog"/>
     </data>
 
     <TableLayout
@@ -45,6 +46,7 @@
                         android:layout_height="wrap_content"
                         android:indeterminate="true"/>
                 <ImageView
+                        android:onClick="@{()->vm.refreshCaptcha()}"
                         app:loadingcaptcha="@{vm.loadingCaptcha}"
                         android:src="@{vm.captchaImage}"
                         android:layout_width="match_parent"
@@ -52,20 +54,28 @@
                         android:contentDescription="@string/captcha"/>
             </RelativeLayout>
             <EditText
-                    android:onClick="@{()->vm.refreshCaptcha()}"
                     android:text="@={vm.captcha}"
-                    android:inputType="text"
+                    android:inputType="number"
             />
         </TableRow>
         <TableRow>
+            <TextView android:text="账单开始时间"/>
+            <EditText android:text="@{vm.startDate}"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="账单结束时间"/>
+            <EditText android:text="@{vm.endDate}"/>
+        </TableRow>
+        <TableRow>
             <Button
-                    android:text="@string/cancel"
-                    style="?android:attr/buttonBarButtonStyle"
+                android:text="@string/cancel"
+                android:onClick="@{()->vm.cancel()}"
+                style="?android:attr/buttonBarButtonStyle"
             />
             <Button
-                    android:onClick="@{vm::submit}"
-                    android:text="@string/submit"
-                    style="?android:attr/buttonBarButtonStyle"
+                android:onClick="@{vm::submit}"
+                android:text="@string/submit"
+                style="?android:attr/buttonBarButtonStyle"
             />
         </TableRow>
     </TableLayout>

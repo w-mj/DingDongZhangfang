@@ -1,5 +1,5 @@
 #
-# generated on 2019/07/24 09:51:01
+# generated on 2019/07/26 11:21:49
 #
 # --table-start--
 dataClass=com.dingdonginc.zhangfang.models.Account
@@ -11,6 +11,7 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=wallet
+canBeNull=false
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
@@ -36,6 +37,7 @@ defaultValue=
 # --field-end--
 # --field-start--
 fieldName=tag
+canBeNull=false
 foreign=true
 foreignAutoRefresh=true
 maxForeignAutoRefreshLevel=2
