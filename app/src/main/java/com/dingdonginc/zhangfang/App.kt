@@ -1,6 +1,7 @@
 package com.dingdonginc.zhangfang
 
 import android.app.Application
+import android.app.Dialog
 import com.dingdonginc.zhangfang.models.DatabaseHelper
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
@@ -28,6 +29,7 @@ class App: Application(), KodeinAware {
             bind<MessageService>() with singleton { MessageService() }
             bind<ActivityService>() with singleton { ActivityService() }
             bind<NotificationService>() with singleton { NotificationService(applicationContext) }
+            bind<DialogDismissService>() with singleton { DialogDismissService() }
         }
 
     companion object {
