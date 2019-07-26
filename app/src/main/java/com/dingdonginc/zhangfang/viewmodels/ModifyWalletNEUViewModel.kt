@@ -89,7 +89,6 @@ class ModifyWalletNEUViewModel : ViewModel() {
             neuSpider.login(uid, psd, captcha)
 
             val list = neuSpider.get(startDate, endDate)
-            //val list = listOf<NEUWallet>()
             list.forEach {
                 Log.d("NEUWALLET", it.toString())
             }
