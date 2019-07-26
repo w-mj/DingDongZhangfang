@@ -16,6 +16,7 @@ import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.LimitLine.LimitLabelPosition
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -66,37 +67,31 @@ class LineChartFragment : Fragment() {
             chart!!.setPinchZoom(true)
         }
 
-        val xAxis: XAxis
-        run {
+        //X轴
+            val xAxis = chart!!.getXAxis()
             val formatter = MyFormatterNew(months)
             // // X-Axis Style // //
-            xAxis = chart!!.xAxis
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             // vertical grid lines
             xAxis.enableGridDashedLine(10f, 10f, 0f)
             //COUNT
             xAxis.labelCount = 12
             xAxis.valueFormatter = formatter
-        }
 
-        val yAxis: YAxis
-        run {
-            // // Y-Axis Style // //
-            yAxis = chart!!.axisLeft
-
+        //Y轴
+            val yAxis = chart!!.getAxisLeft()
             // disable dual axis (only use LEFT axis)
             chart!!.axisRight.isEnabled = false
-
             // horizontal grid lines
             yAxis.enableGridDashedLine(10f, 10f, 0f)
 
             // axis range
             yAxis.axisMaximum = 200f
             yAxis.axisMinimum = 0f
-        }
 
 
-        run {
+
+
             // // Create Limit Lines // //
             val llXAxis = LimitLine(9f, "Index 10")
             llXAxis.lineWidth = 4f
@@ -127,7 +122,7 @@ class LineChartFragment : Fragment() {
             yAxis.addLimitLine(ll1)
             yAxis.addLimitLine(ll2)
             //xAxis.addLimitLine(llXAxis);
-        }
+
 
         // add data
         setData()
@@ -146,11 +141,12 @@ class LineChartFragment : Fragment() {
 
     private fun setData() {
 
+        val spaceForBar = 10f
         val values = ArrayList<Entry>()
 
         for (i in months.indices) {
-            //数据替换这里
-            val `val` = (Math.random() * 180).toFloat() - 30
+            val `val` = (Math.random() * 150).toFloat()
+            values.add(BarEntry(i * spaceForBar, `val`))
         }
 
         val set1: LineDataSet
@@ -202,7 +198,7 @@ class LineChartFragment : Fragment() {
                 val drawable = ContextCompat.getDrawable(this, R.drawable.fade_red)
                 set1.fillDrawable = drawable
             } else {*/
-            set1.fillColor = Color.TRANSPARENT
+            set1.fillColor = Color.BLUE
 
 
             val dataSets = ArrayList<ILineDataSet>()
