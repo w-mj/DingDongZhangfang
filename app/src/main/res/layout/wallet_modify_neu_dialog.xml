@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="vm" type="com.dingdonginc.zhangfang.viewmodels.ModifyWalletNEUViewModel"/>
+    </data>
+
+    <TableLayout
+            android:paddingStart="20dp" android:paddingTop="20dp" android:paddingLeft="20dp"
+            android:paddingRight="20dp" android:paddingEnd="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                    android:text="@string/username"
+                    android:labelFor="@id/neu_username"
+            />
+            <EditText
+                    android:id="@+id/neu_username"
+                    android:text="@={vm.username}"
+                    android:autofillHints="@string/username"
+                    android:inputType="number"
+            />
+        </TableRow>
+        <TableRow>
+            <TextView
+                    android:text="@string/password"
+                    android:labelFor="@id/neu_password"
+            />
+            <EditText
+                    android:id="@+id/neu_password"
+                    android:text="@={vm.password}"
+                    android:autofillHints="@string/password"
+                    android:inputType="textPassword"
+            />
+        </TableRow>
+        <TableRow>
+            <RelativeLayout
+                    android:id="@+id/loadingPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+                <ProgressBar
+                        app:loadingcaptcha="@{vm.loadingCaptcha}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"/>
+                <ImageView
+                        app:loadingcaptcha="@{vm.loadingCaptcha}"
+                        android:src="@{vm.captchaImage}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/captcha"/>
+            </RelativeLayout>
+            <EditText
+                    android:onClick="@{()->vm.refreshCaptcha()}"
+                    android:text="@={vm.captcha}"
+                    android:inputType="text"
+            />
+        </TableRow>
+        <TableRow>
+            <Button
+                    android:text="@string/cancel"
+                    style="?android:attr/buttonBarButtonStyle"
+            />
+            <Button
+                    android:onClick="@{vm::submit}"
+                    android:text="@string/submit"
+                    style="?android:attr/buttonBarButtonStyle"
+            />
+        </TableRow>
+    </TableLayout>
+</layout>

@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 @InverseBindingMethods(
     InverseBindingMethod(
         type=ImageRadio::class,
-        attribute="app:selected1",
-        event="selected1AttrChanged",
+        attribute="selectedItem",
+        event="selectedItemAttrChanged",
         method="getSelected"
     )
 )
@@ -52,19 +52,19 @@ class ImageRadio : RecyclerView {
         }
 
         @JvmStatic
-        @BindingAdapter("selected1")
+        @BindingAdapter("selectedItem")
         fun setSelectItem(view: ImageRadio, selected: Int) {
             ImageRadioService.click(selected)
         }
 
         @JvmStatic
-        @InverseBindingAdapter(attribute = "selected1")
+        @InverseBindingAdapter(attribute = "selectedItem")
         fun getSelected(view: ImageRadio): Int {
             return view.selected
         }
 
         @JvmStatic
-        @BindingAdapter("selected1AttrChanged")
+        @BindingAdapter("selectedItemAttrChanged")
         fun setListener(radio: View?, selectedAttrChanged: InverseBindingListener?) {
             val img = radio as ImageRadio
             img.onSelectedChangeListener = {selectedAttrChanged!!.onChange()}

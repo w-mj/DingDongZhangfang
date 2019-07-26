@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="vm"
                   type="com.dingdonginc.zhangfang.viewmodels.AccountListViewModel"/>
@@ -24,25 +24,9 @@
                           android:layout_height="wrap_content"
                           android:orientation="horizontal">
                 <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:id="@+id/selectbt"/>
+                         bind:buttonClickCommand="@{vm.filterDialog}"/>
                 <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:onClick="@{vm::refresh}"/>
-                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
-                          <!--android:id="@+id/spin"-->
-                          <!--android:tag="1"-->
-                          <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
-                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
-                         <!--android:id="@+id/spin2"-->
-                         <!--android:tag="2"-->
-                         <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
-                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
-                         <!--android:tag="3"-->
-                         <!--android:id="@+id/spin3"-->
-                         <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
-                <!--<Spinner android:layout_width="match_parent" android:layout_height="match_parent"-->
-                         <!--android:tag="4"-->
-                         <!--android:id="@+id/spin4"-->
-                         <!--android:onItemSelected="@{vm::onitemSelected}"></Spinner>-->
+                         bind:buttonClickCommand="@{vm.refresh}"/>
             </LinearLayout>
             <LinearLayout android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
@@ -94,6 +78,6 @@
                   android:id="@+id/ma"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
-                  app:adapter="@{vm._contentMainAdapter}"/>
+                  bind:adapter="@{vm._contentMainAdapter}"/>
     </LinearLayout>
 </layout>

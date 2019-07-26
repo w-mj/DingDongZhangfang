@@ -33,31 +33,8 @@ class SelectDialog: DialogFragment() {
             DataBindingUtil.inflate(inflater, R.layout.account_select, container, false)
         viewModel = ViewModelProviders.of(this).get(SelectDialogViewModel::class.java)
         binding.setVm(viewModel)
-        val view = binding.root
         //mImg_close = view.findViewById(com.dingdonginc.zhangfang.R.id.not_winning_close)
         //mImg_close.setOnClickListener(this)
-        datetimeButton = view!!.findViewById<Button>(R.id.startdate)
-        datetimeButton.setOnClickListener {
-            val datePicker = DatePickerDialog.newInstance(OnDatePickerCallBack())
-            datePicker.show(fragmentManager, "Date Picker")
-        }
-        datetimeButton1 = view!!.findViewById<Button>(R.id.enddate)
-        datetimeButton1.setOnClickListener {
-            val datePicker = DatePickerDialog.newInstance(OnDatePickerCallBack1())
-            datePicker.show(fragmentManager, "Date Picker")
-        }
         return binding.root
-    }
-
-    private inner class OnDatePickerCallBack: DatePickerDialog.OnDateSetListener {
-        override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-            viewModel.setStart(year, monthOfYear, dayOfMonth)
-        }
-    }
-
-    private inner class OnDatePickerCallBack1: DatePickerDialog.OnDateSetListener {
-        override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-            viewModel.setEnd(year, monthOfYear, dayOfMonth)
-        }
     }
 }

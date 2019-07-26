@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="tag" type="java.util.List&lt;com.dingdonginc.zhangfang.models.Tag>"/>
         <variable name="addvm" type="com.dingdonginc.zhangfang.viewmodels.AddAccountViewModel"/>
@@ -16,7 +16,7 @@
                           android:layout_width="match_parent"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[0].id}">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 2 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[1].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -46,7 +46,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 3 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[2].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -62,7 +62,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 4 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[3].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -78,7 +78,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 5 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[4].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -102,7 +102,7 @@
                           android:layout_width="match_parent"
                           android:layout_weight="1"
                           android:layout_height="wrap_content"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[5].id}">
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 7 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[6].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -132,7 +132,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 8 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[7].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -148,7 +148,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 9 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[8].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">
@@ -164,7 +164,7 @@
             <LinearLayout android:orientation="vertical"
                           android:visibility="@{tag.size >= 10 ? 0 : 4}"
                           android:layout_weight="1"
-                          android:onClick="@{addvm::selectType}"
+                          bind:linearClickCommand="@{addvm.selectTag}"
                           android:tag="@{tag[9].id}"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content">

@@ -34,7 +34,11 @@ class WalletViewModel : ViewModel(), Handler.Callback {
     fun onModifyWallet(wallet: Wallet) {
         Log.i("onModifyWallet", wallet.name)
         val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
-        mainActivityDialogService.showNormalDialog(wallet)
+        if (wallet.predefined && wallet.name == "东北大学校园卡") {
+            mainActivityDialogService.showNEUDialog()
+        } else {
+            mainActivityDialogService.showNormalDialog(wallet)
+        }
     }
 
     fun switch(i: Int) {
