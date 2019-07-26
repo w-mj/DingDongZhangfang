@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="acc" type="com.dingdonginc.zhangfang.models.Account"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="@{acc.tag.name}"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="@{String.valueOf(acc.amount)}"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="@{acc.tag.name}"/>
-    </LinearLayout>
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:stretchColumns="0"
+    >
+        <TableRow>
+            <TextView android:text="@string/method" android:layout_gravity="end"/>
+            <TextView android:text="@{acc.wallet.name}" android:layout_gravity="start"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/balance" android:layout_gravity="end"/>
+            <TextView
+                    android:text="@{acc.displayRMB()}"
+                    android:textColor="@{acc.amount > 0 ? @color/colorGreen : @color/colorRed}"
+                    android:layout_gravity="start"
+            />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/partner" android:layout_gravity="end"/>
+            <TextView android:text="@{acc.partner}" android:layout_gravity="start"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/tag" android:layout_gravity="end"/>
+            <TextView android:text="@{acc.tag.name}" android:layout_gravity="start"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/time" android:layout_gravity="end"/>
+            <TextView android:text="@{acc.displayTime()}" android:layout_gravity="start"/>
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/comment" android:layout_gravity="end"/>
+            <TextView android:text="@{acc.comment}"
+                      android:layout_gravity="start"
+                      android:maxEms="10"
+                      android:singleLine="false"/>
+        </TableRow>
+    </TableLayout>
 </layout>

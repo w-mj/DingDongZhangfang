@@ -69,4 +69,11 @@ class Account (){
         sb.append("generatedId:").append(generatedId).append('\n')
         return sb.toString()
     }
+
+    fun displayRMB(): String = "${amount / 100}.${Math.abs(amount) % 100}"
+
+    fun displayTime(): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.CHINA)
+        return parser.format(time)
+    }
 }

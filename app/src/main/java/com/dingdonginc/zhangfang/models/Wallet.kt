@@ -46,5 +46,5 @@ class Wallet() {
     var autoFetch = false
 
 
-    fun displayRMB(): String = "${balance / 100}.${balance % 100}"
+    fun displayRMB(): String = "${balance / 100}.${Math.abs(balance) % 100}"
 }

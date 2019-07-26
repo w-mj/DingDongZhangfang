@@ -27,4 +27,10 @@
     <string name="password">密码</string>
     <string name="submit">确定</string>
     <string name="cancel">取消</string>
+    <string name="method">交易方式：</string>
+    <string name="balance">交易金额：</string>
+    <string name="partner">交易对方：</string>
+    <string name="tag">标签：</string>
+    <string name="time">交易时间：</string>
+    <string name="comment">注释：</string>
 </resources>
