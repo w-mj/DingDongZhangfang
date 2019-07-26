@@ -12,8 +12,8 @@ import java.lang.ref.WeakReference
 
 class ModifyWalletNEUViewModel: ViewModel() {
     val loadingCaptcha = ObservableField<Boolean>(true)
-    val username = ObservableField<String>("20164617")
-    val password = ObservableField<String>("123456")
+    val username = ObservableField<String>("")
+    val password = ObservableField<String>("")
     val captcha = ObservableField<String>("")
     val captchaImage = ObservableField<Bitmap>()
 

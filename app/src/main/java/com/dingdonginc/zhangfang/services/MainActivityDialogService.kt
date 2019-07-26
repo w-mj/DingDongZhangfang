@@ -6,6 +6,7 @@ import com.dingdonginc.zhangfang.models.Account
 import com.dingdonginc.zhangfang.models.Wallet
 import com.dingdonginc.zhangfang.views.InfoDialog
 import com.dingdonginc.zhangfang.views.ModifyWalletDialog
+import com.dingdonginc.zhangfang.views.ModifyWalletNEUDialog
 
 class MainActivityDialogService {
     private var fm: FragmentManager?=null
@@ -17,6 +18,11 @@ class MainActivityDialogService {
     fun showNormalDialog(wallet: Wallet) {
         val d = ModifyWalletDialog(wallet)
         d.show(fm!!, "Modify")
+    }
+
+    fun showNEUDialog() {
+        val d = ModifyWalletNEUDialog()
+        d.show(fm!!, "Modify NEU")
     }
 
     fun showDialog(dialog: DialogFragment, tag: String) {
