@@ -6,8 +6,11 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
+import com.dingdonginc.zhangfang.lib.command.RelayCommand
 import com.dingdonginc.zhangfang.services.MessageService
 import org.kodein.di.generic.instance
+import rx.functions.Action0
+import rx.functions.Action1
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -15,8 +18,9 @@ class SelectDialogViewModel: ViewModel() {
     var methods = BooleanArray(4){true}
     var startdate = ObservableField<String>()
     var enddate = ObservableField<String>()
-    var minMoney = ObservableField<String>()
-    var maxMoney = ObservableField<String>()
+    var minMoney = ObservableField<String>("0")
+    var maxMoney = ObservableField<String>("0")
+    //There is a bug
     private var syear = 0
     private var smonth = 0
     private var sday = 0
@@ -24,33 +28,32 @@ class SelectDialogViewModel: ViewModel() {
     private var emonth = 0
     private var eday = 0
 
+    private val messageService: MessageService by App.getKodein().instance()
+
     init {
-        minMoney.set("0")
-        maxMoney.set("0")
     }
 
-    fun confirm(view: View){
-        Log.d(minMoney.get(), maxMoney.get())
-        Log.d(methods[0].toString(),methods[1].toString())
-        Log.d(startdate.get(),enddate.get())
-    }
+    /**
+     * @summary Set startDate when you use accounts filter function
+     * @param date is from Date Picker
+     */
+    val setStartDay = RelayCommand<Date>(Action1<Date>{ date->
+        startdate.set(String.format("%4d-%02d-%02d", date.year, date.month + 1, date.date))
+    })
 
-    fun setStart(year: Int, month: Int, day: Int){
-        syear = year
-        smonth = month
-        sday = day
-        startdate.set(String.format("%4d-%02d-%02d", year, month+1, day))
-    }
+    /**
+     * @summary Set endDate when you use accounts filter function
+     * @param date is from Date Picker
+     */
+    val setEndDay = RelayCommand<Date>(Action1<Date> { date->
+        enddate.set(String.format("%4d-%02d-%02d", date.year, date.month + 1, date.date))
+    })
 
-    fun setEnd(year: Int, month: Int, day: Int){
-        eyear = year
-        emonth = month
-        eday = day
-        enddate.set(String.format("%4d-%02d-%02d", year, month+1, day))
-    }
-
-    fun submit(view: View) {
-        val messageService: MessageService by App.getKodein().instance()
+    /**
+     * @summary Obtain filter infomation and send to AccountListViewModel
+     * @param no param
+     */
+    val submit = RelayCommand<Nothing>(Action0 {
         val handler = messageService.getHandler(AccountListViewModel::class.java)
         val msg = handler.obtainMessage()
         val bundle = Bundle()
@@ -75,5 +78,5 @@ class SelectDialogViewModel: ViewModel() {
         bundle.putFloat("max", maxMoney.get()!!.toFloat())
         msg.setData(bundle)
         handler.sendMessage(msg)
-    }
+    })
 }

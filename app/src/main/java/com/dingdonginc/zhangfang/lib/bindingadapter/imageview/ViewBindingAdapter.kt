@@ -9,18 +9,18 @@ class ViewBindingAdapter {
     companion object{
         @JvmStatic
         @BindingAdapter("uri")
-        fun setSrc(view: ImageView, resId: Int) {
+        fun setUri(view: ImageView, resId: Int) {
             view.setImageResource(resId)
         }
 
         @JvmStatic
         @BindingAdapter("imageClick")
-        fun imageOnClick(view: ImageView, onSuccessCommand: RelayCommand<Int>){
-            view.setOnClickListener(OnClickListener(onSuccessCommand))
+        fun imageOnClick(view: ImageView, imageClickCommand: RelayCommand<Nothing>){
+            view.setOnClickListener(ImageClickListener(imageClickCommand))
         }
     }
 
-    private class OnClickListener(val onClick: RelayCommand<Int>): View.OnClickListener{
+    private class ImageClickListener(val onClick: RelayCommand<Nothing>): View.OnClickListener{
         override fun onClick(p0: View?) {
             onClick.execute()
         }
