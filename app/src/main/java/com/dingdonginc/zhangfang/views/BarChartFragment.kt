@@ -53,15 +53,6 @@ class BarChartFragment : Fragment(){
         val formatter = MyFormatterNew(months)
         val xl = chart!!.getXAxis()
         xl.valueFormatter = formatter
-        /*xl.valueFormatter = object : IndexAxisValueFormatter() {
-            override fun getFormattedValue(value: Float, axis: AxisBase?): String? {
-                return if (value < months.count()) {
-                     months[value.toInt()]
-                } else {
-                   null
-                }
-            }
-        }*/
         xl.position = XAxis.XAxisPosition.BOTTOM
         xl.setDrawAxisLine(true)
         xl.setDrawLabels(true)
@@ -117,7 +108,7 @@ class BarChartFragment : Fragment(){
             chart!!.notifyDataSetChanged()
         } else {
             set1 = BarDataSet(values, "DataSet 1")
-
+            set1.setColors(*ColorTemplate.VORDIPLOM_COLORS)
             set1.setDrawIcons(false)
 
             val dataSets = ArrayList<IBarDataSet>()

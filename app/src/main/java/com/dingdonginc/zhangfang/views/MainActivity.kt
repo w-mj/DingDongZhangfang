@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
+import com.dingdonginc.zhangfang.models.FakeData
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.ActivityService
@@ -85,9 +86,9 @@ class MainActivity :
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_main)
 
-        val tagFactory: TagFactory by kodein.instance()
+        val tagFactory: TagFactory by App.getKodein().instance()
         tagFactory.initDb()
-        val walletFactory: WalletFactory by kodein.instance()
+        val walletFactory: WalletFactory by App.getKodein().instance()
         walletFactory.initDb()
 
         val activityService: ActivityService by App.getKodein().instance()
@@ -140,6 +141,11 @@ class MainActivity :
             Log.i("MainActivity", "未获得读取通知权限")
             // openNotificationListenSettings()
         }
+
+        //假数据测试
+        val test = FakeData()
+        test.RandomTag()
+        Log.i("Time",test.RandomDate().toString())
         //KtoggleNotificationListenerService();
 
 

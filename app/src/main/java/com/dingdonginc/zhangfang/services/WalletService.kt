@@ -7,12 +7,9 @@ import com.dingdonginc.zhangfang.models.WalletType
 import com.j256.ormlite.dao.Dao
 import org.kodein.di.generic.instance
 
-class WalletService {
+class WalletService(private val helper: DatabaseHelper) {
 
-    private fun getDao(): Dao<Wallet, *> {
-        val helper: DatabaseHelper by App.getKodein().instance()
-        return helper.getDao(Wallet::class.java)
-    }
+    fun getDao(): Dao<Wallet, *> = helper.getDao(Wallet::class.java)
 
     fun getAll(): List<Wallet>
             = getDao().queryForAll()

@@ -58,13 +58,14 @@ class WalletFactory {
     }
 
     enum class Type {
-        AlipayBalance, WechatBalance, Huabei
+        AlipayBalance, WechatBalance, Huabei, NEUCard
     }
 
     private val predefinedWallet = hashMapOf<Type, Wallet>(
         Type.AlipayBalance to Wallet("支付宝余额", WalletType.Real,predefined=true, icon=R.mipmap.zfb),
         Type.WechatBalance to Wallet("微信余额", WalletType.Real,predefined=true, icon=R.mipmap.wechat),
-        Type.Huabei to Wallet("蚂蚁花呗", WalletType.Virtual, predefined=true, icon=R.mipmap.huabei)
+        Type.Huabei to Wallet("蚂蚁花呗", WalletType.Virtual, predefined=true, icon=R.mipmap.huabei),
+        Type.NEUCard to Wallet("东北大学校园卡", WalletType.Real, predefined = true, icon = R.drawable.baseline_credit_card_black_48)
     )
 
     fun initDb() {
@@ -80,10 +81,12 @@ class WalletFactory {
                 if (w.icon != wa.value.icon) {
                     w.icon = wa.value.icon
                     dao.update(w)
+                    Log.i("WalletFactory", "update predefined tag ${wa.value.name} id ${wa.value.id}")
                 }
+                wa.value.id = w.id
             } catch(e: IndexOutOfBoundsException) {
                 dao.create(wa.value)
-                Log.i("WalletFactory", "create predefined tag ${wa.value.name}")
+                Log.i("WalletFactory", "create predefined tag ${wa.value.name} id ${wa.value.id}")
             }
         }
     }
