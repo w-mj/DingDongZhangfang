@@ -11,6 +11,7 @@ import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule
 import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 
 class App: Application(), KodeinAware {
@@ -20,9 +21,9 @@ class App: Application(), KodeinAware {
             bind<DatabaseHelper>() with singleton { DatabaseHelper(applicationContext) }
             bind<TagFactory>() with singleton { TagFactory() }
             bind<WalletFactory>() with singleton { WalletFactory() }
-            bind<AccountService>() with singleton { AccountService() }
-            bind<TagService>() with singleton { TagService() }
-            bind<WalletService>() with singleton { WalletService() }
+            bind<TagService>() with singleton { TagService(instance()) }
+            bind<WalletService>() with singleton { WalletService(instance()) }
+            bind<AccountService>() with singleton { AccountService(instance(), instance()) }
             bind<TestService>() with singleton { TestService(applicationContext) }
             bind<ExpressionService>() with singleton { ExpressionService() }
             bind<MainActivityDialogService>() with singleton { MainActivityDialogService() }

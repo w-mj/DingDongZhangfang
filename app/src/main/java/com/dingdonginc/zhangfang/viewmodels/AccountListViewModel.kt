@@ -87,7 +87,7 @@ class AccountListViewModel : ViewModel(), Handler.Callback{
                 Log.d("1st",acc.amount.toString())
                 if (Math.abs(acc.amount) >= 100 * bundle.getFloat("min")
                     && Math.abs(acc.amount) <= 100 * bundle.getFloat("max")) {
-                    Log.d("2st",acc.wallet.name)
+                    Log.d("2st", acc.wallet.name)
                     if (bundle.getStringArrayList("methods")?.contains(acc.wallet.name)!!) {
                         tempAccounts.add(acc)
                         if (acc.amount >= 0)

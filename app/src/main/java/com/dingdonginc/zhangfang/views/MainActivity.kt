@@ -85,9 +85,9 @@ class MainActivity :
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_main)
 
-        val tagFactory: TagFactory by kodein.instance()
+        val tagFactory: TagFactory by App.getKodein().instance()
         tagFactory.initDb()
-        val walletFactory: WalletFactory by kodein.instance()
+        val walletFactory: WalletFactory by App.getKodein().instance()
         walletFactory.initDb()
 
         val activityService: ActivityService by App.getKodein().instance()
