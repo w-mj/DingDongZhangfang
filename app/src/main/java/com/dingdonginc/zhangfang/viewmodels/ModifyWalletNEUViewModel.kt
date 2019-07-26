@@ -107,8 +107,8 @@ class ModifyWalletNEUViewModel : ViewModel() {
             val accountList = list.map {
                 Account(
                     wallet = wallet,
-                    amount = (it.amount.toFloat() * 100).toInt(),
-                    tag = unknownTag,
+                    amount = -(it.amount.toFloat() * 100).toInt(),
+                    tag = it.getTag(),
                     time = parser.parse(it.time)!!,
                     partner = it.terminal,
                     comment = "操作员：${it.operator} 工作站：${it.station}",

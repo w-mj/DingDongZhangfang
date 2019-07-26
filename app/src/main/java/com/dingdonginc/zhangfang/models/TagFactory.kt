@@ -16,13 +16,13 @@ class TagFactory {
     enum class Type {
         Cloth, DailyUse, DailyCost, Eat,
         Pet, Shopping, Food,
-        Study, Transport, Camera,
+        Study, Transport, Camera, Shower,
         Tour, Cigarette, Fruit, House, Makeup, Health, Party, Unknown
     }
     val predefinedTag: HashMap<Type, Tag> = hashMapOf(
         Type.Cloth to Tag("服装", R.mipmap.cloth),
-        Type.DailyCost to Tag("日常消费", R.mipmap.dailyuse),
-        Type.DailyUse to Tag("日用品", R.mipmap.dailycost),
+        Type.DailyCost to Tag("水电支出", R.mipmap.dailycost),
+        Type.DailyUse to Tag("日用品", R.mipmap.dailyuse),
         Type.Eat to Tag("餐饮", R.mipmap.eat),
         Type.Pet to Tag("宠物", R.mipmap.pet),
         Type.Shopping to Tag("购物", R.mipmap.shopping),
@@ -37,6 +37,7 @@ class TagFactory {
         Type.Makeup to Tag("美容", R.mipmap.makeup),
         Type.Health to Tag("健康", R.mipmap.medicine),
         Type.Party to Tag("聚会", R.mipmap.party),
+        Type.Shower to Tag("沐浴", R.drawable.shower),
         Type.Unknown to Tag("未指定", R.drawable.baseline_sentiment_very_satisfied_black_36)
     )
 
