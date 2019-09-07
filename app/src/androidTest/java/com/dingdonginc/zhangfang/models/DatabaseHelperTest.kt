@@ -59,6 +59,6 @@ class DatabaseHelperTest {
         assertEquals(m.name, "支付宝余额")
         m = walletFactory.getPredefined(WalletFactory.Type.AlipayBalance)
         assertEquals(m.name, "支付宝余额")
-        assertEquals(method_dao.count(), 1)
+        assertEquals(method_dao.count(), 0)
     }
 }

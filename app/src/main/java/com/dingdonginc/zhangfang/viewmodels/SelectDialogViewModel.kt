@@ -38,6 +38,9 @@ class SelectDialogViewModel: ViewModel() {
      * @param date is from Date Picker
      */
     val setStartDay = RelayCommand<Date>(Action1<Date>{ date->
+        syear = date.year
+        smonth = date.month
+        sday = date.date
         startdate.set(String.format("%4d-%02d-%02d", date.year, date.month + 1, date.date))
     })
 
@@ -46,6 +49,9 @@ class SelectDialogViewModel: ViewModel() {
      * @param date is from Date Picker
      */
     val setEndDay = RelayCommand<Date>(Action1<Date> { date->
+        eyear = date.year
+        emonth = date.month
+        eday = date.date
         enddate.set(String.format("%4d-%02d-%02d", date.year, date.month + 1, date.date))
     })
 
@@ -63,7 +69,7 @@ class SelectDialogViewModel: ViewModel() {
                 rmethods.add(when(index){
                     0 -> "支付宝"
                     1 -> "微信"
-                    2 -> "银行卡"
+                    2 -> "东北大学校园卡"
                     3 -> "现金"
                     else -> ""
                 })

@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.AsyncTask
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.dingdonginc.zhangfang.App
@@ -12,6 +13,7 @@ import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.AccountService
 import com.dingdonginc.zhangfang.services.DialogDismissService
+import com.dingdonginc.zhangfang.services.ToastService
 import com.dingdonginc.zhangfang.services.neuspider.GetChapter
 import com.dingdonginc.zhangfang.services.neuspider.NEUSpider
 import com.dingdonginc.zhangfang.services.neuspider.NEUWallet
@@ -87,35 +89,41 @@ class ModifyWalletNEUViewModel : ViewModel() {
         override fun doInBackground(vararg p0: Unit?) {
             val neuSpider = NEUSpider()
             neuSpider.login(uid, psd, captcha)
+            try {
+                val list = neuSpider.get(startDate, endDate)
+                list.forEach {
+                    Log.d("NEUWALLET", it.toString())
+                }
 
-            val list = neuSpider.get(startDate, endDate)
-            list.forEach {
-                Log.d("NEUWALLET", it.toString())
+                val tagFactory: TagFactory by App.getKodein().instance()
+
+                val walletFactory: WalletFactory by App.getKodein().instance()
+                val accountService: AccountService by App.getKodein().instance()
+                val parser = SimpleDateFormat("yyyy/M/d hh:mm:ss", Locale.CHINA)
+                val wallet = walletFactory.getPredefined(WalletFactory.Type.NEUCard)
+                val unknownTag = tagFactory.getPredefined(TagFactory.Type.Unknown)
+                assert(wallet.id != 0)
+                assert(unknownTag.id != 0)
+                Log.d("wallet id", wallet.id.toString())
+                Log.d("unknown id", unknownTag.id.toString())
+                val accountList = list.map {
+                    Account(
+                        wallet = wallet,
+                        amount = -(it.amount.toFloat() * 100).toInt(),
+                        tag = it.getTag(),
+                        time = parser.parse(it.time)!!,
+                        partner = it.terminal,
+                        comment = "操作员：${it.operator} 工作站：${it.station}",
+                        generatedId = "NEU-${it.time}-${it.amount}"
+                    ) }
+                accountList.forEach { accountService.addAccount(it) }
+                val dialogDismissService: DialogDismissService by App.getKodein().instance()
+                dialogDismissService.dismiss(ModifyWalletNEUDialog::class.java)
+            } catch (e: Exception) {
+//                val toast :ToastService by App.getKodein().instance()
+//                toast.makeText("获取账单失败", Toast.LENGTH_SHORT)
+                return
             }
-            val tagFactory: TagFactory by App.getKodein().instance()
-
-            val walletFactory: WalletFactory by App.getKodein().instance()
-            val accountService: AccountService by App.getKodein().instance()
-            val parser = SimpleDateFormat("yyyy/M/d hh:mm:ss", Locale.CHINA)
-            val wallet = walletFactory.getPredefined(WalletFactory.Type.NEUCard)
-            val unknownTag = tagFactory.getPredefined(TagFactory.Type.Unknown)
-            assert(wallet.id != 0)
-            assert(unknownTag.id != 0)
-            Log.d("wallet id", wallet.id.toString())
-            Log.d("unknown id", unknownTag.id.toString())
-            val accountList = list.map {
-                Account(
-                    wallet = wallet,
-                    amount = -(it.amount.toFloat() * 100).toInt(),
-                    tag = it.getTag(),
-                    time = parser.parse(it.time)!!,
-                    partner = it.terminal,
-                    comment = "操作员：${it.operator} 工作站：${it.station}",
-                    generatedId = "NEU-${it.time}-${it.amount}"
-                ) }
-            accountList.forEach { accountService.addAccount(it) }
-            val dialogDismissService: DialogDismissService by App.getKodein().instance()
-            dialogDismissService.dismiss(ModifyWalletNEUDialog::class.java)
         }
     }
 

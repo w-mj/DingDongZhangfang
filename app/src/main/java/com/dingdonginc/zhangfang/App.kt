@@ -31,6 +31,7 @@ class App: Application(), KodeinAware {
             bind<ActivityService>() with singleton { ActivityService() }
             bind<NotificationService>() with singleton { NotificationService(applicationContext) }
             bind<DialogDismissService>() with singleton { DialogDismissService() }
+            bind<ToastService>() with singleton { ToastService(applicationContext, instance()) }
         }
 
     companion object {
