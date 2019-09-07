@@ -11,36 +11,39 @@ import com.dingdonginc.zhangfang.services.MessageService
 import org.kodein.di.generic.instance
 import rx.functions.Action0
 import rx.functions.Action1
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timerTask
 
 class SelectDialogViewModel: ViewModel() {
+    /* * * binding data * * */
     var methods = BooleanArray(4){true}
     var startdate = ObservableField<String>()
     var enddate = ObservableField<String>()
     var minMoney = ObservableField<String>("0")
     var maxMoney = ObservableField<String>("0")
-    //There is a bug
-    private var syear = 0
-    private var smonth = 0
-    private var sday = 0
-    private var eyear = 0
-    private var emonth = 0
-    private var eday = 0
 
+    /* * * private variables * * */
+    private var startDay: Date
+    private var endDay: Date
+    private val parser = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
+
+    /* * * private services * * */
     private val messageService: MessageService by App.getKodein().instance()
 
     init {
+        //initial date is error
+        startDay = Date()
+        endDay = Date()
+        startdate.set(parser.format(startDay))
+        enddate.set(parser.format(endDay))
     }
-
     /**
      * @summary Set startDate when you use accounts filter function
      * @param date is from Date Picker
      */
     val setStartDay = RelayCommand<Date>(Action1<Date>{ date->
-        syear = date.year
-        smonth = date.month
-        sday = date.date
+        startDay = date
         startdate.set(String.format("%4d-%02d-%02d", date.year, date.month + 1, date.date))
     })
 
@@ -49,9 +52,7 @@ class SelectDialogViewModel: ViewModel() {
      * @param date is from Date Picker
      */
     val setEndDay = RelayCommand<Date>(Action1<Date> { date->
-        eyear = date.year
-        emonth = date.month
-        eday = date.date
+        endDay = date
         enddate.set(String.format("%4d-%02d-%02d", date.year, date.month + 1, date.date))
     })
 
@@ -74,12 +75,12 @@ class SelectDialogViewModel: ViewModel() {
                     else -> ""
                 })
         bundle.putStringArrayList("methods",rmethods)
-        bundle.putInt("syear", syear)
-        bundle.putInt("smonth", smonth)
-        bundle.putInt("sday", sday)
-        bundle.putInt("eyear", eyear)
-        bundle.putInt("emonth", emonth)
-        bundle.putInt("eday", eday)
+        bundle.putInt("syear", startDay.year)
+        bundle.putInt("smonth", startDay.month)
+        bundle.putInt("sday", startDay.date)
+        bundle.putInt("eyear", endDay.year)
+        bundle.putInt("emonth", endDay.month)
+        bundle.putInt("eday", endDay.date)
         bundle.putFloat("min", minMoney.get()!!.toFloat())
         bundle.putFloat("max", maxMoney.get()!!.toFloat())
         msg.setData(bundle)

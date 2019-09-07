@@ -31,6 +31,7 @@ class AddAccountViewModel : ViewModel() {
     var currentTag = ObservableField<Tag>()
     val selectedWallet = ObservableField(0)
     var walletIcon: List<Int>
+    var mode = "CalendarTime"
 
     /* * * private variables * * */
     private val parser = SimpleDateFormat("yyyy-MM-dd\nHH:mm", Locale.CHINA)
@@ -72,6 +73,12 @@ class AddAccountViewModel : ViewModel() {
         run {
             val tag = tagList.find { it.id == tagId }
             currentTag.set(tag)
+        }
+    })
+
+    val selectDate = RelayCommand<String>(Action1 { content->
+        run{
+            datetime.set(content)
         }
     })
 

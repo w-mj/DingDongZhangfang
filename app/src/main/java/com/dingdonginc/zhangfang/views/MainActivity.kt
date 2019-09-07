@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
+import com.dingdonginc.zhangfang.models.FakeData
 import com.dingdonginc.zhangfang.models.TagFactory
 import com.dingdonginc.zhangfang.models.WalletFactory
 import com.dingdonginc.zhangfang.services.ActivityService
@@ -140,6 +141,11 @@ class MainActivity :
             Log.i("MainActivity", "未获得读取通知权限")
             // openNotificationListenSettings()
         }
+
+        //假数据测试
+        val test = FakeData()
+        test.RandomTag()
+        Log.i("Time",test.RandomDate().toString())
         //KtoggleNotificationListenerService();
 
 

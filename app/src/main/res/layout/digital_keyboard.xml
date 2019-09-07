@@ -43,7 +43,8 @@
             <Button android:text="9" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle" bind:buttonClickCommand="@{vm.digitalKeyClick}"/>
             <Button android:text="8" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle" bind:buttonClickCommand="@{vm.digitalKeyClick}"/>
             <Button android:text="7" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle" bind:buttonClickCommand="@{vm.digitalKeyClick}"/>
-            <Button android:text="@{vm.datetime}" android:layout_weight="2" style="?android:attr/buttonBarButtonStyle" android:id="@+id/digital_datetime"/>
+            <Button android:id="@+id/digital_datetime" android:text="@{vm.datetime}" android:layout_weight="2" style="?android:attr/buttonBarButtonStyle"
+                     bind:mode="@{vm.mode}" bind:callBackCommand="@{vm.selectDate}"/>
         </TableRow>
         <TableRow>
             <Button android:text="6" android:layout_weight="1" style="?android:attr/buttonBarButtonStyle" bind:buttonClickCommand="@{vm.digitalKeyClick}"/>

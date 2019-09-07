@@ -6,6 +6,8 @@ import android.os.Bundle
 import com.dingdonginc.zhangfang.App
 import com.dingdonginc.zhangfang.R
 import com.dingdonginc.zhangfang.services.ActivityService
+import com.dingdonginc.zhangfang.services.MainActivityDialogService
+import com.dingdonginc.zhangfang.services.neuspider.main
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
@@ -31,6 +33,8 @@ class AddAccountActivity : AppCompatActivity(), KodeinAware {
         }
         val activityService: ActivityService by kodein.instance()
         activityService.activity = this
+        val mainActivityDialogService: MainActivityDialogService by App.getKodein().instance()
+        mainActivityDialogService.setFm(supportFragmentManager!!)
     }
 
     override fun onBackPressed() {

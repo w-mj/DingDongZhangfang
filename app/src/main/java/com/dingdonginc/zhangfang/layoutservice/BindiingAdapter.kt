@@ -21,17 +21,6 @@ class BindiingAdapter {
     companion object{
         @JvmStatic
         @BindingAdapter(value = ["adapter"])
-        fun <T : RecyclerView.ViewHolder>setAdapter(
-            recyclerView: RecyclerView,
-            adapter: RecyclerView.Adapter<T>)
-        {
-            recyclerView.setHasFixedSize(true)
-            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-            recyclerView.adapter = adapter
-        }
-
-        @JvmStatic
-        @BindingAdapter(value = ["adapter"])
         fun setAdapter(listView: ListView, adapter: BaseAdapter) {
             Log.i("setAdapter", "List Adapter")
             listView.adapter = adapter
